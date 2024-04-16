@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
  * @author ompan
  */
 @Stateless
-public class citizenBean implements citizenBeanLocal {
+public class User implements UserLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

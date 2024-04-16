@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -86,9 +89,9 @@ public class Usertb implements Serializable {
     private String address;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "dob")
-    private String dob;
+    @Temporal(TemporalType.DATE)
+    private Date dob;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -127,7 +130,7 @@ public class Usertb implements Serializable {
         this.userId = userId;
     }
 
-    public Usertb(Integer userId, String username, String password, String email, String adhaarCardNo, String contact, String gender, String address, String dob, String zipCode) {
+    public Usertb(Integer userId, String username, String password, String email, String adhaarCardNo, String contact, String gender, String address, Date dob, String zipCode) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -204,11 +207,11 @@ public class Usertb implements Serializable {
         this.address = address;
     }
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
