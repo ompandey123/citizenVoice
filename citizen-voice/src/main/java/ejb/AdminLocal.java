@@ -6,6 +6,7 @@ package ejb;
 
 import entities.Citytb;
 import entities.Districttb;
+import entities.Questiontb;
 import entities.Statetb;
 import entities.Talukatb;
 import entities.Usertb;
@@ -82,4 +83,48 @@ public interface AdminLocal {
     
     
     //QUESTION OPERATION
+    void addQuestion(String question, String state, String district, String city, String zone, String ward, String taluka, String village);
+    void updateQuestion(int qid, String question, String state, String district, String city, String zone, String ward, String taluka, String village);
+    void deleteQuestion(int qid);
+    Collection<Questiontb> getAllQuestions();
+  
+    
+    
+    //Question State
+    void addQuestionState(int qid, int state_id);
+    void updateStateQuestion(int question_state_id, int qid, int state_id);
+    void deleteStateQuestion(int question_state_id);
+  
+    
+    //Question District
+    void addQuestionDistrict(int qid, int state_id, int district_id);
+    void updateDistrictQuestion(int question_district_id, int qid, int state_id, int district_id);
+    void deleteDistrictQuestion(int question_district_id);
+    
+    
+    //Question City
+    void addQuestionCity(int qid, int state_id, int district_id, int city_id);
+    void updateCityQuestion(int question_city_id, int qid, int state_id, int district_id, int city_id);
+    void deleteCityQuestion(int question_city_id);
+    
+    //Question Ward
+    void addQuestionWard(int qid, int state_id, int district_id, int city_id, int ward_id);
+    void updateWardQuestion(int question_ward_id, int qid, int state_id, int district_id, int city_id, int ward_id);
+    void deleteWardQuestion(int question_ward_id);
+    
+    //Question Zone
+    void addQuestionZone(int qid, int state_id, int district_id, int city_id, int zone_id);
+    void updateZoneQuestion(int question_zone_id, int qid, int state_id, int district_id, int city_id, int ward_id, int zone_id);
+    void deleteZoneQuestion(int question_zone_id);
+    
+    //Question Taluka
+    void addQuestionTaluka(int qid, int state_id, int district_id, int taluka_id);
+    void updateTalukaQuestion(int question_taluka_id, int qid, int state_id, int district_id, int taluka_id);
+    void deleteTalukaQuestion(int question_taluka_id);
+    
+    
+    //Question Village
+    void addQuestionVillage(int qid, int state_id, int district_id, int village_id);
+    void updateVillageQuestion(int question_village_id, int qid, int state_id, int district_id, int village_id);
+    void deleteVillageQuestion(int question_village_id);
 }
