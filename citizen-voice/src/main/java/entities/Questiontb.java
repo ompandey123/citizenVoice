@@ -30,13 +30,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Questiontb.findAll", query = "SELECT q FROM Questiontb q"),
     @NamedQuery(name = "Questiontb.findByQid", query = "SELECT q FROM Questiontb q WHERE q.qid = :qid"),
     @NamedQuery(name = "Questiontb.findByQuestion", query = "SELECT q FROM Questiontb q WHERE q.question = :question"),
-    @NamedQuery(name = "Questiontb.findByState", query = "SELECT q FROM Questiontb q WHERE q.state = :state"),
-    @NamedQuery(name = "Questiontb.findByDistrict", query = "SELECT q FROM Questiontb q WHERE q.district = :district"),
-    @NamedQuery(name = "Questiontb.findByCity", query = "SELECT q FROM Questiontb q WHERE q.city = :city"),
-    @NamedQuery(name = "Questiontb.findByZone", query = "SELECT q FROM Questiontb q WHERE q.zone = :zone"),
-    @NamedQuery(name = "Questiontb.findByWard", query = "SELECT q FROM Questiontb q WHERE q.ward = :ward"),
-    @NamedQuery(name = "Questiontb.findByTaluka", query = "SELECT q FROM Questiontb q WHERE q.taluka = :taluka"),
-    @NamedQuery(name = "Questiontb.findByVillage", query = "SELECT q FROM Questiontb q WHERE q.village = :village")})
+    @NamedQuery(name = "Questiontb.findByLevel", query = "SELECT q FROM Questiontb q WHERE q.level = :level"),
+    @NamedQuery(name = "Questiontb.findByOption1", query = "SELECT q FROM Questiontb q WHERE q.option1 = :option1"),
+    @NamedQuery(name = "Questiontb.findByOption2", query = "SELECT q FROM Questiontb q WHERE q.option2 = :option2"),
+    @NamedQuery(name = "Questiontb.findByOption3", query = "SELECT q FROM Questiontb q WHERE q.option3 = :option3"),
+    @NamedQuery(name = "Questiontb.findByOption4", query = "SELECT q FROM Questiontb q WHERE q.option4 = :option4")})
 public class Questiontb implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,39 +50,29 @@ public class Questiontb implements Serializable {
     private String question;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "state")
-    private String state;
+    @Size(min = 1, max = 50)
+    @Column(name = "level")
+    private String level;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "district")
-    private String district;
+    @Size(min = 1, max = 2000)
+    @Column(name = "option1")
+    private String option1;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "city")
-    private String city;
+    @Size(min = 1, max = 2000)
+    @Column(name = "option2")
+    private String option2;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "zone")
-    private String zone;
+    @Size(min = 1, max = 2000)
+    @Column(name = "option3")
+    private String option3;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "ward")
-    private String ward;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "taluka")
-    private String taluka;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "village")
-    private String village;
+    @Size(min = 1, max = 2000)
+    @Column(name = "option4")
+    private String option4;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
     private Collection<QuestionVillage> questionVillageCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
@@ -100,8 +88,6 @@ public class Questiontb implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
     private Collection<QuestionState> questionStateCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
-    private Collection<Optionstb> optionstbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
     private Collection<QuestionZone> questionZoneCollection;
 
     public Questiontb() {
@@ -111,16 +97,14 @@ public class Questiontb implements Serializable {
         this.qid = qid;
     }
 
-    public Questiontb(Integer qid, String question, String state, String district, String city, String zone, String ward, String taluka, String village) {
+    public Questiontb(Integer qid, String question, String level, String option1, String option2, String option3, String option4) {
         this.qid = qid;
         this.question = question;
-        this.state = state;
-        this.district = district;
-        this.city = city;
-        this.zone = zone;
-        this.ward = ward;
-        this.taluka = taluka;
-        this.village = village;
+        this.level = level;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
     }
 
     public Integer getQid() {
@@ -139,60 +123,44 @@ public class Questiontb implements Serializable {
         this.question = question;
     }
 
-    public String getState() {
-        return state;
+    public String getLevel() {
+        return level;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getOption1() {
+        return option1;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setOption1(String option1) {
+        this.option1 = option1;
     }
 
-    public String getCity() {
-        return city;
+    public String getOption2() {
+        return option2;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setOption2(String option2) {
+        this.option2 = option2;
     }
 
-    public String getZone() {
-        return zone;
+    public String getOption3() {
+        return option3;
     }
 
-    public void setZone(String zone) {
-        this.zone = zone;
+    public void setOption3(String option3) {
+        this.option3 = option3;
     }
 
-    public String getWard() {
-        return ward;
+    public String getOption4() {
+        return option4;
     }
 
-    public void setWard(String ward) {
-        this.ward = ward;
-    }
-
-    public String getTaluka() {
-        return taluka;
-    }
-
-    public void setTaluka(String taluka) {
-        this.taluka = taluka;
-    }
-
-    public String getVillage() {
-        return village;
-    }
-
-    public void setVillage(String village) {
-        this.village = village;
+    public void setOption4(String option4) {
+        this.option4 = option4;
     }
 
     public Collection<QuestionVillage> getQuestionVillageCollection() {
@@ -249,14 +217,6 @@ public class Questiontb implements Serializable {
 
     public void setQuestionStateCollection(Collection<QuestionState> questionStateCollection) {
         this.questionStateCollection = questionStateCollection;
-    }
-
-    public Collection<Optionstb> getOptionstbCollection() {
-        return optionstbCollection;
-    }
-
-    public void setOptionstbCollection(Collection<Optionstb> optionstbCollection) {
-        this.optionstbCollection = optionstbCollection;
     }
 
     public Collection<QuestionZone> getQuestionZoneCollection() {

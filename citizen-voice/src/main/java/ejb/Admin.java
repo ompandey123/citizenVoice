@@ -80,200 +80,431 @@ public class Admin implements AdminLocal {
     
     @Override
     public void addStates(String state_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statetb state = new Statetb();
+        state.setStateName(state_name);
+        em.persist(state);
     }
 
     @Override
     public void updateState(int state_id, String state_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statetb state = (Statetb) em.find(Statetb.class, state_id);
+        if(state != null)
+        {
+            state.setStateName(state_name);
+            em.merge(state);
+            System.out.println("State Inserted!!");
+        }
+        else
+        {
+            System.out.println("State with id " + state_id + " Not Found!!");
+        }
     }
 
     @Override
     public void deleteState(int state_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statetb s = (Statetb) em.find(Statetb.class, state_id);
+        em.remove(s);
     }
 
     @Override
     public Collection<Statetb> getAllStates() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Statetb.findAll").getResultList();
     }
 
     @Override
     public Collection<Statetb> getStatesByName(String state_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Statetb.findByStateName")
+                .setParameter("state_name", state_name)
+                .getResultList();
     }
 
     // DISTRICT OPERATIONS
     
     @Override
     public void addDistricts(int state_id, String district_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statetb s = (Statetb) em.find(Statetb.class, state_id);
+        Collection<Districttb> districts = s.getDistricttbCollection();
+        
+        Districttb d = new Districttb();
+        d.setDistrictName(district_name);
+        d.setStateId(s);
+        districts.add(d);
+        
+        s.setDistricttbCollection(districts);
+        
+        em.persist(d);
+        em.merge(s);
     }
 
     @Override
     public void updateDistrict(int district_id, int state_id, String district_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statetb s = (Statetb) em.find(Statetb.class, state_id);
+        Collection<Districttb> districts = s.getDistricttbCollection();
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        if(districts.contains(d))
+        {
+            districts.remove(d);
+        }
+        d.setDistrictName(district_name);
+        d.setStateId(s);
+        districts.add(d);
+        
+        s.setDistricttbCollection(districts);
+        
+        em.merge (d);
+        em.merge(s);
     }
 
     @Override
     public void deleteDistrict(int district_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        em.remove(d);
     }
 
     @Override
     public Collection<Districttb> getAllDistricts() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Districttb.findAll").getResultList();
     }
 
     @Override
     public Collection<Districttb> getDistrictsByName(String district_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Districttb.findByDistrictName")
+                .setParameter("district_name", district_name)
+                .getResultList();
     }
 
     // CITY OPERATIONS
     
     @Override
     public void addCity(int district_id, String city_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        Collection<Citytb> cities = d.getCitytbCollection();
+        Citytb c = new Citytb();
+        c.setCityName(city_name);
+        c.setDistrictId(d);
+        
+        cities.add(c);
+        
+        d.setCitytbCollection(cities);
+        
+        em.persist(c);
+        em.merge(d);
+        
     }
 
     @Override
     public void updateCity(int city_id, int district_id, String city_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        Collection<Citytb> cities = d.getCitytbCollection();
+        Citytb c = (Citytb) em.find(Citytb.class, city_id);
+        
+        if(cities.contains(c))
+        {
+            cities.remove(c);
+        }
+        
+        c.setCityName(city_name);
+        c.setDistrictId(d);
+        
+        cities.add(c);
+        
+        d.setCitytbCollection(cities);
+        
+        em.merge(c);
+        em.merge(d);
     }
 
     @Override
     public void deleteCity(int city_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Citytb c = (Citytb) em.find(Citytb.class, city_id);
+        em.remove(c);
     }
 
     @Override
     public Collection<Citytb> getAllCities() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Citytb.findAll").getResultList();
     }
 
     @Override
     public Collection<Citytb> getCitiesByName(String city_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Citytb.findByCityName")
+                .setParameter("city_name", city_name)
+                .getResultList();
     }
 
     // ZONE OPERATIONS
     
     @Override
     public void addZone(int city_id, String zone_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Citytb c = (Citytb) em.find(Citytb.class, city_id);
+        Collection<Zonetb> zones = c.getZonetbCollection();
+        Zonetb z = new Zonetb();
+        
+        z.setZoneName(zone_name);
+        z.setCityId(c);
+        
+        zones.add(z);
+        
+        c.setZonetbCollection(zones);
+        
+        em.persist(z);
+        em.merge(c);
     }
 
     @Override
     public void updateZone(int zone_id, int city_id, String zone_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Citytb c = (Citytb) em.find(Citytb.class, city_id);
+        Collection<Zonetb> zones = c.getZonetbCollection();
+        Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
+        
+        if(zones.contains(z))
+        {
+            zones.remove(z);
+        }
+        
+        z.setZoneName(zone_name);
+        z.setCityId(c);
+        
+        zones.add(z);
+        
+        c.setZonetbCollection(zones);
+        
+        em.merge(z);
+        em.merge(c);
     }
 
     @Override
     public void deleteZone(int zone_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
+        em.remove(z);
     }
 
     @Override
     public Collection<Zonetb> getAllZones() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Zonetb.findAll").getResultList();
     }
 
     @Override
-    public Collection<Zonetb> getZoneByName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Collection<Zonetb> getZoneByName(String zone_name) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Zonetb.findByZoneName")
+                .setParameter("zone_name", zone_name)
+                .getResultList();
     }
 
     //WARD OPEARTIONS
     
     @Override
     public void addWard(int zone_id, String ward_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
+        Collection<Wardtb> wards = z.getWardtbCollection();
+        Wardtb w = new Wardtb();
+        w.setWardName(ward_name);
+        w.setZoneId(z);
+        wards.add(w);
+        
+        z.setWardtbCollection(wards);
+        
+        em.persist(w);
+        em.merge(z);
+        
+   }
 
     @Override
     public void updateWard(int ward_id, int zone_id, String ward_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
+        Collection<Wardtb> wards = z.getWardtbCollection();
+        Wardtb w = (Wardtb) em.find(Wardtb.class, ward_id);
+        
+        if(wards.contains(w))
+        {
+            wards.remove(w);
+        }
+        
+        w.setWardName(ward_name);
+        w.setZoneId(z);
+        wards.add(w);
+        
+        z.setWardtbCollection(wards);
+        
+        em.merge(w);
+        em.merge(z);
     }
 
     @Override
     public void deleteWard(int ward_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         Wardtb w = (Wardtb) em.find(Wardtb.class, ward_id);
+         em.remove(w);
     }
 
     @Override
     public Collection<Wardtb> getAllWards() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Wardtb.findAll").getResultList();
     }
 
     @Override
     public Collection<Wardtb> getWardByName(String ward_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         return em.createNamedQuery("Wardtb.findByWardName")
+                 .setParameter("ward_name", ward_name)
+                 .getResultList();
     }
 
     // TALUKA OPERATIONS
     
     @Override
     public void addTaluka(int district_id, String taluka_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        Collection<Talukatb> talukas = d.getTalukatbCollection();
+        Talukatb t = new Talukatb();
+        t.setTalukaName(taluka_name);
+        t.setDistrictId(d);
+        talukas.add(t);
+        
+        d.setTalukatbCollection(talukas);
+        
+        em.persist(t);
+        em.merge(d);
     }
 
     @Override
     public void updateTaluka(int taluka_id, int district_id, String taluka_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        Collection<Talukatb> talukas = d.getTalukatbCollection();
+        Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
+        
+        if(talukas.contains(t))
+        {
+            talukas.remove(t);
+        }
+        
+        t.setTalukaName(taluka_name);
+        t.setDistrictId(d);
+        talukas.add(t);
+        
+        d.setTalukatbCollection(talukas);
+        
+        em.merge(t);
+        em.merge(d);
     }
 
     @Override
     public void deleteTaluka(int taluka_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
+        em.remove(t);
     }
 
     // VILLAGE OPERATIONS
     
     @Override
     public Collection<Talukatb> getAllTaluka() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Talukatb.findAll").getResultList();
     }
 
     @Override
     public Collection<Talukatb> getTalukaByName(String taluka_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Talukatb.findByTalukaName")
+                .setParameter("taluka_name", taluka_name)
+                .getResultList();
     }
 
     @Override
     public void addVillage(int taluka_id, String village_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
+        Collection<Villagetb> villages = t.getVillagetbCollection();
+        Villagetb v = new Villagetb();
+        
+        v.setVillageName(village_name);
+        v.setTalukaId(t);
+        
+        villages.add(v);
+        t.setVillagetbCollection(villages);
+        
+        em.persist(v);
+        em.merge(t);
     }
 
     @Override
     public void updateVillage(int village_id, int taluka_id, String village_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
+        Collection<Villagetb> villages = t.getVillagetbCollection();
+        Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
+        
+        if(villages.contains(v))
+        {
+            villages.remove(v);
+        }
+        
+        v.setVillageName(village_name);
+        v.setTalukaId(t);
+        
+        villages.add(v);
+        t.setVillagetbCollection(villages);
+        
+        em.merge(v);
+        em.merge(t);
     }
 
     @Override
     public void deleteVillage(int village_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
+         em.remove(v);
     }
 
     @Override
     public Collection<Villagetb> getAllVillages() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Villagetb.findAll").getResultList();
     }
 
     @Override
     public Collection<Villagetb> getVillageByName(String village_name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Villagetb.findByVillageName")
+                .setParameter("village_name", village_name)
+                .getResultList();
     }
 
     //QUESTIONS OPERATIONS
     
     @Override
-    public void addQuestion(String question, String state, String district, String city, String zone, String ward, String taluka, String village) {
+    public void addQuestion(String question, String level) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void updateQuestion(int qid, String question, String state, String district, String city, String zone, String ward, String taluka, String village) {
+    public void updateQuestion(int qid, String level) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

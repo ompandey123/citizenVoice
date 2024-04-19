@@ -5,6 +5,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,7 +30,12 @@ import javax.persistence.Table;
 @Table(name = "user_answer")
 @NamedQueries({
     @NamedQuery(name = "UserAnswer.findAll", query = "SELECT u FROM UserAnswer u"),
-    @NamedQuery(name = "UserAnswer.findByAnswerId", query = "SELECT u FROM UserAnswer u WHERE u.answerId = :answerId")})
+    @NamedQuery(name = "UserAnswer.findByAnswerId", query = "SELECT u FROM UserAnswer u WHERE u.answerId = :answerId"),
+    @NamedQuery(name = "UserAnswer.findByOption1", query = "SELECT u FROM UserAnswer u WHERE u.option1 = :option1"),
+    @NamedQuery(name = "UserAnswer.findByOption2", query = "SELECT u FROM UserAnswer u WHERE u.option2 = :option2"),
+    @NamedQuery(name = "UserAnswer.findByOption3", query = "SELECT u FROM UserAnswer u WHERE u.option3 = :option3"),
+    @NamedQuery(name = "UserAnswer.findByOption4", query = "SELECT u FROM UserAnswer u WHERE u.option4 = :option4"),
+    @NamedQuery(name = "UserAnswer.findBySubTime", query = "SELECT u FROM UserAnswer u WHERE u.subTime = :subTime")})
 public class UserAnswer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,6 +44,23 @@ public class UserAnswer implements Serializable {
     @Basic(optional = false)
     @Column(name = "answer_id")
     private Integer answerId;
+    @Size(max = 2000)
+    @Column(name = "option1")
+    private String option1;
+    @Size(max = 2000)
+    @Column(name = "option2")
+    private String option2;
+    @Size(max = 2000)
+    @Column(name = "option3")
+    private String option3;
+    @Size(max = 2000)
+    @Column(name = "option4")
+    private String option4;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SubTime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date subTime;
     @JoinColumn(name = "qid", referencedColumnName = "qid")
     @ManyToOne(optional = false)
     private Questiontb qid;
@@ -43,9 +70,6 @@ public class UserAnswer implements Serializable {
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
     @ManyToOne(optional = false)
     private Districttb districtId;
-    @JoinColumn(name = "option_id", referencedColumnName = "option_id")
-    @ManyToOne(optional = false)
-    private Optionstb optionId;
     @JoinColumn(name = "state_id", referencedColumnName = "state_id")
     @ManyToOne(optional = false)
     private Statetb stateId;
@@ -72,12 +96,57 @@ public class UserAnswer implements Serializable {
         this.answerId = answerId;
     }
 
+    public UserAnswer(Integer answerId, Date subTime) {
+        this.answerId = answerId;
+        this.subTime = subTime;
+    }
+
     public Integer getAnswerId() {
         return answerId;
     }
 
     public void setAnswerId(Integer answerId) {
         this.answerId = answerId;
+    }
+
+    public String getOption1() {
+        return option1;
+    }
+
+    public void setOption1(String option1) {
+        this.option1 = option1;
+    }
+
+    public String getOption2() {
+        return option2;
+    }
+
+    public void setOption2(String option2) {
+        this.option2 = option2;
+    }
+
+    public String getOption3() {
+        return option3;
+    }
+
+    public void setOption3(String option3) {
+        this.option3 = option3;
+    }
+
+    public String getOption4() {
+        return option4;
+    }
+
+    public void setOption4(String option4) {
+        this.option4 = option4;
+    }
+
+    public Date getSubTime() {
+        return subTime;
+    }
+
+    public void setSubTime(Date subTime) {
+        this.subTime = subTime;
     }
 
     public Questiontb getQid() {
@@ -102,14 +171,6 @@ public class UserAnswer implements Serializable {
 
     public void setDistrictId(Districttb districtId) {
         this.districtId = districtId;
-    }
-
-    public Optionstb getOptionId() {
-        return optionId;
-    }
-
-    public void setOptionId(Optionstb optionId) {
-        this.optionId = optionId;
     }
 
     public Statetb getStateId() {

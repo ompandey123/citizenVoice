@@ -58,7 +58,7 @@ public interface AdminLocal {
     void updateZone(int zone_id ,int city_id, String zone_name);
     void deleteZone(int zone_id);
     Collection<Zonetb> getAllZones();
-    Collection<Zonetb> getZoneByName();
+    Collection<Zonetb> getZoneByName(String zone_name);
     
     //ward related operations
     void addWard(int zone_id, String ward_name);
@@ -83,8 +83,8 @@ public interface AdminLocal {
     
     
     //QUESTION OPERATION
-    void addQuestion(String question, String state, String district, String city, String zone, String ward, String taluka, String village);
-    void updateQuestion(int qid, String question, String state, String district, String city, String zone, String ward, String taluka, String village);
+    void addQuestion(String question, String level);
+    void updateQuestion(int qid, String level);
     void deleteQuestion(int qid);
     Collection<Questiontb> getAllQuestions();
   
