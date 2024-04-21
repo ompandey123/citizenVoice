@@ -23,6 +23,11 @@
             <version>${jakartaee}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+	<groupId>org.glassfish.soteria</groupId>
+	<artifactId>jakarta.security.enterprise</artifactId>
+	<version>3.0.3</version>
+        </dependency>
     </dependencies>
     
      <build>

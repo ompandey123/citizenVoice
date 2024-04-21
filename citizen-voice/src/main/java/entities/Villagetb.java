@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,8 +46,8 @@ public class Villagetb implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "village_name")
     private String villageName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "villageId")
-    private Collection<QuestionVillage> questionVillageCollection;
+    @ManyToMany(mappedBy = "villagetbCollection")
+    private Collection<Questiontb> questiontbCollection;
     @JoinColumn(name = "taluka_id", referencedColumnName = "taluka_id")
     @ManyToOne(optional = false)
     private Talukatb talukaId;
@@ -83,12 +84,12 @@ public class Villagetb implements Serializable {
         this.villageName = villageName;
     }
 
-    public Collection<QuestionVillage> getQuestionVillageCollection() {
-        return questionVillageCollection;
+    public Collection<Questiontb> getQuestiontbCollection() {
+        return questiontbCollection;
     }
 
-    public void setQuestionVillageCollection(Collection<QuestionVillage> questionVillageCollection) {
-        this.questionVillageCollection = questionVillageCollection;
+    public void setQuestiontbCollection(Collection<Questiontb> questiontbCollection) {
+        this.questiontbCollection = questiontbCollection;
     }
 
     public Talukatb getTalukaId() {

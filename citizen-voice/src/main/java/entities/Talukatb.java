@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,17 +46,17 @@ public class Talukatb implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "taluka_name")
     private String talukaName;
+    @ManyToMany(mappedBy = "talukatbCollection")
+    private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
     private Collection<Villagetb> villagetbCollection;
-    @JoinColumn(name = "district_id", referencedColumnName = "district_id")
-    @ManyToOne(optional = false)
-    private Districttb districtId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
-    private Collection<QuestionTaluka> questionTalukaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
     private Collection<Usertb> usertbCollection;
+    @JoinColumn(name = "district_id", referencedColumnName = "district_id")
+    @ManyToOne(optional = false)
+    private Districttb districtId;
 
     public Talukatb() {
     }
@@ -85,28 +86,20 @@ public class Talukatb implements Serializable {
         this.talukaName = talukaName;
     }
 
+    public Collection<Questiontb> getQuestiontbCollection() {
+        return questiontbCollection;
+    }
+
+    public void setQuestiontbCollection(Collection<Questiontb> questiontbCollection) {
+        this.questiontbCollection = questiontbCollection;
+    }
+
     public Collection<Villagetb> getVillagetbCollection() {
         return villagetbCollection;
     }
 
     public void setVillagetbCollection(Collection<Villagetb> villagetbCollection) {
         this.villagetbCollection = villagetbCollection;
-    }
-
-    public Districttb getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(Districttb districtId) {
-        this.districtId = districtId;
-    }
-
-    public Collection<QuestionTaluka> getQuestionTalukaCollection() {
-        return questionTalukaCollection;
-    }
-
-    public void setQuestionTalukaCollection(Collection<QuestionTaluka> questionTalukaCollection) {
-        this.questionTalukaCollection = questionTalukaCollection;
     }
 
     public Collection<UserAnswer> getUserAnswerCollection() {
@@ -123,6 +116,14 @@ public class Talukatb implements Serializable {
 
     public void setUsertbCollection(Collection<Usertb> usertbCollection) {
         this.usertbCollection = usertbCollection;
+    }
+
+    public Districttb getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Districttb districtId) {
+        this.districtId = districtId;
     }
 
     @Override

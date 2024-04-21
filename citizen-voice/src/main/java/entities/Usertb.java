@@ -98,9 +98,9 @@ public class Usertb implements Serializable {
     @Column(name = "zip_code")
     private String zipCode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<UserGroup> userGroupCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserAnswer> userAnswerCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<UserGroup> userGroupCollection;
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     @ManyToOne(optional = false)
     private Citytb cityId;
@@ -223,20 +223,20 @@ public class Usertb implements Serializable {
         this.zipCode = zipCode;
     }
 
-    public Collection<UserGroup> getUserGroupCollection() {
-        return userGroupCollection;
-    }
-
-    public void setUserGroupCollection(Collection<UserGroup> userGroupCollection) {
-        this.userGroupCollection = userGroupCollection;
-    }
-
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
 
     public void setUserAnswerCollection(Collection<UserAnswer> userAnswerCollection) {
         this.userAnswerCollection = userAnswerCollection;
+    }
+
+    public Collection<UserGroup> getUserGroupCollection() {
+        return userGroupCollection;
+    }
+
+    public void setUserGroupCollection(Collection<UserGroup> userGroupCollection) {
+        this.userGroupCollection = userGroupCollection;
     }
 
     public Citytb getCityId() {

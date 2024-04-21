@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,8 +46,8 @@ public class Wardtb implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "ward_name")
     private String wardName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "wardId")
-    private Collection<QuestionWard> questionWardCollection;
+    @ManyToMany(mappedBy = "wardtbCollection")
+    private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "wardId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "wardId")
@@ -83,12 +84,12 @@ public class Wardtb implements Serializable {
         this.wardName = wardName;
     }
 
-    public Collection<QuestionWard> getQuestionWardCollection() {
-        return questionWardCollection;
+    public Collection<Questiontb> getQuestiontbCollection() {
+        return questiontbCollection;
     }
 
-    public void setQuestionWardCollection(Collection<QuestionWard> questionWardCollection) {
-        this.questionWardCollection = questionWardCollection;
+    public void setQuestiontbCollection(Collection<Questiontb> questiontbCollection) {
+        this.questiontbCollection = questiontbCollection;
     }
 
     public Collection<UserAnswer> getUserAnswerCollection() {

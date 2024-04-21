@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,21 +47,20 @@ public class Citytb implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "city_name")
     private String cityName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
-    private Collection<QuestionWard> questionWardCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
-    private Collection<Zonetb> zonetbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
-    private Collection<QuestionCity> questionCityCollection;
+    @JoinTable(name = "question_city", joinColumns = {
+        @JoinColumn(name = "city_id", referencedColumnName = "city_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "qid", referencedColumnName = "qid")})
+    @ManyToMany
+    private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
     private Collection<Usertb> usertbCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
+    private Collection<Zonetb> zonetbCollection;
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
     @ManyToOne(optional = false)
     private Districttb districtId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
-    private Collection<QuestionZone> questionZoneCollection;
 
     public Citytb() {
     }
@@ -89,28 +90,12 @@ public class Citytb implements Serializable {
         this.cityName = cityName;
     }
 
-    public Collection<QuestionWard> getQuestionWardCollection() {
-        return questionWardCollection;
+    public Collection<Questiontb> getQuestiontbCollection() {
+        return questiontbCollection;
     }
 
-    public void setQuestionWardCollection(Collection<QuestionWard> questionWardCollection) {
-        this.questionWardCollection = questionWardCollection;
-    }
-
-    public Collection<Zonetb> getZonetbCollection() {
-        return zonetbCollection;
-    }
-
-    public void setZonetbCollection(Collection<Zonetb> zonetbCollection) {
-        this.zonetbCollection = zonetbCollection;
-    }
-
-    public Collection<QuestionCity> getQuestionCityCollection() {
-        return questionCityCollection;
-    }
-
-    public void setQuestionCityCollection(Collection<QuestionCity> questionCityCollection) {
-        this.questionCityCollection = questionCityCollection;
+    public void setQuestiontbCollection(Collection<Questiontb> questiontbCollection) {
+        this.questiontbCollection = questiontbCollection;
     }
 
     public Collection<UserAnswer> getUserAnswerCollection() {
@@ -129,20 +114,20 @@ public class Citytb implements Serializable {
         this.usertbCollection = usertbCollection;
     }
 
+    public Collection<Zonetb> getZonetbCollection() {
+        return zonetbCollection;
+    }
+
+    public void setZonetbCollection(Collection<Zonetb> zonetbCollection) {
+        this.zonetbCollection = zonetbCollection;
+    }
+
     public Districttb getDistrictId() {
         return districtId;
     }
 
     public void setDistrictId(Districttb districtId) {
         this.districtId = districtId;
-    }
-
-    public Collection<QuestionZone> getQuestionZoneCollection() {
-        return questionZoneCollection;
-    }
-
-    public void setQuestionZoneCollection(Collection<QuestionZone> questionZoneCollection) {
-        this.questionZoneCollection = questionZoneCollection;
     }
 
     @Override

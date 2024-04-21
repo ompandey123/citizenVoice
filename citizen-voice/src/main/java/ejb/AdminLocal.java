@@ -14,6 +14,7 @@ import entities.Villagetb;
 import entities.Wardtb;
 import entities.Zonetb;
 import java.util.Collection;
+import java.util.Date;
 import javax.ejb.Local;
 
 /**
@@ -23,8 +24,8 @@ import javax.ejb.Local;
 @Local
 public interface AdminLocal {
     //User related operations
-    void addUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, String dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id);
-    void updateUser(int user_id ,String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, String dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id);
+    void addUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id);
+    void updateUser(int user_id ,String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id);
     void deleteUser(int user_id);
     Collection<Usertb> getAllUsers();
     Collection<Usertb> getUsersByUsername(String username);
@@ -83,48 +84,41 @@ public interface AdminLocal {
     
     
     //QUESTION OPERATION
-    void addQuestion(String question, String level);
-    void updateQuestion(int qid, String level);
+    void addQuestion(String question, String level, String option1, String option2, String option3, String option4);
+    void updateQuestion(int qid,String question, String level,String option1, String option2, String option3, String option4);
     void deleteQuestion(int qid);
     Collection<Questiontb> getAllQuestions();
   
     
     
     //Question State
-    void addQuestionState(int qid, int state_id);
-    void updateStateQuestion(int question_state_id, int qid, int state_id);
-    void deleteStateQuestion(int question_state_id);
+    void addQuestionState(int qid, Collection<Integer> state_ids);
+    void deleteStateQuestion(int qid, Collection<Integer> state_ids);
   
     
     //Question District
-    void addQuestionDistrict(int qid, int state_id, int district_id);
-    void updateDistrictQuestion(int question_district_id, int qid, int state_id, int district_id);
-    void deleteDistrictQuestion(int question_district_id);
+    void addQuestionDistrict(int qid, Collection<Integer> district_ids);
+    void deleteDistrictQuestion(int qid, Collection<Integer> district_ids);
     
     
     //Question City
-    void addQuestionCity(int qid, int state_id, int district_id, int city_id);
-    void updateCityQuestion(int question_city_id, int qid, int state_id, int district_id, int city_id);
-    void deleteCityQuestion(int question_city_id);
+    void addQuestionCity(int qid, Collection<Integer> city_ids);
+    void deleteCityQuestion(int qid, Collection<Integer> city_ids);
     
     //Question Ward
-    void addQuestionWard(int qid, int state_id, int district_id, int city_id, int ward_id);
-    void updateWardQuestion(int question_ward_id, int qid, int state_id, int district_id, int city_id, int ward_id);
-    void deleteWardQuestion(int question_ward_id);
+    void addQuestionWard(int qid, Collection<Integer> ward_ids);
+    void deleteWardQuestion(int qid, Collection<Integer> ward_ids);
     
     //Question Zone
-    void addQuestionZone(int qid, int state_id, int district_id, int city_id, int zone_id);
-    void updateZoneQuestion(int question_zone_id, int qid, int state_id, int district_id, int city_id, int ward_id, int zone_id);
-    void deleteZoneQuestion(int question_zone_id);
+    void addQuestionZone(int qid, Collection<Integer> zone_ids);
+    void deleteZoneQuestion(int qid, Collection<Integer> zone_ids);
     
     //Question Taluka
-    void addQuestionTaluka(int qid, int state_id, int district_id, int taluka_id);
-    void updateTalukaQuestion(int question_taluka_id, int qid, int state_id, int district_id, int taluka_id);
-    void deleteTalukaQuestion(int question_taluka_id);
+    void addQuestionTaluka(int qid, Collection<Integer> zone_ids);
+    void deleteTalukaQuestion(int qid, Collection<Integer> zone_ids);
     
     
     //Question Village
-    void addQuestionVillage(int qid, int state_id, int district_id, int village_id);
-    void updateVillageQuestion(int question_village_id, int qid, int state_id, int district_id, int village_id);
-    void deleteVillageQuestion(int question_village_id);
+    void addQuestionVillage(int qid, Collection<Integer> village_ids);
+    void deleteVillageQuestion(int qid, Collection<Integer> village_ids);
 }
