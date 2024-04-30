@@ -86,14 +86,20 @@ public class Questiontb implements Serializable {
         @JoinColumn(name = "ward_id", referencedColumnName = "ward_id")})
     @ManyToMany
     private Collection<Wardtb> wardtbCollection;
-    @ManyToMany(mappedBy = "questiontbCollection")
+    @JoinTable(name = "question_city", joinColumns = {
+        @JoinColumn(name = "qid", referencedColumnName = "qid")}, inverseJoinColumns = {
+        @JoinColumn(name = "city_id", referencedColumnName = "city_id")})
+    @ManyToMany
     private Collection<Citytb> citytbCollection;
     @JoinTable(name = "question_taluka", joinColumns = {
         @JoinColumn(name = "qid", referencedColumnName = "qid")}, inverseJoinColumns = {
         @JoinColumn(name = "taluka_id", referencedColumnName = "taluka_id")})
     @ManyToMany
     private Collection<Talukatb> talukatbCollection;
-    @ManyToMany(mappedBy = "questiontbCollection")
+    @JoinTable(name = "question_district", joinColumns = {
+        @JoinColumn(name = "qid", referencedColumnName = "qid")}, inverseJoinColumns = {
+        @JoinColumn(name = "district_id", referencedColumnName = "district_id")})
+    @ManyToMany
     private Collection<Districttb> districttbCollection;
     @JoinTable(name = "question_state", joinColumns = {
         @JoinColumn(name = "qid", referencedColumnName = "qid")}, inverseJoinColumns = {

@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -47,10 +46,7 @@ public class Citytb implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "city_name")
     private String cityName;
-    @JoinTable(name = "question_city", joinColumns = {
-        @JoinColumn(name = "city_id", referencedColumnName = "city_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "qid", referencedColumnName = "qid")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "citytbCollection")
     private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
     private Collection<UserAnswer> userAnswerCollection;
