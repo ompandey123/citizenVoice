@@ -22,8 +22,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import org.glassfish.soteria.identitystores.hash.PasswordHashCompare;
-import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
  *
@@ -33,17 +31,33 @@ import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 public class JakartaEE8Resource {
     
     @EJB AdminLocal adl;
-//    @EJB UserLocal usl;
+    @EJB UserLocal usl;
     
     //User Operations
     
-//    public void RegisterUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, String dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    public void giveAnswer(int qid, int user_id, int option_id, int state_id, int district_id, int city_id, int ward_id, int zone_id, int taluka_id, int village_id) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
+    @POST
+    @Path("registerUser/{username}/{password}/{email}/{adhaar_card_no}/{contact}/{gender}/{address}/{dob}/{zip_code}/{village_id}/{taluka_id}/{zone_id}/{city_id}/{district_id}/{state_id}/{ward_id}")
+    public void RegisterUser(@PathParam("username") String username,@PathParam("password") String password,@PathParam("email") String email,@PathParam("adhaar_card_no") String adhaar_card_no,@PathParam("contact") String contact,@PathParam("gender") String gender,@PathParam("address") String address,@PathParam("dob") Date dob,@PathParam("zip_code") String zip_code,@PathParam("village_id") int village_id,@PathParam("taluka_id") int taluka_id,@PathParam("zone_id") int zone_id,@PathParam("city_id") int city_id,@PathParam("district_id") int district_id,@PathParam("state_id") int state_id,@PathParam("ward_id") int ward_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        usl.RegisterUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village_id, taluka_id, zone_id, city_id, district_id, state_id, ward_id);
+    }
+    
+    
+    
+    @POST
+    @Path("giveAnswer/{qid}/{user_id}/{option1}/{option2}/{option3}/{option4}/{state_id}/{district_id}/{city_id}/{ward_id}/{zone_id}/{taluka_id}/{village_id}")
+    public void giveAnswer(@PathParam("qid") int qid, @PathParam("user_id") int user_id, @PathParam("option1") String option1, @PathParam("option2") String option2, @PathParam("option3") String option3, @PathParam("option4") String option4, @PathParam("state_id") int state_id, @PathParam("district_id") int district_id,@PathParam("city_id") int city_id,@PathParam("ward_id") int ward_id,@PathParam("zone_id") int zone_id,@PathParam("taluka_id") int taluka_id,@PathParam("village_id") int village_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        usl.giveAnswer(qid, user_id, option1, option2, option3, option4, state_id, district_id, city_id, ward_id, zone_id, taluka_id, village_id);
+    }
+    
+    @GET
+    @Produces("application/json")
+    @Path("getQuestionByUserId/{user_id}")
+    public Collection<Questiontb> getQuestionByUserId(@PathParam("user_id") int user_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         return usl.getQuestionByUserId(user_id);
+    }
     
     //Admin Operations
     @POST
