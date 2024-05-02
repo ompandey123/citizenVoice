@@ -5,8 +5,20 @@
 package test;
 
 import client.CitizenClient;
+import com.mycompany.citizen.voice.resources.JakartaEE8Resource;
+import ejb.AdminLocal;
+import ejb.PackedObjects;
+import ejb.UserLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 public class testServlet extends HttpServlet {
     
     CitizenClient cc;
+    @EJB UserLocal usll;
+    @EJB AdminLocal adll;
+    PackedObjects pobjs;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,6 +48,7 @@ public class testServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
@@ -45,10 +61,33 @@ public class testServlet extends HttpServlet {
             out.println("<body>");
             
             cc = new CitizenClient();
-            
-            //cc.addStates("ABC");
-            
-            out.println("<h1>Servlet testServlet at " + request.getContextPath() + "</h1>");
+//              cc.addStates("Uttar Pradesh");
+              //cc.addDistricts("2", "Surat");
+              //cc.addCity("1", "Surat");
+              //cc.addZone("1", "West Zone");
+              //cc.addWard("1", "Abhwa Ward");
+              //cc.addTaluka("1", "Chorasi");
+              //cc.addVillage("1", "Abhwa");
+              
+             SimpleDateFormat sdt = new SimpleDateFormat("dd-MM-yyyy");
+              Date dt = null;
+        try {
+            dt = sdt.parse("10-10-2002");
+        } catch (ParseException ex) {
+            //Logger.getLogger(JakartaEE8Resource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+              
+              //cc.RegisterUser("Om", "omp", "om@gmail.com", "662223509284", "9723747686", "Male", "Vesu", "10-11-2002", "395007", "1", "1", "1", "1", "1", "2", "1");
+              //usll.RegisterUser("Om", "omp", "om@gmail.com", "12345678901", "9723747686", "Male", "Mangalam",dt , "395007", 1, 1, 1, 1, 1, 2, 1);
+              
+             PackedObjects p = new PackedObjects();
+              Collection<Integer> stateids = new ArrayList<>();
+              stateids.add(2);
+              stateids.add(3);
+              p.setState_ids(stateids);
+              adll.addQuestion("how is life?", "state", "GOOD", "NOT GOOD", "Neutral", "PATHETIC", p);
+              
+            out.println("<h1>Citizen voice testing Servlet");
             out.println("</body>");
             out.println("</html>");
         }

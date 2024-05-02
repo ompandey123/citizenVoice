@@ -36,6 +36,7 @@ public class User implements UserLocal {
     @Override
     public void RegisterUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
         Pbkdf2PasswordHashImpl pb;
         PasswordHashCompare phc;
          pb = new Pbkdf2PasswordHashImpl();
@@ -64,7 +65,7 @@ public class User implements UserLocal {
         Usertb u = new Usertb();
         u.setUsername(username);
         String encpass = pb.generate(password.toCharArray());
-        u.setPassword(password);
+        u.setPassword(encpass);
         u.setEmail(email);
         u.setAdhaarCardNo(adhaar_card_no);
         u.setContact(contact);
@@ -83,6 +84,7 @@ public class User implements UserLocal {
         u.setWardId(w);
         u.setStateId(s);
         
+         em.persist(u);
         vusers.add(u);
         v.setUsertbCollection(vusers);
         
@@ -105,7 +107,7 @@ public class User implements UserLocal {
         w.setUsertbCollection(wusers);
         
         
-        
+       
         em.merge(v);
         em.merge(t);
         em.merge(z);
@@ -113,13 +115,18 @@ public class User implements UserLocal {
         em.merge(d);
         em.merge(s);
         em.merge(w);
-        em.persist(u);
+        
+        }catch(Exception e)
+        {
+            System.out.println("Error in Inserting");
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void giveAnswer(int qid, int user_id, String option1, String option2, String option3, String option4 , int state_id, int district_id, int city_id, int ward_id, int zone_id, int taluka_id, int village_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
+        try{
         Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
         Collection<UserAnswer> vausers = v.getUserAnswerCollection();
         
@@ -193,6 +200,10 @@ public class User implements UserLocal {
         em.merge(s);
         em.merge(w);
         em.persist(ua);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
           
     }
 

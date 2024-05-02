@@ -36,7 +36,8 @@ public class Admin implements AdminLocal {
     @Override
     public void addUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        Pbkdf2PasswordHashImpl pb;
+        try{
+            Pbkdf2PasswordHashImpl pb;
         PasswordHashCompare phc;
          pb = new Pbkdf2PasswordHashImpl();
         Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
@@ -64,7 +65,7 @@ public class Admin implements AdminLocal {
         Usertb u = new Usertb();
         u.setUsername(username);
         String encpass = pb.generate(password.toCharArray());
-        u.setPassword(password);
+        u.setPassword(encpass);
         u.setEmail(email);
         u.setAdhaarCardNo(adhaar_card_no);
         u.setContact(contact);
@@ -105,7 +106,7 @@ public class Admin implements AdminLocal {
         w.setUsertbCollection(wusers);
         
         
-        
+        em.persist(u);
         em.merge(v);
         em.merge(t);
         em.merge(z);
@@ -113,7 +114,12 @@ public class Admin implements AdminLocal {
         em.merge(d);
         em.merge(s);
         em.merge(w);
-        em.persist(u);
+        
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
     }
 
     @Override
@@ -335,9 +341,7 @@ public class Admin implements AdminLocal {
     @Override
     public Collection<Districttb> getDistrictsByName(String district_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        return em.createNamedQuery("Districttb.findByDistrictName")
-                .setParameter("district_name", district_name)
-                .getResultList();
+        return em.createNamedQuery("Districttb.findByDistrictName").getResultList();
     }
 
     // CITY OPERATIONS
@@ -665,36 +669,42 @@ public class Admin implements AdminLocal {
         q.setOption2(option2);
         q.setOption3(option3);
         q.setOption4(option4);
-        
+
+       // em.getTransaction().begin();
         em.persist(q);
-        em.refresh(q);
+        //em.getTransaction().commit();
+      
+Questiontb q1 = (Questiontb) em.createNamedQuery("Questiontb.findByQuestion").setParameter("question", question).getSingleResult();
+
+//  em.refresh(q);
+System.out.println("qid="+q1.getQid());
         if(level.equals("state"))
         {
-            addQuestionState(q.getQid(), p.getState_ids());
+            addQuestionState(q1.getQid(), p.getState_ids());
         }
         else if(level.equals("district"))
         {
-            addQuestionDistrict(q.getQid(), p.getDistrict_ids());
+            addQuestionDistrict(q1.getQid(), p.getDistrict_ids());
         }
         else if(level.equals("city"))
         {
-            addQuestionCity(q.getQid(), p.getCity_ids());
+            addQuestionCity(q1.getQid(), p.getCity_ids());
         }
         else if(level.equals("ward"))
         {
-            addQuestionWard(q.getQid(), p.getWard_ids());
+            addQuestionWard(q1.getQid(), p.getWard_ids());
         }
         else if(level.equals("zone"))
         {
-            addQuestionZone(q.getQid(), p.getZone_ids());
+            addQuestionZone(q1.getQid(), p.getZone_ids());
         }
         else if(level.equals("taluka"))
         {
-            addQuestionTaluka(q.getQid(), p.getTaluka_ids());
+            addQuestionTaluka(q1.getQid(), p.getTaluka_ids());
         }
         else if(level.equals("village"))
         {
-            addQuestionVillage(q.getQid(), p.getVillage_ids());
+            addQuestionVillage(q1.getQid(), p.getVillage_ids());
         }
         else
         {

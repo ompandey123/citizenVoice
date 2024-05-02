@@ -12,8 +12,12 @@ import entities.Usertb;
 import entities.Villagetb;
 import entities.Wardtb;
 import entities.Zonetb;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -37,16 +41,23 @@ public class JakartaEE8Resource {
     
     @POST
     @Path("registerUser/{username}/{password}/{email}/{adhaar_card_no}/{contact}/{gender}/{address}/{dob}/{zip_code}/{village_id}/{taluka_id}/{zone_id}/{city_id}/{district_id}/{state_id}/{ward_id}")
-    public void RegisterUser(@PathParam("username") String username,@PathParam("password") String password,@PathParam("email") String email,@PathParam("adhaar_card_no") String adhaar_card_no,@PathParam("contact") String contact,@PathParam("gender") String gender,@PathParam("address") String address,@PathParam("dob") Date dob,@PathParam("zip_code") String zip_code,@PathParam("village_id") int village_id,@PathParam("taluka_id") int taluka_id,@PathParam("zone_id") int zone_id,@PathParam("city_id") int city_id,@PathParam("district_id") int district_id,@PathParam("state_id") int state_id,@PathParam("ward_id") int ward_id) {
+    public void RegisterUser(@PathParam("username") String username,@PathParam("password") String password, @PathParam("email") String email, @PathParam("adhaar_card_no") String adhaar_card_no, @PathParam("contact") String contact, @PathParam("gender") String gender, @PathParam("address") String address, @PathParam("dob") String dob, @PathParam("zip_code") String zip_code, @PathParam("village_id") int village_id, @PathParam("taluka_id") int taluka_id, @PathParam("zone_id") int zone_id, @PathParam("city_id") int city_id, @PathParam("district_id") int district_id, @PathParam("state_id") int state_id, @PathParam("ward_id") int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        usl.RegisterUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village_id, taluka_id, zone_id, city_id, district_id, state_id, ward_id);
+      SimpleDateFormat sdt = new SimpleDateFormat("dd-MM-yyyy");
+              Date dt = null;
+        try {
+            dt = sdt.parse(dob);
+        } catch (ParseException ex) {
+            Logger.getLogger(JakartaEE8Resource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        usl.RegisterUser(username, password, email, adhaar_card_no, contact, gender, address, dt, zip_code, village_id, taluka_id, zone_id, city_id, district_id, state_id, ward_id);
     }
     
     
     
     @POST
     @Path("giveAnswer/{qid}/{user_id}/{option1}/{option2}/{option3}/{option4}/{state_id}/{district_id}/{city_id}/{ward_id}/{zone_id}/{taluka_id}/{village_id}")
-    public void giveAnswer(@PathParam("qid") int qid, @PathParam("user_id") int user_id, @PathParam("option1") String option1, @PathParam("option2") String option2, @PathParam("option3") String option3, @PathParam("option4") String option4, @PathParam("state_id") int state_id, @PathParam("district_id") int district_id,@PathParam("city_id") int city_id,@PathParam("ward_id") int ward_id,@PathParam("zone_id") int zone_id,@PathParam("taluka_id") int taluka_id,@PathParam("village_id") int village_id) {
+    public void giveAnswer(@PathParam("qid") int qid, @PathParam("user_id") int user_id, @PathParam("option1") String option1, @PathParam("option2") String option2, @PathParam("option3") String option3, @PathParam("option4") String option4, @PathParam("state_id") int state_id, @PathParam("district_id") int district_id, @PathParam("city_id") int city_id, @PathParam("ward_id") int ward_id, @PathParam("zone_id") int zone_id, @PathParam("taluka_id") int taluka_id, @PathParam("village_id") int village_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         usl.giveAnswer(qid, user_id, option1, option2, option3, option4, state_id, district_id, city_id, ward_id, zone_id, taluka_id, village_id);
     }
@@ -195,8 +206,8 @@ public class JakartaEE8Resource {
 
     @GET
     @Path("getDistrictByName/{district_name}")
+    @Produces("application/json")
     public Collection<Districttb> getDistrictsByName(@PathParam("district_name") String district_name) {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return adl.getDistrictsByName(district_name);
     }
     
@@ -204,7 +215,7 @@ public class JakartaEE8Resource {
     
     @POST
     @Path("addCity/{district_id}/{city_name}")
-    public void addCity(@PathParam("district_id")int district_id,@PathParam("") String city_name) {
+    public void addCity(@PathParam("district_id")int district_id,@PathParam("city_name") String city_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
        adl.addCity(district_id, city_name);
         
@@ -212,13 +223,13 @@ public class JakartaEE8Resource {
 
     @POST
     @Path("addCity/{city_id}/{district_id}/{city_name}")
-    public void updateCity(@PathParam("city_id") int city_id, @PathParam("district_id")int district_id,@PathParam("") String city_name) {
+    public void updateCity(@PathParam("city_id") int city_id, @PathParam("district_id")int district_id,@PathParam("city_name") String city_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         adl.updateCity(city_id, district_id, city_name);
     }
 
     @DELETE
-    @Path("deleteDistrict/{district_id}")
+    @Path("deleteCity/{district_id}")
     public void deleteCity(@PathParam("city_id") int city_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
        adl.deleteCity(city_id);
@@ -281,7 +292,7 @@ public class JakartaEE8Resource {
     //WARD OPEARTIONS
     
     @POST
-    @Path("addZone/{zone_id}/{ward_name}")
+    @Path("addWard/{zone_id}/{ward_name}")
     public void addWard(@PathParam("zone_id") int zone_id,@PathParam("ward_name") String ward_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         
@@ -290,7 +301,7 @@ public class JakartaEE8Resource {
 
 
     @POST
-    @Path("updateZone/{ward_id}/{zone_id}/{ward_name}")
+    @Path("updateWard/{ward_id}/{zone_id}/{ward_name}")
     public void updateWard(@PathParam("ward_id") int ward_id, @PathParam("zone_id") int zone_id,@PathParam("ward_name") String ward_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         adl.updateWard(ward_id, zone_id, ward_name);
@@ -323,15 +334,15 @@ public class JakartaEE8Resource {
     // TALUKA OPERATIONS
     
     @POST
-    @Path("addTaluka/{district_id/{taluka_name}}")
-    public void addTaluka(@PathParam("district_id") int district_id,@PathParam("taluka_name") String taluka_name) {
+    @Path("addTaluka/{district_id}/{taluka_name}")
+    public void addTaluka(@PathParam("district_id") int district_id, @PathParam("taluka_name") String taluka_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         adl.addTaluka(district_id, taluka_name);
     }
 
     @POST
-    @Path("updateTaluka/{taluka_id}/{district_id/{taluka_name}}")
-    public void updateTaluka(@PathParam("taluka_id") int taluka_id, @PathParam("district_id") int district_id,@PathParam("taluka_name") String taluka_name) {
+    @Path("updateTaluka/{taluka_id}/{district_id}/{taluka_name}")
+    public void updateTaluka(@PathParam("taluka_id") int taluka_id, @PathParam("district_id") int district_id, @PathParam("taluka_name") String taluka_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         adl.updateTaluka(taluka_id, district_id, taluka_name);
     }
@@ -425,7 +436,7 @@ public class JakartaEE8Resource {
 
     @GET
     @Path("getAllQuestions")
-    @Produces("app;ication/json")
+    @Produces("application/json")
     public Collection<Questiontb> getAllQuestions() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return adl.getAllQuestions();
