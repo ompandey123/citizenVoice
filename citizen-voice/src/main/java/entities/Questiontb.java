@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -187,6 +188,7 @@ public class Questiontb implements Serializable {
         this.option4 = option4;
     }
 
+    @JsonbTransient
     public Collection<Villagetb> getVillagetbCollection() {
         return villagetbCollection;
     }
@@ -195,6 +197,7 @@ public class Questiontb implements Serializable {
         this.villagetbCollection = villagetbCollection;
     }
 
+    @JsonbTransient
     public Collection<Wardtb> getWardtbCollection() {
         return wardtbCollection;
     }
@@ -203,6 +206,7 @@ public class Questiontb implements Serializable {
         this.wardtbCollection = wardtbCollection;
     }
 
+    @JsonbTransient
     public Collection<Citytb> getCitytbCollection() {
         return citytbCollection;
     }
@@ -211,14 +215,16 @@ public class Questiontb implements Serializable {
         this.citytbCollection = citytbCollection;
     }
 
+    @JsonbTransient
     public Collection<Talukatb> getTalukatbCollection() {
         return talukatbCollection;
     }
-
+    
     public void setTalukatbCollection(Collection<Talukatb> talukatbCollection) {
         this.talukatbCollection = talukatbCollection;
     }
 
+    @JsonbTransient
     public Collection<Districttb> getDistricttbCollection() {
         return districttbCollection;
     }
@@ -227,6 +233,7 @@ public class Questiontb implements Serializable {
         this.districttbCollection = districttbCollection;
     }
 
+    @JsonbTransient
     public Collection<Statetb> getStatetbCollection() {
         return statetbCollection;
     }
@@ -235,6 +242,7 @@ public class Questiontb implements Serializable {
         this.statetbCollection = statetbCollection;
     }
 
+    @JsonbTransient
     public Collection<Zonetb> getZonetbCollection() {
         return zonetbCollection;
     }
@@ -243,6 +251,7 @@ public class Questiontb implements Serializable {
         this.zonetbCollection = zonetbCollection;
     }
 
+    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }

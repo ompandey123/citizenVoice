@@ -14,6 +14,8 @@ import entities.Usertb;
 import entities.Villagetb;
 import entities.Wardtb;
 import entities.Zonetb;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -27,12 +29,14 @@ import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
  *
  * @author ompan
  */
+@DeclareRoles({"admin", "citizen"})
 @Stateless
 public class User implements UserLocal {
     @PersistenceContext(unitName = "citizenpu")
     EntityManager em;
     
     
+    @RolesAllowed("citizen")
     @Override
     public void RegisterUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -123,6 +127,7 @@ public class User implements UserLocal {
         }
     }
 
+    @RolesAllowed("citizen")
     @Override
     public void giveAnswer(int qid, int user_id, String option1, String option2, String option3, String option4 , int state_id, int district_id, int city_id, int ward_id, int zone_id, int taluka_id, int village_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -207,6 +212,7 @@ public class User implements UserLocal {
           
     }
 
+    @RolesAllowed("citizen")
     @Override
     public Collection<Questiontb> getQuestionByUserId(int user_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
