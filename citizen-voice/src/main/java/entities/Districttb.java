@@ -6,13 +6,10 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -38,8 +35,8 @@ public class Districttb implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "district_id")
     private Integer districtId;
     @Basic(optional = false)
@@ -51,7 +48,7 @@ public class Districttb implements Serializable {
     private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtId")
     private Collection<UserAnswer> userAnswerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtId")
+    @OneToMany(mappedBy = "districtId")
     private Collection<Usertb> usertbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtId")
     private Collection<Citytb> citytbCollection;
@@ -89,7 +86,6 @@ public class Districttb implements Serializable {
         this.districtName = districtName;
     }
 
-    @JsonbTransient
     public Collection<Questiontb> getQuestiontbCollection() {
         return questiontbCollection;
     }
@@ -98,7 +94,6 @@ public class Districttb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
-    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -107,7 +102,6 @@ public class Districttb implements Serializable {
         this.userAnswerCollection = userAnswerCollection;
     }
 
-    @JsonbTransient
     public Collection<Usertb> getUsertbCollection() {
         return usertbCollection;
     }
@@ -116,7 +110,6 @@ public class Districttb implements Serializable {
         this.usertbCollection = usertbCollection;
     }
 
-    @JsonbTransient
     public Collection<Citytb> getCitytbCollection() {
         return citytbCollection;
     }
@@ -133,7 +126,6 @@ public class Districttb implements Serializable {
         this.stateId = stateId;
     }
 
-    @JsonbTransient
     public Collection<Talukatb> getTalukatbCollection() {
         return talukatbCollection;
     }

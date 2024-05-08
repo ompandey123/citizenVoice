@@ -78,14 +78,14 @@ public class testServlet extends HttpServlet {
         }
               
               //cc.RegisterUser("Om", "omp", "om@gmail.com", "662223509284", "9723747686", "Male", "Vesu", "10-11-2002", "395007", "1", "1", "1", "1", "1", "2", "1");
-              //usll.RegisterUser("Om", "omp", "om@gmail.com", "12345678901", "9723747686", "Male", "Mangalam",dt , "395007", 1, 1, 1, 1, 1, 2, 1);
+              //usll.RegisterUser("admin", "admin", "admin@gmail.com", "123456789012", "9723747686", "Male", address, dt, zip_code, 0, 0, 0, 0, 0, 0, 0);
               
-             PackedObjects p = new PackedObjects();
-              Collection<Integer> stateids = new ArrayList<>();
-              stateids.add(2);
-              stateids.add(3);
-              p.setState_ids(stateids);
-              adll.addQuestion("how is life?", "state", "GOOD", "NOT GOOD", "Neutral", "PATHETIC", p);
+//             PackedObjects p = new PackedObjects();
+//              Collection<Integer> stateids = new ArrayList<>();
+//              stateids.add(2);
+//              stateids.add(3);
+//              p.setState_ids(stateids);
+              //adll.addQuestion("how is life?", "state", "GOOD", "NOT GOOD", "Neutral", "PATHETIC", p);
               
             out.println("<h1>Citizen voice testing Servlet");
             out.println("</body>");

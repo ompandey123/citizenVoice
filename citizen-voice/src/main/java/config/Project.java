@@ -15,7 +15,7 @@ import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "jdbc/citizen_voice",
-        callerQuery = "select password from usertb where username = ?",
+        callerQuery = "select password from users where username = ?",
         groupsQuery = "select groupname from groups where username = ?",
         hashAlgorithm = Pbkdf2PasswordHash.class,
         priority = 30

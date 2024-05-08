@@ -3,5 +3,7 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="citizenpu" transaction-type="JTA">
     <jta-data-source>jdbc/citizen_voice</jta-data-source>
+    <!--    <exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

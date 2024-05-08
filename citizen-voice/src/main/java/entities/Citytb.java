@@ -6,7 +6,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,13 +50,16 @@ public class Citytb implements Serializable {
     private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
     private Collection<UserAnswer> userAnswerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
+    @OneToMany(mappedBy = "cityId")
     private Collection<Usertb> usertbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
     private Collection<Zonetb> zonetbCollection;
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
     @ManyToOne(optional = false)
     private Districttb districtId;
+    @JoinColumn(name = "state_id", referencedColumnName = "state_id")
+    @ManyToOne(optional = false)
+    private Statetb stateId;
 
     public Citytb() {
     }
@@ -87,7 +89,6 @@ public class Citytb implements Serializable {
         this.cityName = cityName;
     }
 
-    @JsonbTransient
     public Collection<Questiontb> getQuestiontbCollection() {
         return questiontbCollection;
     }
@@ -96,7 +97,6 @@ public class Citytb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
-    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -105,7 +105,6 @@ public class Citytb implements Serializable {
         this.userAnswerCollection = userAnswerCollection;
     }
 
-    @JsonbTransient
     public Collection<Usertb> getUsertbCollection() {
         return usertbCollection;
     }
@@ -114,7 +113,6 @@ public class Citytb implements Serializable {
         this.usertbCollection = usertbCollection;
     }
 
-    @JsonbTransient
     public Collection<Zonetb> getZonetbCollection() {
         return zonetbCollection;
     }
@@ -129,6 +127,14 @@ public class Citytb implements Serializable {
 
     public void setDistrictId(Districttb districtId) {
         this.districtId = districtId;
+    }
+
+    public Statetb getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(Statetb stateId) {
+        this.stateId = stateId;
     }
 
     @Override

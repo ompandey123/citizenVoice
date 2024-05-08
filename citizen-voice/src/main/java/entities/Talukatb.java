@@ -6,7 +6,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,7 +52,7 @@ public class Talukatb implements Serializable {
     private Collection<Villagetb> villagetbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
     private Collection<UserAnswer> userAnswerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
+    @OneToMany(mappedBy = "talukaId")
     private Collection<Usertb> usertbCollection;
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
     @ManyToOne(optional = false)
@@ -87,7 +86,6 @@ public class Talukatb implements Serializable {
         this.talukaName = talukaName;
     }
 
-    @JsonbTransient
     public Collection<Questiontb> getQuestiontbCollection() {
         return questiontbCollection;
     }
@@ -96,7 +94,6 @@ public class Talukatb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
-    @JsonbTransient
     public Collection<Villagetb> getVillagetbCollection() {
         return villagetbCollection;
     }
@@ -105,7 +102,6 @@ public class Talukatb implements Serializable {
         this.villagetbCollection = villagetbCollection;
     }
 
-    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -114,7 +110,6 @@ public class Talukatb implements Serializable {
         this.userAnswerCollection = userAnswerCollection;
     }
 
-    @JsonbTransient
     public Collection<Usertb> getUsertbCollection() {
         return usertbCollection;
     }

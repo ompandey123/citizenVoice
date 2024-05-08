@@ -7,7 +7,6 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -52,74 +50,56 @@ public class Usertb implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_id")
     private Integer userId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2000)
+    @Size(max = 2000)
     @Column(name = "password")
     private String password;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
+    @Size(max = 250)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 12)
+    @Size(max = 12)
     @Column(name = "adhaar_card_no")
     private String adhaarCardNo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "contact")
     private String contact;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 6)
+    @Size(max = 6)
     @Column(name = "gender")
     private String gender;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
+    @Size(max = 250)
     @Column(name = "address")
     private String address;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)
     private Date dob;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "zip_code")
     private String zipCode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserAnswer> userAnswerCollection;
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Citytb cityId;
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Districttb districtId;
     @JoinColumn(name = "state_id", referencedColumnName = "state_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Statetb stateId;
     @JoinColumn(name = "taluka_id", referencedColumnName = "taluka_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Talukatb talukaId;
     @JoinColumn(name = "village_id", referencedColumnName = "village_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Villagetb villageId;
     @JoinColumn(name = "ward_id", referencedColumnName = "ward_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Wardtb wardId;
     @JoinColumn(name = "zone_id", referencedColumnName = "zone_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Zonetb zoneId;
 
     public Usertb() {
@@ -127,19 +107,6 @@ public class Usertb implements Serializable {
 
     public Usertb(Integer userId) {
         this.userId = userId;
-    }
-
-    public Usertb(Integer userId, String username, String password, String email, String adhaarCardNo, String contact, String gender, String address, Date dob, String zipCode) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.adhaarCardNo = adhaarCardNo;
-        this.contact = contact;
-        this.gender = gender;
-        this.address = address;
-        this.dob = dob;
-        this.zipCode = zipCode;
     }
 
     public Integer getUserId() {
@@ -222,7 +189,6 @@ public class Usertb implements Serializable {
         this.zipCode = zipCode;
     }
 
-    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }

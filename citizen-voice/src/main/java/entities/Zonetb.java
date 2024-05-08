@@ -6,13 +6,10 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -38,20 +35,20 @@ public class Zonetb implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "zone_id")
     private Integer zoneId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 150)
     @Column(name = "zone_name")
     private String zoneName;
     @ManyToMany(mappedBy = "zonetbCollection")
     private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zoneId")
     private Collection<UserAnswer> userAnswerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zoneId")
+    @OneToMany(mappedBy = "zoneId")
     private Collection<Usertb> usertbCollection;
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     @ManyToOne(optional = false)
@@ -87,7 +84,6 @@ public class Zonetb implements Serializable {
         this.zoneName = zoneName;
     }
 
-    @JsonbTransient
     public Collection<Questiontb> getQuestiontbCollection() {
         return questiontbCollection;
     }
@@ -96,7 +92,6 @@ public class Zonetb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
-    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -105,7 +100,6 @@ public class Zonetb implements Serializable {
         this.userAnswerCollection = userAnswerCollection;
     }
 
-    @JsonbTransient
     public Collection<Usertb> getUsertbCollection() {
         return usertbCollection;
     }
@@ -122,7 +116,6 @@ public class Zonetb implements Serializable {
         this.cityId = cityId;
     }
 
-    @JsonbTransient
     public Collection<Wardtb> getWardtbCollection() {
         return wardtbCollection;
     }

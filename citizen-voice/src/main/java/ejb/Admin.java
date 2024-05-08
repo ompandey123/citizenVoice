@@ -14,6 +14,7 @@ import entities.Villagetb;
 import entities.Wardtb;
 import entities.Zonetb;
 import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import java.util.Collection;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class Admin implements AdminLocal {
     
     // USER OPERATIONS
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public void addUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -44,7 +45,7 @@ public class Admin implements AdminLocal {
             Pbkdf2PasswordHashImpl pb;
         PasswordHashCompare phc;
          pb = new Pbkdf2PasswordHashImpl();
-        Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
+       Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
         Collection<Usertb> vusers = v.getUsertbCollection();
         
         Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
@@ -117,8 +118,7 @@ public class Admin implements AdminLocal {
         em.merge(c);
         em.merge(d);
         em.merge(s);
-        em.merge(w);
-        
+        em.merge(w);       
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -286,7 +286,7 @@ public class Admin implements AdminLocal {
         em.remove(s);
     }
 
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin","citizen"})
     @Override
     public Collection<Statetb> getAllStates() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -351,7 +351,7 @@ public class Admin implements AdminLocal {
         em.remove(d);
     }
 
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin","citizen"})
     @Override
     public Collection<Districttb> getAllDistricts() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -365,6 +365,15 @@ public class Admin implements AdminLocal {
         return em.createNamedQuery("Districttb.findByDistrictName").getResultList();
     }
 
+    @PermitAll
+    @Override
+    public Collection<Districttb> getDistrictByState(int state_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statetb s = (Statetb) em.find(Statetb.class, state_id);
+        return s.getDistricttbCollection();
+    }
+
+    
     // CITY OPERATIONS
     
     @RolesAllowed("admin")
@@ -418,7 +427,7 @@ public class Admin implements AdminLocal {
         em.remove(c);
     }
 
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin","citizen"})
     @Override
     public Collection<Citytb> getAllCities() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -432,6 +441,14 @@ public class Admin implements AdminLocal {
         return em.createNamedQuery("Citytb.findByCityName")
                 .setParameter("city_name", city_name)
                 .getResultList();
+    }
+
+    @RolesAllowed({"admin","citizen"})
+    @Override
+    public Collection<Citytb> getCitiesByDistrict(int district_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        return d.getCitytbCollection();
     }
 
     // ZONE OPERATIONS
@@ -487,7 +504,7 @@ public class Admin implements AdminLocal {
         em.remove(z);
     }
 
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin","citizen"})
     @Override
     public Collection<Zonetb> getAllZones() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -502,6 +519,16 @@ public class Admin implements AdminLocal {
                 .setParameter("zone_name", zone_name)
                 .getResultList();
     }
+
+    @RolesAllowed({"admin","citizen"})
+    @Override
+    public Collection<Zonetb> getZonesByCity(int city_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Citytb c = (Citytb) em.find(Citytb.class, city_id);
+        return c.getZonetbCollection();
+    }
+    
+    
 
     //WARD OPEARTIONS
     
@@ -554,7 +581,7 @@ public class Admin implements AdminLocal {
          em.remove(w);
     }
 
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin","citizen"})
     @Override
     public Collection<Wardtb> getAllWards() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -570,6 +597,16 @@ public class Admin implements AdminLocal {
                  .getResultList();
     }
 
+    @RolesAllowed({"admin","citizen"})
+    @Override
+    public Collection<Wardtb> getWardsByZone(int zone_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
+        return z.getWardtbCollection();
+    }
+
+    
+    
     // TALUKA OPERATIONS
     
     @RolesAllowed("admin")
@@ -620,9 +657,16 @@ public class Admin implements AdminLocal {
         em.remove(t);
     }
 
-    // VILLAGE OPERATIONS
+    @PermitAll
+    @Override
+    public Collection<Talukatb> getTalukaByDistrict(int district_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        return d.getTalukatbCollection();
+    }    
     
-    @RolesAllowed("admin")
+    
+    @RolesAllowed({"admin","citizen"})
     @Override
     public Collection<Talukatb> getAllTaluka() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -687,7 +731,7 @@ public class Admin implements AdminLocal {
          em.remove(v);
     }
 
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin","citizen"})
     @Override
     public Collection<Villagetb> getAllVillages() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -702,6 +746,16 @@ public class Admin implements AdminLocal {
                 .setParameter("village_name", village_name)
                 .getResultList();
     }
+
+    @PermitAll
+    @Override
+    public Collection<Villagetb> getVillagesByTaluka(int taluka_id) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
+        return t.getVillagetbCollection();
+    }
+    
+    
 
     //QUESTIONS OPERATIONS
     
@@ -731,6 +785,7 @@ System.out.println("qid="+q1.getQid());
         }
         else if(level.equals("district"))
         {
+           // addQuestionState(q1.getQid(), p.getState_ids());
             addQuestionDistrict(q1.getQid(), p.getDistrict_ids());
         }
         else if(level.equals("city"))

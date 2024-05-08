@@ -6,13 +6,10 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -38,8 +35,8 @@ public class Wardtb implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ward_id")
     private Integer wardId;
     @Basic(optional = false)
@@ -51,7 +48,7 @@ public class Wardtb implements Serializable {
     private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "wardId")
     private Collection<UserAnswer> userAnswerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "wardId")
+    @OneToMany(mappedBy = "wardId")
     private Collection<Usertb> usertbCollection;
     @JoinColumn(name = "zone_id", referencedColumnName = "zone_id")
     @ManyToOne(optional = false)
@@ -85,7 +82,6 @@ public class Wardtb implements Serializable {
         this.wardName = wardName;
     }
 
-    @JsonbTransient
     public Collection<Questiontb> getQuestiontbCollection() {
         return questiontbCollection;
     }
@@ -94,7 +90,6 @@ public class Wardtb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
-    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -103,7 +98,6 @@ public class Wardtb implements Serializable {
         this.userAnswerCollection = userAnswerCollection;
     }
 
-    @JsonbTransient
     public Collection<Usertb> getUsertbCollection() {
         return usertbCollection;
     }

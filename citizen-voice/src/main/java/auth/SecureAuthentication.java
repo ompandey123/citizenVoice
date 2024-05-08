@@ -43,8 +43,8 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
     AuthenticationStatus status;
     @Inject
     TokenProvider tokenProvider;
-//    @Inject
-//    LoginBean lbean;
+    @Inject
+    LoginBean lbean;
 
     @Override
     public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext ctx) throws AuthenticationException {
@@ -63,25 +63,17 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
 
         String token = extractToken(ctx);
         try {
-          //  System.out.println("Name = " + request.getParameter("username"));
-            System.out.println("HELLo");
+            System.out.println("Name = " + request.getParameter("username"));
            
             if (token == null && request.getParameter("username") != null) {
-                
-                
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
-                
-                System.out.println("Name = " + request.getParameter("username"));
-                System.out.println("password = " + request.getParameter("password"));
                 System.out.println("In Auth");
 //                String username = lbean.getUsername();
 //                String password = lbean.getPassword();
 //                
                 Credential credential = new UsernamePasswordCredential(username, new Password(password));
-                
                 result = handler.validate(credential);
-                
 
                 if (result.getStatus() == Status.VALID) {
                     KeepRecord.setErrorStatus("");

@@ -46,6 +46,7 @@ public interface AdminLocal {
     void deleteDistrict(int district_id);
     Collection<Districttb> getAllDistricts();
     Collection<Districttb> getDistrictsByName(String district_name);
+    Collection<Districttb> getDistrictByState(int state_id);
     
     //city related operations
     void addCity(int district_id, String city_name);
@@ -53,6 +54,7 @@ public interface AdminLocal {
     void deleteCity(int city_id);
     Collection<Citytb> getAllCities();
     Collection<Citytb> getCitiesByName(String city_name);
+    Collection<Citytb> getCitiesByDistrict(int district_id);
     
     //zone related operations
     void addZone(int city_id, String zone_name);
@@ -60,6 +62,7 @@ public interface AdminLocal {
     void deleteZone(int zone_id);
     Collection<Zonetb> getAllZones();
     Collection<Zonetb> getZoneByName(String zone_name);
+    Collection<Zonetb> getZonesByCity(int city_id);
     
     //ward related operations
     void addWard(int zone_id, String ward_name);
@@ -67,6 +70,7 @@ public interface AdminLocal {
     void deleteWard(int ward_id);
     Collection<Wardtb> getAllWards();
     Collection<Wardtb> getWardByName(String ward_name);
+    Collection<Wardtb> getWardsByZone(int zone_id);
     
     //taluka related operations
     void addTaluka(int district_id, String taluka_name);
@@ -74,6 +78,7 @@ public interface AdminLocal {
     void deleteTaluka(int taluka_id);
     Collection<Talukatb> getAllTaluka();
     Collection<Talukatb> getTalukaByName(String taluka_name);
+    Collection<Talukatb> getTalukaByDistrict(int district_id);
     
     //village related operation
     void addVillage(int taluka_id, String village_name);
@@ -81,7 +86,7 @@ public interface AdminLocal {
     void deleteVillage(int village_id);
     Collection<Villagetb> getAllVillages();
     Collection<Villagetb> getVillageByName(String village_name);
-    
+    Collection<Villagetb> getVillagesByTaluka(int taluka_id);
     
     //QUESTION OPERATION
     void addQuestion(String question, String level, String option1, String option2, String option3, String option4, PackedObjects p);
