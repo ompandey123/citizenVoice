@@ -32,7 +32,7 @@ public class LoginBean {
  
     public LoginBean() {
         
-       // errorstatus="";
+   //     System.out.println("roles "+KeepRecord.getRoles().toString());
     }
     
    

@@ -197,6 +197,12 @@ public class User implements UserLocal {
         wausers.add(ua);
         w.setUserAnswerCollection(wausers);
         
+        qanswers.add(ua);
+        q.setUserAnswerCollection(uanswers);
+        
+        uanswers.add(ua);
+        u.setUserAnswerCollection(uanswers);
+        
          em.merge(v);
         em.merge(t);
         em.merge(z);
@@ -204,6 +210,8 @@ public class User implements UserLocal {
         em.merge(d);
         em.merge(s);
         em.merge(w);
+        em.merge(q);
+        em.merge(u);
         em.persist(ua);
         }catch(Exception e)
         {
@@ -217,7 +225,7 @@ public class User implements UserLocal {
     public Collection<Questiontb> getQuestionByUserId(int user_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Collection<Questiontb> userquestionCollection  = new ArrayList<>();
-        
+         System.out.println("uderid in method "+ user_id);
         Usertb u = (Usertb) em.find(Usertb.class, user_id);
         
         Statetb sid = u.getStateId();
@@ -251,5 +259,15 @@ public class User implements UserLocal {
         
        return userquestionCollection; 
     }
-    
+
+    @Override
+    @RolesAllowed("citizen")
+    public int getIdByUsername(String username) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("in method");
+       
+        Usertb user = (Usertb) em.createNamedQuery("Usertb.findByUsername").setParameter("username", username).getSingleResult();
+        System.out.println("id = "+ user.getUserId());
+        return user.getUserId();
+    }
 }

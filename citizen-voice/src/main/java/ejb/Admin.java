@@ -6,6 +6,7 @@ package ejb;
 
 import entities.Citytb;
 import entities.Districttb;
+import entities.Groups;
 import entities.Questiontb;
 import entities.Statetb;
 import entities.Talukatb;
@@ -42,6 +43,8 @@ public class Admin implements AdminLocal {
     public void addUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         try{
+            
+            
             Pbkdf2PasswordHashImpl pb;
         PasswordHashCompare phc;
          pb = new Pbkdf2PasswordHashImpl();
@@ -118,7 +121,12 @@ public class Admin implements AdminLocal {
         em.merge(c);
         em.merge(d);
         em.merge(s);
-        em.merge(w);       
+        em.merge(w);    
+        
+            Groups g = new Groups();
+            g.setGroupname("citizen");
+            g.setUsername(username);
+            em.persist(g);
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -747,7 +755,7 @@ public class Admin implements AdminLocal {
                 .getResultList();
     }
 
-    @PermitAll
+    @RolesAllowed("admin")
     @Override
     public Collection<Villagetb> getVillagesByTaluka(int taluka_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

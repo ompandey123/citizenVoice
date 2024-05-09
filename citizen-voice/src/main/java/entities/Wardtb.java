@@ -7,7 +7,6 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -46,7 +45,7 @@ public class Wardtb implements Serializable {
     private String wardName;
     @ManyToMany(mappedBy = "wardtbCollection")
     private Collection<Questiontb> questiontbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "wardId")
+    @OneToMany(mappedBy = "wardId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "wardId")
     private Collection<Usertb> usertbCollection;

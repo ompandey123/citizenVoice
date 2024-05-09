@@ -23,6 +23,7 @@ import javax.security.enterprise.identitystore.CredentialValidationResult.Status
 import javax.security.enterprise.identitystore.IdentityStoreHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import static jwtrest.Constants.AUTHORIZATION_HEADER;
 import static jwtrest.Constants.BEARER;
 import jwtrest.JWTCredential;
@@ -50,11 +51,29 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
     public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext ctx) throws AuthenticationException {
         //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
+        
+//         if(request.getRequestURI().contains("admin") && !(KeepRecord.getToken()!=null))
+//            ctx.responseUnauthorized();
+//         if(request.getRequestURI().contains("citizen") && !(KeepRecord.getToken()!=null))
+//            ctx.responseUnauthorized();
+           
+                  
+        
         try {
             if (request.getRequestURI().contains("Logout")) {
+                System.out.println("In logout");
+                HttpSession session = request.getSession();
+                
                 request.logout();
+                
                 KeepRecord.reset();
-                response.sendRedirect("Login.jsf");
+//                KeepRecord.setToken(null);
+                System.out.println("principal "+ctx.getCallerPrincipal());
+//                System.out.println("roles "+ctx.getGroups().contains("admin"));
+               
+              //  System.out.println("lusername= "+KeepRecord.getPrincipal().getName());
+            //   session.invalidate();
+              response.sendRedirect("Login.jsf");
                 return ctx.doNothing();
             }
         } catch (Exception e) {
@@ -63,7 +82,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
 
         String token = extractToken(ctx);
         try {
-            System.out.println("Name = " + request.getParameter("username"));
+           // System.out.println("Name = " + request.getParameter("username"));
            
             if (token == null && request.getParameter("username") != null) {
                 String username = request.getParameter("username");
@@ -87,6 +106,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                     KeepRecord.setRoles(result.getCallerGroups());
                     KeepRecord.setCredential(credential);
 
+                   
                     if (result.getCallerGroups().contains("admin")) {
                         request.getRequestDispatcher("admin/Admin.jsf").forward(request, response);
                     }

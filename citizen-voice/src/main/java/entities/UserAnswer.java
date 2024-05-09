@@ -5,7 +5,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -34,8 +30,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UserAnswer.findByOption1", query = "SELECT u FROM UserAnswer u WHERE u.option1 = :option1"),
     @NamedQuery(name = "UserAnswer.findByOption2", query = "SELECT u FROM UserAnswer u WHERE u.option2 = :option2"),
     @NamedQuery(name = "UserAnswer.findByOption3", query = "SELECT u FROM UserAnswer u WHERE u.option3 = :option3"),
-    @NamedQuery(name = "UserAnswer.findByOption4", query = "SELECT u FROM UserAnswer u WHERE u.option4 = :option4"),
-    @NamedQuery(name = "UserAnswer.findBySubTime", query = "SELECT u FROM UserAnswer u WHERE u.subTime = :subTime")})
+    @NamedQuery(name = "UserAnswer.findByOption4", query = "SELECT u FROM UserAnswer u WHERE u.option4 = :option4")})
 public class UserAnswer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,37 +51,32 @@ public class UserAnswer implements Serializable {
     @Size(max = 2000)
     @Column(name = "option4")
     private String option4;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "SubTime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date subTime;
     @JoinColumn(name = "qid", referencedColumnName = "qid")
     @ManyToOne(optional = false)
     private Questiontb qid;
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Citytb cityId;
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Districttb districtId;
     @JoinColumn(name = "state_id", referencedColumnName = "state_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Statetb stateId;
     @JoinColumn(name = "taluka_id", referencedColumnName = "taluka_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Talukatb talukaId;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private Usertb userId;
     @JoinColumn(name = "village_id", referencedColumnName = "village_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Villagetb villageId;
     @JoinColumn(name = "ward_id", referencedColumnName = "ward_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Wardtb wardId;
     @JoinColumn(name = "zone_id", referencedColumnName = "zone_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Zonetb zoneId;
 
     public UserAnswer() {
@@ -94,11 +84,6 @@ public class UserAnswer implements Serializable {
 
     public UserAnswer(Integer answerId) {
         this.answerId = answerId;
-    }
-
-    public UserAnswer(Integer answerId, Date subTime) {
-        this.answerId = answerId;
-        this.subTime = subTime;
     }
 
     public Integer getAnswerId() {
@@ -139,14 +124,6 @@ public class UserAnswer implements Serializable {
 
     public void setOption4(String option4) {
         this.option4 = option4;
-    }
-
-    public Date getSubTime() {
-        return subTime;
-    }
-
-    public void setSubTime(Date subTime) {
-        this.subTime = subTime;
     }
 
     public Questiontb getQid() {

@@ -46,7 +46,7 @@ public class Districttb implements Serializable {
     private String districtName;
     @ManyToMany(mappedBy = "districttbCollection")
     private Collection<Questiontb> questiontbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtId")
+    @OneToMany(mappedBy = "districtId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "districtId")
     private Collection<Usertb> usertbCollection;

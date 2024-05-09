@@ -50,7 +50,7 @@ public class Talukatb implements Serializable {
     private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
     private Collection<Villagetb> villagetbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
+    @OneToMany(mappedBy = "talukaId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "talukaId")
     private Collection<Usertb> usertbCollection;

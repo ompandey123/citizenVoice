@@ -7,7 +7,6 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,7 +50,7 @@ public class Villagetb implements Serializable {
     @JoinColumn(name = "taluka_id", referencedColumnName = "taluka_id")
     @ManyToOne(optional = false)
     private Talukatb talukaId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "villageId")
+    @OneToMany(mappedBy = "villageId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "villageId")
     private Collection<Usertb> usertbCollection;

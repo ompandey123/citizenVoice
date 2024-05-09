@@ -46,7 +46,7 @@ public class Zonetb implements Serializable {
     private String zoneName;
     @ManyToMany(mappedBy = "zonetbCollection")
     private Collection<Questiontb> questiontbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zoneId")
+    @OneToMany(mappedBy = "zoneId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "zoneId")
     private Collection<Usertb> usertbCollection;

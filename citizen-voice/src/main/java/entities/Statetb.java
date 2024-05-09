@@ -44,7 +44,7 @@ public class Statetb implements Serializable {
     private String stateName;
     @ManyToMany(mappedBy = "statetbCollection")
     private Collection<Questiontb> questiontbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stateId")
+    @OneToMany(mappedBy = "stateId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "stateId")
     private Collection<Usertb> usertbCollection;

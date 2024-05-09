@@ -48,7 +48,7 @@ public class Citytb implements Serializable {
     private String cityName;
     @ManyToMany(mappedBy = "citytbCollection")
     private Collection<Questiontb> questiontbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
+    @OneToMany(mappedBy = "cityId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "cityId")
     private Collection<Usertb> usertbCollection;
