@@ -225,7 +225,7 @@ public class User implements UserLocal {
     public Collection<Questiontb> getQuestionByUserId(int user_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Collection<Questiontb> userquestionCollection  = new ArrayList<>();
-         System.out.println("uderid in method "+ user_id);
+         //System.out.println("uderid in method "+ user_id);
         Usertb u = (Usertb) em.find(Usertb.class, user_id);
         
         Statetb sid = u.getStateId();
@@ -264,10 +264,19 @@ public class User implements UserLocal {
     @RolesAllowed("citizen")
     public int getIdByUsername(String username) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        System.out.println("in method");
+        
        
         Usertb user = (Usertb) em.createNamedQuery("Usertb.findByUsername").setParameter("username", username).getSingleResult();
-        System.out.println("id = "+ user.getUserId());
+        
         return user.getUserId();
     }
+
+    @Override
+    public Usertb getUserById(int userid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Usertb user = (Usertb) em.find(Usertb.class, userid);
+        return user;
+    }
+    
+    
 }

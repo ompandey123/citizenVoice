@@ -386,28 +386,33 @@ public class Admin implements AdminLocal {
     
     @RolesAllowed("admin")
     @Override
-    public void addCity(int district_id, String city_name) {
+    public void addCity(int district_id, String city_name,int state_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Districttb d = (Districttb) em.find(Districttb.class, district_id);
+        Statetb s = (Statetb) em.find(Statetb.class, state_id);
         Collection<Citytb> cities = d.getCitytbCollection();
         Citytb c = new Citytb();
         c.setCityName(city_name);
         c.setDistrictId(d);
+        c.setStateId(s);
         
         cities.add(c);
         
         d.setCitytbCollection(cities);
+        s.setCitytbCollection(cities);
         
         em.persist(c);
         em.merge(d);
+        em.merge(s);
         
     }
 
     @RolesAllowed("admin")
     @Override
-    public void updateCity(int city_id, int district_id, String city_name) {
+    public void updateCity(int city_id, int district_id, int state_id, String city_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Districttb d = (Districttb) em.find(Districttb.class, district_id);
+         Statetb s = (Statetb) em.find(Statetb.class, state_id);
         Collection<Citytb> cities = d.getCitytbCollection();
         Citytb c = (Citytb) em.find(Citytb.class, city_id);
         
@@ -422,9 +427,11 @@ public class Admin implements AdminLocal {
         cities.add(c);
         
         d.setCitytbCollection(cities);
+         s.setCitytbCollection(cities);
         
         em.merge(c);
         em.merge(d);
+        em.merge(s);
     }
 
     @RolesAllowed("admin")

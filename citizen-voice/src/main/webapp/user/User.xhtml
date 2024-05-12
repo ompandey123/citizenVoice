@@ -2,17 +2,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <link rel="stylesheet" href="user/userPageStyle.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets Citizens!!
-                             <a style="color:red" href="/citizen-voice/Logout.jsf">Logout</a>
-                             Hello ${userBean.userid} 
-                             Hello ${userBean.username}
-                             <c:forEach var="q" items="#{userBean.questions}">
-                                 ${q.question}
-                             </c:forEach>
+        
+        <h1>Welcome ${userBean.username}</h1>
+        <h5>Hello Citizen!! Give answers of the questions provided below</h5>
+        
+        <c:forEach var="q" items="#{userBean.questions}">
+            
+            <div class="questionFrame">
+                <h:form>
+                   
+            <h3>Q.) ${q.question} - #{q.level} Level</h3>
+            <p:selectOneRadio id="page" value="#{userBean.answer}" layout="pageDirection">
+                <f:selectItem itemLabel="#{q.option1}" itemValue="option1-#{q.option1}"/>
+            <f:selectItem itemLabel="#{q.option2}" itemValue="option2-#{q.option2}"/>
+            <f:selectItem itemLabel="#{q.option3}" itemValue="option3-#{q.option3}"/>
+             <f:selectItem itemLabel="#{q.option4}" itemValue="option4-#{q.option4}"/>
+        </p:selectOneRadio>
+            <h:commandButton id="cmd" value="Answer This Question" action="#{userBean.ans(q.qid)}"/>
+          </h:form>
+            </div>
+        </c:forEach>
+        
     </h:body>
 </html>

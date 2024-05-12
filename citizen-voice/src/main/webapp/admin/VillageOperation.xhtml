@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .deleteBtn {
+                width: 70px;
+                height: 35px;
+                border: 1px solid red;
+                background-color: white;
+                color: red;
+                border-radius: 10px;
+            }
+
+            .deleteBtn:hover {
+                background-color: red;
+                color: white;
+            }
+            .updateBtn {
+                width: 70px;
+                height: 35px;
+                border: 1px solid green;
+                background-color: white;
+                color: green;
+                border-radius: 10px;
+                margin-left: 25px;
+            }
+
+            .updateBtn:hover {
+                background-color: green;
+                color: white;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="input">
+                           <p:outputLabel value="Select State &nbsp;" for="states"/>
+                           <p:selectOneMenu id="states" value="#{villageBean.stateid}">
+                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+                            <f:selectItems value="#{villageBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
+                            <f:ajax event="valueChange" execute="states" render="districts" listener="#{villageBean.getDistricts()}"/>
+                        </p:selectOneMenu>
+                       </div><br/>
+                       <div class="input">
+                           <p:outputLabel value="Select District &nbsp;" for="districts"/>
+                           <p:selectOneMenu id="districts" value="#{villageBean.districtid}">
+                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+                            <f:selectItems value="#{villageBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
+                            <f:ajax event="valueChange" execute="districts" render="talukas" listener="#{villageBean.getTalukas()}"/>
+                        </p:selectOneMenu>
+                       </div><br/>
+                       <div class="input">
+                           <p:outputLabel value="Select Talukas &nbsp;" for="talukas"/>
+                           <p:selectOneMenu id="talukas" value="#{villageBean.talukaid}">
+                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+                            <f:selectItems value="#{villageBean.talukas}" var="t" itemLabel="#{t.talukaName}" itemValue="#{t.talukaId}"/>
+                        </p:selectOneMenu>
+                       </div>
+                       <p:outputLabel for="villagename" value="Enter Village Name  "/>
+                       <p:inputText id="villagename" value="#{villageBean.villagename}"/>
+                       <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 135px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; " id="add" value="Add" action="#{villageBean.addVillage()}"/>
+
+        </h:form>   
+        
+        
+        
+        <h:form>   
+            <p:dataTable var="v" value="#{villageBean.villages}" paginator="true" rows="10">
+                <p:column headerText="Village ID">
+                    <h:outputText value="#{v.villageId}" />
+                </p:column>
+
+                <p:column headerText="Taluka Name">
+                    <h:outputText value="#{v.talukaId.talukaName}" />
+                </p:column>
+
+                <p:column headerText="Village Name">
+                    <h:outputText value="#{v.villageName}" />
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{villageBean.deleteVillage(v)}"/>
+
+                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{villageBean.redirectToEdit()}" >
+                        <f:setPropertyActionListener value="#{v}" target="#{villageBean.current}"/>
+                    </h:commandButton>
+
+
+                </p:column>
+
+
+            </p:dataTable>
+
+        </h:form>
+        
+       
+
+
+    </h:body>
+</html>

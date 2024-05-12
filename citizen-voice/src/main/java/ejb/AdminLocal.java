@@ -49,8 +49,8 @@ public interface AdminLocal {
     Collection<Districttb> getDistrictByState(int state_id);
     
     //city related operations
-    void addCity(int district_id, String city_name);
-    void updateCity(int city_id, int district_id, String city_name);
+    void addCity(int district_id, String city_name, int state_id);
+    void updateCity(int city_id, int district_id, int state_id, String city_name);
     void deleteCity(int city_id);
     Collection<Citytb> getAllCities();
     Collection<Citytb> getCitiesByName(String city_name);

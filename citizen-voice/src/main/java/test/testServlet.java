@@ -4,7 +4,6 @@
  */
 package test;
 
-import client.CitizenClient;
 import com.mycompany.citizen.voice.resources.JakartaEE8Resource;
 import ejb.AdminLocal;
 import ejb.PackedObjects;
@@ -32,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "testServlet", urlPatterns = {"/testServlet"})
 public class testServlet extends HttpServlet {
     
-    CitizenClient cc;
+    
     @EJB UserLocal usll;
     @EJB AdminLocal adll;
     PackedObjects pobjs;
@@ -60,7 +59,6 @@ public class testServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             
-            cc = new CitizenClient();
 //              cc.addStates("Uttar Pradesh");
               //cc.addDistricts("2", "Surat");
               //cc.addCity("1", "Surat");

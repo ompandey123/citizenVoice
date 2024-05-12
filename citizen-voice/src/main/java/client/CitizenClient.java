@@ -28,12 +28,11 @@ public class CitizenClient {
 
     public CitizenClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
-        client.register(new MyRestFilter());
         webTarget = client.target(BASE_URI).path("rest");
     }
 
-    public void updateCity(String city_id, String district_id, String city_name) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("addCity/{0}/{1}/{2}", new Object[]{city_id, district_id, city_name})).request().post(null);
+    public void updateCity(String city_id, String district_id, String state_id, String city_name) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("addCity/{0}/{1}/{2}/{3}", new Object[]{city_id, district_id, state_id, city_name})).request().post(null);
     }
 
     public void deleteDistrict(String district_id) throws ClientErrorException {
@@ -107,8 +106,8 @@ public class CitizenClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public void addCity(String district_id, String city_name) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("addCity/{0}/{1}", new Object[]{district_id, city_name})).request().post(null);
+    public void addCity(String district_id, String state_id, String city_name) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("addCity/{0}/{1}/{2}", new Object[]{district_id, state_id, city_name})).request().post(null);
     }
 
     public void updateTaluka(String taluka_id, String district_id, String taluka_name) throws ClientErrorException {

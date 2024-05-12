@@ -239,19 +239,19 @@ public class JakartaEE8Resource {
     
     @RolesAllowed("admin")
     @POST
-    @Path("addCity/{district_id}/{city_name}")
-    public void addCity(@PathParam("district_id")int district_id,@PathParam("city_name") String city_name) {
+    @Path("addCity/{district_id}/{state_id}/{city_name}")
+    public void addCity(@PathParam("district_id")int district_id,  @PathParam("state_id")int state_id,  @PathParam("city_name") String city_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-       adl.addCity(district_id, city_name);
+       adl.addCity(district_id, city_name, state_id);
         
     }
 
     @RolesAllowed("admin")
     @POST
-    @Path("addCity/{city_id}/{district_id}/{city_name}")
-    public void updateCity(@PathParam("city_id") int city_id, @PathParam("district_id")int district_id,@PathParam("city_name") String city_name) {
+    @Path("addCity/{city_id}/{district_id}/{state_id}/{city_name}")
+    public void updateCity(@PathParam("city_id") int city_id, @PathParam("district_id")int district_id,  @PathParam("state_id")int state_id,  @PathParam("city_name") String city_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        adl.updateCity(city_id, district_id, city_name);
+        adl.updateCity(city_id, district_id, state_id, city_name);
     }
 
     @RolesAllowed("admin")
@@ -429,7 +429,7 @@ public class JakartaEE8Resource {
     @Path("updateVillage/{village_id}/{taluka_id}/{village_name}")
     public void updateVillage(@PathParam("village_id") int village_id, @PathParam("taluka_id") int taluka_id,@PathParam("village_name") String village_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        adl.updateCity(taluka_id, village_id, village_name);
+            adl.updateVillage(village_id, taluka_id, village_name);
     }
 
     @RolesAllowed("admin")

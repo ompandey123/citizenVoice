@@ -5,6 +5,7 @@
 package ejb;
 
 import entities.Questiontb;
+import entities.Usertb;
 import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Local;
@@ -19,4 +20,5 @@ public interface UserLocal {
     void giveAnswer(int qid, int user_id,String option1, String option2, String option3, String option4 ,int state_id, int district_id, int city_id, int ward_id, int zone_id, int taluka_id, int village_id);
     Collection<Questiontb> getQuestionByUserId(int user_id);
     int getIdByUsername(String username);
+    Usertb getUserById(int userid);
 }

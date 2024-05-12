@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .deleteBtn {
+                width: 70px;
+                height: 35px;
+                border: 1px solid red;
+                background-color: white;
+                color: red;
+                border-radius: 10px;
+            }
+
+            .deleteBtn:hover {
+                background-color: red;
+                color: white;
+            }
+            .updateBtn {
+                width: 70px;
+                height: 35px;
+                border: 1px solid green;
+                background-color: white;
+                color: green;
+                border-radius: 10px;
+                margin-left: 25px;
+            }
+
+            .updateBtn:hover {
+                background-color: green;
+                color: white;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        
+         <h:form>
+            <div class="input">
+                           <p:outputLabel value="Select State &nbsp;" for="states"/>
+                           <p:selectOneMenu id="states" value="#{wardBean.stateid}">
+                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+                            <f:selectItems value="#{wardBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
+                            <f:ajax event="valueChange" execute="states" render="districts" listener="#{wardBean.getDistricts()}"/>
+                        </p:selectOneMenu>
+                       </div><br/>
+                       <div class="input">
+                           <p:outputLabel value="Select District &nbsp;" for="districts"/>
+                           <p:selectOneMenu id="districts" value="#{wardBean.districtid}">
+                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+                            <f:selectItems value="#{wardBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
+                            <f:ajax event="valueChange" execute="districts" render="cities" listener="#{zoneBean.getCities()}"/>
+                        </p:selectOneMenu>
+                       </div><br/>
+                       <div class="input">
+                           <p:outputLabel value="Select Cities &nbsp;" for="cities"/>
+                           <p:selectOneMenu id="cities" value="#{wardBean.cityid}">
+                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+                            <f:selectItems value="#{wardBean.cities}" var="c" itemLabel="#{c.cityName}" itemValue="#{c.cityId}"/>
+                             <f:ajax event="valueChange" execute="cities" render="zones" listener="#{zoneBean.getZones()}"/>
+                        </p:selectOneMenu>
+                       </div><br/>
+                        <div class="input">
+                           <p:outputLabel value="Select Zones &nbsp;" for="cities"/>
+                           <p:selectOneMenu id="zones" value="#{wardBean.zoneid}">
+                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+                            <f:selectItems value="#{wardBean.zones}" var="z" itemLabel="#{z.zoneName}" itemValue="#{z.zoneId}"/>
+                        </p:selectOneMenu>
+                       </div><br/>
+                       <p:outputLabel for="wardname" value="Enter Ward Name  "/>
+                       <p:inputText id="wardname" value="#{wardBean.wardname}"/>
+                       <br/>
+                       <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 135px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; " id="add" value="Add" action="#{wardBean.addWard()}"/>
+
+        </h:form>
+        
+        
+        <h:form>   
+            <p:dataTable var="w" value="#{wardBean.wards}" paginator="true" rows="10">
+                <p:column headerText="Ward ID">
+                    <h:outputText value="#{w.wardId}" />
+                </p:column>
+
+                <p:column headerText="Zone Name">
+                    <h:outputText value="#{w.zoneId.zoneName}" />
+                </p:column>
+
+                <p:column headerText="Ward Name">
+                    <h:outputText value="#{w.wardName}" />
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{wardBean.deleteWard(w)}"/>
+
+                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{wardBean.redirectToEdit()}" >
+                        <f:setPropertyActionListener value="#{w}" target="#{wardBean.current}" />
+                    </h:commandButton>
+
+
+                </p:column>
+
+
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
+</html>
