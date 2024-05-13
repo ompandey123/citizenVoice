@@ -4,6 +4,7 @@
  */
 package ejb;
 
+import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
 import entities.Groups;
@@ -776,9 +777,11 @@ public class Admin implements AdminLocal {
     
     @RolesAllowed("admin")
     @Override
-    public void addQuestion(String question, String level, String option1, String option2, String option3, String option4, PackedObjects p) {
+    public void addQuestion(int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Category c = (Category) em.find(Category.class, categoryid);
         Questiontb q = new Questiontb();
+        q.setCategoryid(c);
         q.setQuestion(question);
         q.setLevel(level);
         q.setOption1(option1);
@@ -788,6 +791,7 @@ public class Admin implements AdminLocal {
 
        // em.getTransaction().begin();
         em.persist(q);
+        em.merge(c);
         //em.getTransaction().commit();
       
 Questiontb q1 = (Questiontb) em.createNamedQuery("Questiontb.findByQuestion").setParameter("question", question).getSingleResult();
@@ -831,11 +835,13 @@ System.out.println("qid="+q1.getQid());
 
     @RolesAllowed("admin")
     @Override
-    public void updateQuestion(int qid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p) {
+    public void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Questiontb q = (Questiontb) em.find(Questiontb.class, qid);
+        Category c = (Category) em.find(Category.class, categoryid);
         if(q != null)
         {
+            q.setCategoryid(c);
             q.setQuestion(question);
         q.setLevel(level);
         q.setOption1(option1);
@@ -844,6 +850,7 @@ System.out.println("qid="+q1.getQid());
         q.setOption4(option4);
         
         em.merge(q);
+        em.merge(c);
         em.refresh(q);
         
         if(level.equals("state"))
@@ -901,6 +908,63 @@ System.out.println("qid="+q1.getQid());
         return em.createNamedQuery("Questiontb.findAll").getResultList();
     }
 
+    @Override
+    public Collection<Questiontb> getQuestionsByState(int stateid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statetb s = (Statetb) em.find(Statetb.class, stateid);
+        return s.getQuestiontbCollection();
+    }
+
+    @Override
+    public Collection<Questiontb> getQuestionsByDistrict(int districtid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Districttb d = (Districttb) em.find(Districttb.class, districtid);
+        return d.getQuestiontbCollection();
+    }
+
+    @Override
+    public Collection<Questiontb> getQuestionsByCity(int cityid) {
+       //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Citytb c = (Citytb) em.find(Citytb.class, cityid);
+        return c.getQuestiontbCollection();
+    }
+
+    @Override
+    public Collection<Questiontb> getQuestionsByZone(int zoneid) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          Zonetb z = (Zonetb) em.find(Zonetb.class, zoneid);
+          return z.getQuestiontbCollection();
+    }
+
+    @Override
+    public Collection<Questiontb> getQuestionsByWard(int wardid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Wardtb w = (Wardtb) em.find(Wardtb.class, wardid);
+        return w.getQuestiontbCollection();
+    }
+
+    @Override
+    public Collection<Questiontb> getQuestionsByTaluka(int talukaid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Talukatb t = (Talukatb) em.find(Talukatb.class, talukaid);
+        return t.getQuestiontbCollection();
+    }
+
+    @Override
+    public Collection<Questiontb> getQuestionsByVillage(int villageid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Villagetb v = (Villagetb) em.find(Villagetb.class, villageid);
+        return v.getQuestiontbCollection();
+    }
+
+    
+    @RolesAllowed("admin")
+    @Override
+    public Collection<Category> getAllCategories()
+    {
+        return em.createNamedQuery("Category.findAll").getResultList();
+    }
+    
     // QUESTION STATE
     
     @RolesAllowed("admin")

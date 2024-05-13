@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -113,6 +114,9 @@ public class Questiontb implements Serializable {
     private Collection<Zonetb> zonetbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "qid")
     private Collection<UserAnswer> userAnswerCollection;
+    @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
+    @ManyToOne(optional = false)
+    private Category categoryid;
 
     public Questiontb() {
     }
@@ -249,6 +253,14 @@ public class Questiontb implements Serializable {
 
     public void setUserAnswerCollection(Collection<UserAnswer> userAnswerCollection) {
         this.userAnswerCollection = userAnswerCollection;
+    }
+
+    public Category getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(Category categoryid) {
+        this.categoryid = categoryid;
     }
 
     @Override

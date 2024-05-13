@@ -6,8 +6,10 @@ package beans;
 
 import ejb.AdminLocal;
 import ejb.PackedObjects;
+import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
+import entities.Questiontb;
 import entities.Statetb;
 import entities.Talukatb;
 import entities.Villagetb;
@@ -35,6 +37,7 @@ public class QuestionBean implements Serializable {
     int villageid;
     int zoneid;
     int wardid;
+    int categoryid;
     
     String question;
     String level;
@@ -58,6 +61,8 @@ public class QuestionBean implements Serializable {
     Collection<Citytb> cities;
     Collection<Zonetb> zones;
     Collection<Wardtb> wards;
+    Collection<Category> categories;
+    Collection<Questiontb> questions;
     
     public QuestionBean(){
         
@@ -216,7 +221,12 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Districttb> getDistricts() {
-        return districts;
+        if(stateid != 0)
+        {
+           return admin.getDistrictByState(stateid);
+        }
+        
+        return null;
     }
 
     public void setDistricts(Collection<Districttb> districts) {
@@ -239,7 +249,10 @@ public class QuestionBean implements Serializable {
     }
     
     public Collection<Talukatb> getTalukas() {
-        return talukas;
+        if(districtid != 0){
+        return admin.getTalukaByDistrict(districtid);
+        }
+        return null;
     }
 
     public void setTalukas(Collection<Talukatb> talukas) {
@@ -262,7 +275,10 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Villagetb> getVillages() {
-        return villages;
+        if(talukaid != 0){
+         return admin.getVillagesByTaluka(talukaid);
+        }
+        return null;
     }
 
     public void setVillages(Collection<Villagetb> villages) {
@@ -270,7 +286,10 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Citytb> getCities() {
-        return cities;
+        if(districtid != 0){
+        return cities = admin.getCitiesByDistrict(districtid);
+        }
+        return null;
     }
 
     
@@ -294,7 +313,10 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Zonetb> getZones() {
-        return zones;
+        if(cityid != 0){
+        return admin.getZonesByCity(cityid);
+        }
+        return null;
     }
     
     public void populateZones()
@@ -316,7 +338,10 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Wardtb> getWards() {
-        return wards;
+        if(zoneid != 0){
+        return admin.getWardsByZone(zoneid);
+        }
+        return null;
     }
     
     public void populateWards()
@@ -386,6 +411,60 @@ public class QuestionBean implements Serializable {
     public void setOption4(String option4) {
         this.option4 = option4;
     }
+
+    public int getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(int categoryid) {
+        this.categoryid = categoryid;
+    }
+
+    public Collection<Category> getCategories() {
+        categories = admin.getAllCategories();
+        return categories;
+    }
+
+    public void setCategories(Collection<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Collection<Questiontb> getQuestions() {
+        if(level.equals("state"))
+        {
+            System.out.println("level="+level + " stateid = " + stateid);
+            return admin.getQuestionsByState(stateid);
+        }
+        else if(level.equals("district"))
+        {
+            return admin.getQuestionsByDistrict(districtid);
+        }
+        else if(level.equals("city"))
+        {
+            return admin.getQuestionsByCity(cityid);
+        }
+        else if(level.equals("zone"))
+        {
+            return admin.getQuestionsByZone(zoneid);
+        }
+        else if(level.equals("ward"))
+        {
+            return admin.getQuestionsByWard(wardid);
+        }
+        else if(level.equals("taluka"))
+        {
+            return admin.getQuestionsByTaluka(talukaid);
+        }
+        else if(level.equals("village"))
+        {
+            return admin.getQuestionsByVillage(villageid);
+        }
+        return questions;
+    }
+
+    public void setQuestions(Collection<Questiontb> questions) {
+        this.questions = questions;
+    }
     
     
     
@@ -401,7 +480,7 @@ public class QuestionBean implements Serializable {
         p.setTaluka_ids(talukaids);
         p.setVillage_ids(villageids);
         
-        admin.addQuestion(question, level, option1, option2, option3, option4, p);
+        admin.addQuestion(categoryid, question, level, option1, option2, option3, option4, p);
         
         return "Admin.jsf";
     }

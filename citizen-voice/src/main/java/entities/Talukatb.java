@@ -50,13 +50,13 @@ public class Talukatb implements Serializable {
     private Collection<Questiontb> questiontbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "talukaId")
     private Collection<Villagetb> villagetbCollection;
+    @JoinColumn(name = "district_id", referencedColumnName = "district_id")
+    @ManyToOne(optional = false)
+    private Districttb districtId;
     @OneToMany(mappedBy = "talukaId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "talukaId")
     private Collection<Usertb> usertbCollection;
-    @JoinColumn(name = "district_id", referencedColumnName = "district_id")
-    @ManyToOne(optional = false)
-    private Districttb districtId;
 
     public Talukatb() {
     }
@@ -102,6 +102,14 @@ public class Talukatb implements Serializable {
         this.villagetbCollection = villagetbCollection;
     }
 
+    public Districttb getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Districttb districtId) {
+        this.districtId = districtId;
+    }
+
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -116,14 +124,6 @@ public class Talukatb implements Serializable {
 
     public void setUsertbCollection(Collection<Usertb> usertbCollection) {
         this.usertbCollection = usertbCollection;
-    }
-
-    public Districttb getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(Districttb districtId) {
-        this.districtId = districtId;
     }
 
     @Override

@@ -68,15 +68,12 @@
 }
 
         </script>
-        
     </h:head>
     <h:body>
-        <h1>Add Questions</h1>
-        <h:form>
-            <p:outputLabel for="question" value="Question"/>
-            <p:inputText id="question" value="#{questionBean.question}" placeholder="Question"/>
-            <p:outputLabel for="level" value="Select Level"/>
-            <p:selectOneMenu id="level" value="#{questionBean.level}" onchange="showDropDowns(this.value)" >
+            <h1>Filter The Questions</h1>
+            <h:form>
+                <p:outputLabel for="level" value="Select Level"/>
+                <p:selectOneMenu id="level" value="#{questionBean.level}" onchange="showDropDowns(this.value)" >
                 <f:selectItem itemLabel="Select Level" noSelectionOption="true"/>
                 <f:selectItem itemLabel="Country" itemValue="country" />
                 <f:selectItem itemLabel="State" itemValue="state" />
@@ -89,115 +86,122 @@
                 <f:ajax execute="@this" render="@none"/>
                
             </p:selectOneMenu>
-            <p:outputLabel for="category" value="Select Category"/>
-            <p:selectOneMenu id="category" value="#{questionBean.categoryid}">
-                <f:selectItem itemLabel="Select Category" noSelectionOption="true"/>
-                <f:selectItems value="#{questionBean.categories}" var="c" itemLabel="#{c.categoryname}" itemValue="#{c.categoryid}" />
-            </p:selectOneMenu>
-            <br/><br/>
-            <p:outputLabel for="option1" value="Option 1"/>
-            <p:inputText id="option1" value="#{questionBean.option1}" placeholder="Option 1"/>
-            <p:outputLabel for="option2" value="Option 2"/>
-            <p:inputText id="option2" value="#{questionBean.option2}" placeholder="Option 2"/>
-            <br/><br/>
-            <p:outputLabel for="option3" value="Option 3"/>
-            <p:inputText id="option3" value="#{questionBean.option3}" placeholder="Option 3"/>
-            <p:outputLabel for="option4" value="Option 4"/>
-            <p:inputText id="option4" value="#{questionBean.option4}" placeholder="Option 4"/><br/><br/>
-            
-            <div id="stateDropdown" style="display: none;">
-            <p:selectCheckboxMenu id="state"
+                
+                <div id="stateDropdown" style="display: none;">
+                    <p:selectOneMenu id="state"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select States"
-                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
-                              value="#{questionBean.stateids}">
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionBean.stateid}">
+                        <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
                 <f:selectItems value="#{questionBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
-                <f:ajax event="change" execute="state" render="district" listener="#{questionBean.populateDistricts()}" />
-                <f:ajax event="itemUnselect" execute="state" render="district" listener="#{questionBean.populateDistricts()}" />
-                <f:ajax event="itemUnselect" execute="state" render="city" listener="#{questionBean.populateCities()}" />
-                <f:ajax event="itemUnselect" execute="state" render="taluka" listener="#{questionBean.populateTaluka()}" />
-        </p:selectCheckboxMenu>
+                <f:ajax event="valueChange" execute="state" render="district" listener="#{questionBean.getDistricts()}" />
+        </p:selectOneMenu>
             </div>        
             
             <div id="districtDropdown" style="display: none;">
-            <p:selectCheckboxMenu id="district"
+                <p:selectOneMenu id="district"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Districts"
-                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
-                              value="#{questionBean.districtids}">
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionBean.districtid}">
+                                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+
                 <f:selectItems value="#{questionBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
-                <f:ajax event="change" execute="district" render="taluka" listener="#{questionBean.populateTaluka()}" />
-                <f:ajax event="itemUnselect" execute="district" render="taluka" listener="#{questionBean.populateTaluka()}" />
-                <f:ajax event="change" execute="district" render="city" listener="#{questionBean.populateCities()}" />
-                <f:ajax event="itemUnselect" execute="district" render="city" listener="#{questionBean.populateTaluka()}" />                
-        </p:selectCheckboxMenu>
+                <f:ajax event="valueChange" execute="district" render="taluka" listener="#{questionBean.getTalukas()}" />
+                <f:ajax event="valueChange" execute="district" render="city" listener="#{questionBean.getCities()}" />      
+        </p:selectOneMenu>
             </div>
       
             <div id="cityDropdown" style="display: none;">
-            <p:selectCheckboxMenu id="city"
+                <p:selectOneMenu id="city"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Cities"
-                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
-                              value="#{questionBean.cityids}">
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionBean.cityid}">
+                                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+
                 <f:selectItems value="#{questionBean.cities}" var="c" itemLabel="#{c.cityName}" itemValue="#{c.cityId}"/>
-                <f:ajax event="change" execute="city" render="zone" listener="#{questionBean.populateZones()}" />
-                <f:ajax event="itemUnselect" execute="city" render="zone" listener="#{questionBean.populateZones()}" />                
-        </p:selectCheckboxMenu>
+                <f:ajax event="valueChange" execute="city" render="zone" listener="#{questionBean.getZones()}" />            
+        </p:selectOneMenu>
             </div>
                 
                 
             <div id="zoneDropdown" style="display: none;">
-            <p:selectCheckboxMenu id="zone"
+                <p:selectOneMenu id="zone"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Zones"
-                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
-                              value="#{questionBean.zoneids}">
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionBean.zoneid}">
+                                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+
                 <f:selectItems value="#{questionBean.zones}" var="z" itemLabel="#{z.zoneName}" itemValue="#{z.zoneId}"/>
-                <f:ajax event="change" execute="zone" render="ward" listener="#{questionBean.populateWards()}" />
-                <f:ajax event="itemUnselect" execute="zone" render="ward" listener="#{questionBean.populateWards()}" />                
-        </p:selectCheckboxMenu>
+                <f:ajax event="change" execute="zone" render="ward" listener="#{questionBean.getWards()}" />        
+                </p:selectOneMenu>>
             </div>
                 
             <div id="wardDropdown" style="display: none;">  
-        <p:selectCheckboxMenu id="ward"
+                <p:selectOneMenu id="ward"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Wards"
-                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
-                              value="#{questionBean.wardids}">
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionBean.wardid}">
+                                            <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+
             <f:selectItems value="#{questionBean.wards}" var="w" itemLabel="#{w.wardName}" itemValue="#{w.wardId}"/>         
-        </p:selectCheckboxMenu><br/><br/>
+        </p:selectOneMenu><br/><br/>
             </div>
         
             <div id="talukaDropdown" style="display: none;">
-        <p:selectCheckboxMenu id="taluka"
+        <p:selectOneMenu id="taluka"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Talukas"
-                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
-                              value="#{questionBean.talukaids}">
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionBean.talukaid}">
+                                    <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+
             <f:selectItems value="#{questionBean.talukas}" var="t" itemLabel="#{t.talukaName}" itemValue="#{t.talukaId}"/>     
-            <f:ajax event="change" execute="taluka" render="village" listener="#{questionBean.populateVillages()}" />
-            <f:ajax event="itemUnselect" execute="taluka" render="village" listener="#{questionBean.populateVillages()}" />                
-        </p:selectCheckboxMenu>
+            <f:ajax event="valueChange" execute="taluka" render="village" listener="#{questionBean.getVillages()}" />
+        </p:selectOneMenu>
             </div>
         
             <div id="villageDropdown" style="display: none;">
-        <p:selectCheckboxMenu id="village"
+        <p:selectOneMenu id="village"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Villages"
-                              style="width: 15rem" panelStyle="width: 15rem" scrollHeight="250"
-                              value="#{questionBean.villageids}">
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionBean.villageid}">
+                                    <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
+
             <f:selectItems value="#{questionBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>         
-        </p:selectCheckboxMenu>
+        </p:selectOneMenu>
             </div>
-        <h:commandButton value="Add" id="cmd" action="#{questionBean.addQuestion()}"/>
+                <h:commandButton id="cmd" value="SEARCH QUESTION" action="#{questionBean.getQuestions()}"/>
+        </h:form>
         
+        <h:form>
+            <div class="card">
+                <p:dataTable var="q" value="#{questionBean.questions}">
+            <p:column headerText="Question ID">
+                <h:outputText value="#{q.qid}" />
+            </p:column>
+
+            <p:column headerText="Question">
+                <h:outputText value="#{q.question}"/>
+            </p:column>
+
+            <p:column headerText="Action">
+                <h:commandButton id="cmd2" value="VIEW STATS"/>
+            </p:column>
+        </p:dataTable>
+    </div>
         </h:form>
     </h:body>
 </html>

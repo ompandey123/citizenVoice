@@ -463,19 +463,19 @@ public class JakartaEE8Resource {
     @RolesAllowed("admin")
     @POST
     @Consumes("application/json")
-    @Path("addQuestion/{question}/{level}/{option1}/{option2}/{option3}/{option4}")
-    public void addQuestion(@PathParam("question") String question,@PathParam("level") String level,@PathParam("option1") String option1,@PathParam("option2") String option2,@PathParam("option3") String option3,@PathParam("option4") String option4, PackedObjects p) {
+    @Path("addQuestion/{categoryid}/{question}/{level}/{option1}/{option2}/{option3}/{option4}")
+    public void addQuestion(@PathParam("categoryid") int categoryid, @PathParam("question") String question,@PathParam("level") String level,@PathParam("option1") String option1,@PathParam("option2") String option2,@PathParam("option3") String option3,@PathParam("option4") String option4, PackedObjects p) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        adl.addQuestion(question, level, option1, option2, option3, option4, p);
+        adl.addQuestion(categoryid, question, level, option1, option2, option3, option4, p);
     }
     
     @RolesAllowed("admin")
     @POST
     @Consumes("application/json")
-    @Path("updateQuestion/{qid}/{question}/{level}/{option1}/{option2}/{option3}/{option4}")
-    public void updateQuestion(@PathParam("qid") int qid, @PathParam("question") String question,@PathParam("level") String level,@PathParam("option1") String option1,@PathParam("option2") String option2,@PathParam("option3") String option3,@PathParam("option4") String option4, PackedObjects p) {
+    @Path("updateQuestion/{qid}/{categoryid}/{question}/{level}/{option1}/{option2}/{option3}/{option4}")
+    public void updateQuestion(@PathParam("qid") int qid, @PathParam("categoryid") int categoryid, @PathParam("question") String question,@PathParam("level") String level,@PathParam("option1") String option1,@PathParam("option2") String option2,@PathParam("option3") String option3,@PathParam("option4") String option4, PackedObjects p) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        adl.updateQuestion(qid, question, level, option1, option2, option3, option4, p);
+        adl.updateQuestion(qid, categoryid, question, level, option1, option2, option3, option4, p);
     }
 
     @RolesAllowed("admin")

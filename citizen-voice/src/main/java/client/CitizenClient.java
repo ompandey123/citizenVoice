@@ -65,8 +65,8 @@ public class CitizenClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public void updateQuestion(Object requestEntity, String qid, String question, String level, String option1, String option2, String option3, String option4) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("updateQuestion/{0}/{1}/{2}/{3}/{4}/{5}/{6}", new Object[]{qid, question, level, option1, option2, option3, option4})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    public void updateQuestion(Object requestEntity, String qid, String categoryid, String question, String level, String option1, String option2, String option3, String option4) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("updateQuestion/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}", new Object[]{qid, categoryid, question, level, option1, option2, option3, option4})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
     public void deleteCity(String district_id) throws ClientErrorException {
@@ -156,8 +156,8 @@ public class CitizenClient {
         webTarget.path(java.text.MessageFormat.format("deleteZone/{0}", new Object[]{zone_id})).request().delete();
     }
 
-    public void addQuestion(Object requestEntity, String question, String level, String option1, String option2, String option3, String option4) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("addQuestion/{0}/{1}/{2}/{3}/{4}/{5}", new Object[]{question, level, option1, option2, option3, option4})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    public void addQuestion(Object requestEntity, String categoryid, String question, String level, String option1, String option2, String option3, String option4) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("addQuestion/{0}/{1}/{2}/{3}/{4}/{5}/{6}", new Object[]{categoryid, question, level, option1, option2, option3, option4})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
     public void updateZone(String zone_id, String city_id, String zone_name) throws ClientErrorException {

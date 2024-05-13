@@ -48,12 +48,12 @@ public class Citytb implements Serializable {
     private String cityName;
     @ManyToMany(mappedBy = "citytbCollection")
     private Collection<Questiontb> questiontbCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
+    private Collection<Zonetb> zonetbCollection;
     @OneToMany(mappedBy = "cityId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "cityId")
     private Collection<Usertb> usertbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
-    private Collection<Zonetb> zonetbCollection;
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
     @ManyToOne(optional = false)
     private Districttb districtId;
@@ -97,6 +97,14 @@ public class Citytb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
+    public Collection<Zonetb> getZonetbCollection() {
+        return zonetbCollection;
+    }
+
+    public void setZonetbCollection(Collection<Zonetb> zonetbCollection) {
+        this.zonetbCollection = zonetbCollection;
+    }
+
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -111,14 +119,6 @@ public class Citytb implements Serializable {
 
     public void setUsertbCollection(Collection<Usertb> usertbCollection) {
         this.usertbCollection = usertbCollection;
-    }
-
-    public Collection<Zonetb> getZonetbCollection() {
-        return zonetbCollection;
-    }
-
-    public void setZonetbCollection(Collection<Zonetb> zonetbCollection) {
-        this.zonetbCollection = zonetbCollection;
     }
 
     public Districttb getDistrictId() {

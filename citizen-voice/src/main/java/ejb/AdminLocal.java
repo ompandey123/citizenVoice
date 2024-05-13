@@ -4,6 +4,7 @@
  */
 package ejb;
 
+import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
 import entities.Questiontb;
@@ -89,12 +90,20 @@ public interface AdminLocal {
     Collection<Villagetb> getVillagesByTaluka(int taluka_id);
     
     //QUESTION OPERATION
-    void addQuestion(String question, String level, String option1, String option2, String option3, String option4, PackedObjects p);
-    void updateQuestion(int qid,String question, String level,String option1, String option2, String option3, String option4, PackedObjects p);
+    void addQuestion(int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p);
+    void updateQuestion(int qid, int categoryid ,String question, String level,String option1, String option2, String option3, String option4, PackedObjects p);
     void deleteQuestion(int qid);
     Collection<Questiontb> getAllQuestions();
+    Collection<Questiontb> getQuestionsByState(int stateid);
+    Collection<Questiontb> getQuestionsByDistrict(int districtid);
+    Collection<Questiontb> getQuestionsByCity(int cityid);
+    Collection<Questiontb> getQuestionsByZone(int zoneid);
+    Collection<Questiontb> getQuestionsByWard(int wardid);
+    Collection<Questiontb> getQuestionsByTaluka(int talukaid);
+    Collection<Questiontb> getQuestionsByVillage(int villageid);
   
-    
+    //Category Operations
+    Collection<Category> getAllCategories();
     
     //Question State
     void addQuestionState(int qid, Collection<Integer> state_ids);

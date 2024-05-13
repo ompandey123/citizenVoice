@@ -48,17 +48,17 @@ public class Districttb implements Serializable {
     private String districtName;
     @ManyToMany(mappedBy = "districttbCollection")
     private Collection<Questiontb> questiontbCollection;
+    @JoinColumn(name = "state_id", referencedColumnName = "state_id")
+    @ManyToOne(optional = false)
+    private Statetb stateId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtId")
+    private Collection<Talukatb> talukatbCollection;
     @OneToMany(mappedBy = "districtId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "districtId")
     private Collection<Usertb> usertbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtId")
     private Collection<Citytb> citytbCollection;
-    @JoinColumn(name = "state_id", referencedColumnName = "state_id")
-    @ManyToOne(optional = false)
-    private Statetb stateId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtId")
-    private Collection<Talukatb> talukatbCollection;
 
     public Districttb() {
     }
@@ -96,6 +96,22 @@ public class Districttb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
+    public Statetb getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(Statetb stateId) {
+        this.stateId = stateId;
+    }
+
+    public Collection<Talukatb> getTalukatbCollection() {
+        return talukatbCollection;
+    }
+
+    public void setTalukatbCollection(Collection<Talukatb> talukatbCollection) {
+        this.talukatbCollection = talukatbCollection;
+    }
+
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -118,22 +134,6 @@ public class Districttb implements Serializable {
 
     public void setCitytbCollection(Collection<Citytb> citytbCollection) {
         this.citytbCollection = citytbCollection;
-    }
-
-    public Statetb getStateId() {
-        return stateId;
-    }
-
-    public void setStateId(Statetb stateId) {
-        this.stateId = stateId;
-    }
-
-    public Collection<Talukatb> getTalukatbCollection() {
-        return talukatbCollection;
-    }
-
-    public void setTalukatbCollection(Collection<Talukatb> talukatbCollection) {
-        this.talukatbCollection = talukatbCollection;
     }
 
     @Override

@@ -46,14 +46,14 @@ public class Statetb implements Serializable {
     private String stateName;
     @ManyToMany(mappedBy = "statetbCollection")
     private Collection<Questiontb> questiontbCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stateId")
+    private Collection<Districttb> districttbCollection;
     @OneToMany(mappedBy = "stateId")
     private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(mappedBy = "stateId")
     private Collection<Usertb> usertbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stateId")
     private Collection<Citytb> citytbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stateId")
-    private Collection<Districttb> districttbCollection;
 
     public Statetb() {
     }
@@ -91,6 +91,14 @@ public class Statetb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
+    public Collection<Districttb> getDistricttbCollection() {
+        return districttbCollection;
+    }
+
+    public void setDistricttbCollection(Collection<Districttb> districttbCollection) {
+        this.districttbCollection = districttbCollection;
+    }
+
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -113,14 +121,6 @@ public class Statetb implements Serializable {
 
     public void setCitytbCollection(Collection<Citytb> citytbCollection) {
         this.citytbCollection = citytbCollection;
-    }
-
-    public Collection<Districttb> getDistricttbCollection() {
-        return districttbCollection;
-    }
-
-    public void setDistricttbCollection(Collection<Districttb> districttbCollection) {
-        this.districttbCollection = districttbCollection;
     }
 
     @Override
