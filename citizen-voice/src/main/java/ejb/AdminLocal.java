@@ -101,6 +101,8 @@ public interface AdminLocal {
     Collection<Questiontb> getQuestionsByWard(int wardid);
     Collection<Questiontb> getQuestionsByTaluka(int talukaid);
     Collection<Questiontb> getQuestionsByVillage(int villageid);
+    Collection<Questiontb> getQuestionsByLevel(String level);
+    Collection<Questiontb> getQuestionByCategories(int catid);
   
     //Category Operations
     Collection<Category> getAllCategories();

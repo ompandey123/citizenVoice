@@ -957,7 +957,23 @@ System.out.println("qid="+q1.getQid());
         return v.getQuestiontbCollection();
     }
 
+    @Override
+    public Collection<Questiontb> getQuestionsByLevel(String level) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return em.createNamedQuery("Questiontb.findByLevel")
+                .setParameter("level", level)
+                .getResultList();
+    }
+
+    @Override
+    public Collection<Questiontb> getQuestionByCategories(int catid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Category c = (Category) em.find(Category.class, catid);
+        return c.getQuestiontbCollection();
+    }
+
     
+        
     @RolesAllowed("admin")
     @Override
     public Collection<Category> getAllCategories()

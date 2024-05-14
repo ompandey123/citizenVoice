@@ -28,7 +28,9 @@ public class UserBean implements Serializable {
     String username;
     int userid;// = ul.getIdByUsername(KeepRecord.getPrincipal().getName());
     int qid;
+    int categoryid;
     String answer;
+    String level;
     String option1;
     String option2;
     String option3;
@@ -40,6 +42,8 @@ public class UserBean implements Serializable {
     int zoneid;
     int talukaid;
     int villageid;
+    
+    
 
     public String getAnswer() {
         return answer;
@@ -197,6 +201,24 @@ public class UserBean implements Serializable {
     public void setVillageid(int villageid) {
         this.villageid = villageid;
     }
+
+    public int getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(int categoryid) {
+        this.categoryid = categoryid;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+    
+    
     
 //    public String giveAnswer()
 //    {
@@ -206,10 +228,11 @@ public class UserBean implements Serializable {
 //    }
     public void ans(int qid)
     {
-         option1="";
+        option1="";
         option2="";
         option3="";
         option4="";
+        
         System.out.println("answerr = " + answer);
         System.out.println("answerr = " + answer.substring(0,7));
         if(answer.substring(0,7).equals("option1"))
@@ -238,8 +261,9 @@ public class UserBean implements Serializable {
            System.out.println("option3 = " + option3);
            System.out.println("option4 = " + option4);
            
-           
+           level = getLevel();
            userid=getUserid();
+           categoryid = getCategoryid();
            stateid=getStateid();
            districtid=getDistrictid();
            cityid=getCityid();
@@ -247,10 +271,10 @@ public class UserBean implements Serializable {
            zoneid=getZoneid();
            talukaid=getTalukaid();
            villageid=getVillageid();
-           System.out.println(qid + " " + userid + " " + option4 + " " + stateid);
-           ul.giveAnswer(qid, userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
-           
-       
+           System.out.println(qid + " " + userid + " " + option4 + " " + stateid + " " + level + " " + categoryid);
+//           ul.giveAnswer(qid, userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
+           //ul.giveAnswer(qid, categoryid, userid, level, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
+             ul.giveAnswer(qid,  userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
     }
     
     

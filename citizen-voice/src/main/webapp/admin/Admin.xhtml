@@ -58,8 +58,11 @@
                     <p:menuitem value="Talukas" url="admin/TalukaOperation.jsf"/>
                     <p:menuitem value="Villages" url="admin/VillageOperation.jsf"/>
             </p:submenu>
-               <p:menuitem style="background-color: transparent !important; margin-right: 20px; color: black; font-weight: bold; font-size: 20px" value="Statistics" url="Statistic.jsf" />
-
+            <p:submenu label="Reports" style="margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
+                    <p:menuitem value="Region Wise Questions" url="Statistic.jsf"/>
+                    <p:menuitem value="Level Wise Questions" url="admin/searchByLevel.jsf"/>
+                    <p:menuitem value="Category Wise Questions" url="admin/searchByCategory.jsf"/>                    
+            </p:submenu>
                 <f:facet name="options">
                     <div class="ui-input-icon-left mr-2" style="margin: 50px;">
                         <p:button value="Add User" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="UserRegistration.jsf" />

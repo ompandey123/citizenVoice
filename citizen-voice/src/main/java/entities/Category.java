@@ -43,6 +43,8 @@ public class Category implements Serializable {
     @Size(min = 1, max = 500)
     @Column(name = "categoryname")
     private String categoryname;
+    @OneToMany(mappedBy = "categoryid")
+    private Collection<UserAnswer> userAnswerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryid")
     private Collection<Questiontb> questiontbCollection;
 
@@ -72,6 +74,14 @@ public class Category implements Serializable {
 
     public void setCategoryname(String categoryname) {
         this.categoryname = categoryname;
+    }
+
+    public Collection<UserAnswer> getUserAnswerCollection() {
+        return userAnswerCollection;
+    }
+
+    public void setUserAnswerCollection(Collection<UserAnswer> userAnswerCollection) {
+        this.userAnswerCollection = userAnswerCollection;
     }
 
     public Collection<Questiontb> getQuestiontbCollection() {

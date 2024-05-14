@@ -73,7 +73,7 @@
             <h1>Filter The Questions</h1>
             <h:form>
                 <p:outputLabel for="level" value="Select Level"/>
-                <p:selectOneMenu id="level" value="#{questionBean.level}" onchange="showDropDowns(this.value)" >
+                <p:selectOneMenu id="level" value="#{questionSearchBean.level}" onchange="showDropDowns(this.value)" >
                 <f:selectItem itemLabel="Select Level" noSelectionOption="true"/>
                 <f:selectItem itemLabel="Country" itemValue="country" />
                 <f:selectItem itemLabel="State" itemValue="state" />
@@ -93,10 +93,10 @@
                               filter="true" filterMatchMode="startsWith"
                               label="Select States"
                               style="width: 15rem" panelStyle="width: 15rem"
-                              value="#{questionBean.stateid}">
+                              value="#{questionSearchBean.stateid}">
                         <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
-                <f:selectItems value="#{questionBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
-                <f:ajax event="valueChange" execute="state" render="district" listener="#{questionBean.getDistricts()}" />
+                <f:selectItems value="#{questionSearchBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
+                <f:ajax event="valueChange" execute="state" render="district" listener="#{questionSearchBean.getDistricts()}" />
         </p:selectOneMenu>
             </div>        
             
@@ -106,12 +106,12 @@
                               filter="true" filterMatchMode="startsWith"
                               label="Select Districts"
                               style="width: 15rem" panelStyle="width: 15rem"
-                              value="#{questionBean.districtid}">
+                              value="#{questionSearchBean.districtid}">
                                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
 
-                <f:selectItems value="#{questionBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
-                <f:ajax event="valueChange" execute="district" render="taluka" listener="#{questionBean.getTalukas()}" />
-                <f:ajax event="valueChange" execute="district" render="city" listener="#{questionBean.getCities()}" />      
+                <f:selectItems value="#{questionSearchBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
+                <f:ajax event="valueChange" execute="district" render="taluka" listener="#{questionSearchBean.getTalukas()}" />
+                <f:ajax event="valueChange" execute="district" render="city" listener="#{questionSearchBean.getCities()}" />      
         </p:selectOneMenu>
             </div>
       
@@ -121,11 +121,11 @@
                               filter="true" filterMatchMode="startsWith"
                               label="Select Cities"
                               style="width: 15rem" panelStyle="width: 15rem"
-                              value="#{questionBean.cityid}">
+                              value="#{questionSearchBean.cityid}">
                                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
 
-                <f:selectItems value="#{questionBean.cities}" var="c" itemLabel="#{c.cityName}" itemValue="#{c.cityId}"/>
-                <f:ajax event="valueChange" execute="city" render="zone" listener="#{questionBean.getZones()}" />            
+                <f:selectItems value="#{questionSearchBean.cities}" var="c" itemLabel="#{c.cityName}" itemValue="#{c.cityId}"/>
+                <f:ajax event="valueChange" execute="city" render="zone" listener="#{questionSearchBean.getZones()}" />            
         </p:selectOneMenu>
             </div>
                 
@@ -136,11 +136,11 @@
                               filter="true" filterMatchMode="startsWith"
                               label="Select Zones"
                               style="width: 15rem" panelStyle="width: 15rem"
-                              value="#{questionBean.zoneid}">
+                              value="#{questionSearchBean.zoneid}">
                                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
 
-                <f:selectItems value="#{questionBean.zones}" var="z" itemLabel="#{z.zoneName}" itemValue="#{z.zoneId}"/>
-                <f:ajax event="change" execute="zone" render="ward" listener="#{questionBean.getWards()}" />        
+                <f:selectItems value="#{questionSearchBean.zones}" var="z" itemLabel="#{z.zoneName}" itemValue="#{z.zoneId}"/>
+                <f:ajax event="change" execute="zone" render="ward" listener="#{questionSearchBean.getWards()}" />        
                 </p:selectOneMenu>>
             </div>
                 
@@ -150,10 +150,10 @@
                               filter="true" filterMatchMode="startsWith"
                               label="Select Wards"
                               style="width: 15rem" panelStyle="width: 15rem"
-                              value="#{questionBean.wardid}">
+                              value="#{questionSearchBean.wardid}">
                                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
 
-            <f:selectItems value="#{questionBean.wards}" var="w" itemLabel="#{w.wardName}" itemValue="#{w.wardId}"/>         
+            <f:selectItems value="#{questionSearchBean.wards}" var="w" itemLabel="#{w.wardName}" itemValue="#{w.wardId}"/>         
         </p:selectOneMenu><br/><br/>
             </div>
         
@@ -163,11 +163,11 @@
                               filter="true" filterMatchMode="startsWith"
                               label="Select Talukas"
                               style="width: 15rem" panelStyle="width: 15rem"
-                              value="#{questionBean.talukaid}">
+                              value="#{questionSearchBean.talukaid}">
                                     <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
 
-            <f:selectItems value="#{questionBean.talukas}" var="t" itemLabel="#{t.talukaName}" itemValue="#{t.talukaId}"/>     
-            <f:ajax event="valueChange" execute="taluka" render="village" listener="#{questionBean.getVillages()}" />
+            <f:selectItems value="#{questionSearchBean.talukas}" var="t" itemLabel="#{t.talukaName}" itemValue="#{t.talukaId}"/>     
+            <f:ajax event="valueChange" execute="taluka" render="village" listener="#{questionSearchBean.getVillages()}" />
         </p:selectOneMenu>
             </div>
         
@@ -177,18 +177,18 @@
                               filter="true" filterMatchMode="startsWith"
                               label="Select Villages"
                               style="width: 15rem" panelStyle="width: 15rem"
-                              value="#{questionBean.villageid}">
+                              value="#{questionSearchBean.villageid}">
                                     <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
 
-            <f:selectItems value="#{questionBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>         
+            <f:selectItems value="#{questionSearchBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>         
         </p:selectOneMenu>
             </div>
-                <h:commandButton id="cmd" value="SEARCH QUESTION" action="#{questionBean.getQuestions()}"/>
+                <h:commandButton id="cmd" value="SEARCH QUESTION" action="#{questionSearchBean.getQuestions()}"/>
         </h:form>
         
         <h:form>
             <div class="card">
-                <p:dataTable var="q" value="#{questionBean.questions}">
+                <p:dataTable var="q" value="#{questionSearchBean.questions}">
             <p:column headerText="Question ID">
                 <h:outputText value="#{q.qid}" />
             </p:column>

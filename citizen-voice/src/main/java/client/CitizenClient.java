@@ -148,8 +148,8 @@ public class CitizenClient {
         webTarget.path(java.text.MessageFormat.format("addTaluka/{0}/{1}", new Object[]{district_id, taluka_name})).request().post(null);
     }
 
-    public void giveAnswer(String qid, String user_id, String option1, String option2, String option3, String option4, String state_id, String district_id, String city_id, String ward_id, String zone_id, String taluka_id, String village_id) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("giveAnswer/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}", new Object[]{qid, user_id, option1, option2, option3, option4, state_id, district_id, city_id, ward_id, zone_id, taluka_id, village_id})).request().post(null);
+    public void giveAnswer(String qid, String categoryid, String user_id, String level, String option1, String option2, String option3, String option4, String state_id, String district_id, String city_id, String ward_id, String zone_id, String taluka_id, String village_id) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("giveAnswer/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}/{13}/{14}", new Object[]{qid, categoryid, user_id, level, option1, option2, option3, option4, state_id, district_id, city_id, ward_id, zone_id, taluka_id, village_id})).request().post(null);
     }
 
     public void deleteZone(String zone_id) throws ClientErrorException {

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Filter The Questions</h1>
+            <h:form>
+                <p:outputLabel for="level" value="Select Level"/>
+                <p:selectOneMenu id="level" value="#{searchByLevelBean.level}">
+                <f:selectItem itemLabel="Select Level" noSelectionOption="true"/>
+                <f:selectItem itemLabel="Country" itemValue="country" />
+                <f:selectItem itemLabel="State" itemValue="state" />
+                <f:selectItem itemLabel="District" itemValue="district" />
+                <f:selectItem itemLabel="City" itemValue="city" />
+                <f:selectItem itemLabel="Taluka" itemValue="taluka" />
+                <f:selectItem itemLabel="Village" itemValue="village" />
+                <f:selectItem itemLabel="Zone" itemValue="zone" />
+                <f:selectItem itemLabel="Ward" itemValue="ward" />
+            </p:selectOneMenu>
+                
+                <h:commandButton id="cmd3" value="SEARCH QUESTION" action="#{searchByLevelBean.getQuestionsByLevel()}"/>
+            </h:form>
+        
+        
+        
+        <h:form>
+            <div class="card">
+                <p:dataTable var="q" value="#{searchByLevelBean.questions}">
+                    <p:column headerText="Question ID">
+                        <h:outputText value="#{q.qid}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Level">
+                        <h:outputText value="#{q.level}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Question">
+                        <h:outputText value="#{q.question}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Action">
+                        <h:commandButton id="cmd2" value="VIEW STATS"/>
+                    </p:column>
+                </p:dataTable>
+                
+            </div>
+        </h:form>
+            </h:body>
+</html>

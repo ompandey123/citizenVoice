@@ -7,51 +7,94 @@
     <h:head>
         <title>Citizen Registration</title>
         <link rel="stylesheet" href="registerStyle.css"/>
+        <style>
+          
+            .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+          body {
+           
+            margin: 0;
+            padding: 0;
+            animation: gradientAnimation 5s infinite alternate; /* Adjust duration and animation behavior as needed */
+        }
+
+        .title{
+            margin-left: 15px;
+            padding-bottom: 15px;
+            font-size: 25px;
+        }
+        
+        .input-box {
+            margin-bottom: 20px;
+        }
+        
+         .input-box p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        
+        .input-box p\:inputText {
+            width: 100%;
+        }
+        
+        
+       
+        </style>
+        
     </h:head>
     <h:body>
+        
         <div class="container">
             <div class="title">Citizen Registration</div>
             <h:form>
+                
                 <div class="citizenDetails">
                     <div class="input-box">
                         <p:outputLabel for="username" value="Username "/>
-                        <p:inputText id="username" value="#{registrationBean.username}" placeholder="Enter Username"/>
+                        <p:inputText style="width: 100%;"  id="username" value="#{registrationBean.username}" placeholder="Enter Username"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="password" value="Password "/>
-                        <p:password id="password" value="#{registrationBean.password}" placeholder="Enter Password"/>
+                        <p:password style="width: 100%;" id="password" value="#{registrationBean.password}" placeholder="Enter Password"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="email" value="Email "/>
-                        <p:inputText id="email" value="#{registrationBean.email}" placeholder="Enter Email"/>
+                        <p:inputText style="width: 100%;" id="email" value="#{registrationBean.email}" placeholder="Enter Email"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="adhaar" value="Adhaar Card Number "/>
-                        <p:inputText id="adhaar" value="#{registrationBean.adhaar_card_no}" placeholder="Enter Adhaar Number"/>
+                        <p:inputText style="width: 100%;" id="adhaar" value="#{registrationBean.adhaar_card_no}" placeholder="Enter Adhaar Number"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="contact" value="Contact "/>
-                        <p:inputText id="contact" value="#{registrationBean.contact}" placeholder="Enter Contact Number"/>
+                        <p:inputText style="width: 100%;" id="contact" value="#{registrationBean.contact}" placeholder="Enter Contact Number"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="gender" value="Gender "/>
-                        <p:inputText id="gender" value="#{registrationBean.gender}" placeholder="Enter Gender"/>
+                        <p:inputText style="width: 100%;" id="gender" value="#{registrationBean.gender}" placeholder="Enter Gender"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="address" value="Address "/>
-                        <p:inputTextarea id="address" value="#{registrationBean.address}" placeholder="Enter Address"/>
+                        <p:inputTextarea style="width: 100%;" id="address" value="#{registrationBean.address}" placeholder="Enter Address"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="dob" value="Birth Date "/>
-                        <p:calendar id="dob" value="#{registrationBean.dob}" pattern="dd-MM-yyyy" placeholder="Date Of Birth" />
+                        <p:calendar id="dob"  value="#{registrationBean.dob}" pattern="dd-MM-yyyy" placeholder="Date Of Birth" />
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="zip" value="Zip Code "/>
-                        <p:inputText id="zip" value="#{registrationBean.zip_code}" placeholder="Enter Zip Code"/>
+                        <p:inputText style="width: 100%;" id="zip" value="#{registrationBean.zip_code}" placeholder="Enter Zip Code"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="state" value="Select State "/>
-                        <p:selectOneMenu id="state" value="#{registrationBean.state}">
+                        <p:selectOneMenu style="width: 100%;" id="state" value="#{registrationBean.state}">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
                             <f:selectItems value="#{registrationBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
                             <f:ajax event="valueChange" execute="state" render="district" listener="#{registrationBean.getDistricts()}"/>
@@ -59,7 +102,7 @@
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="district" value="Select District "/>
-                        <p:selectOneMenu id="district" value="#{registrationBean.district}">
+                        <p:selectOneMenu style="width: 100%;" id="district" value="#{registrationBean.district}">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
                             <f:selectItems value="#{registrationBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
                             <f:ajax event="valueChange" execute="district" render="taluka" listener="#{registrationBean.getTalukas()}"/>
@@ -68,12 +111,12 @@
                     </div>
 
                     <hr/>
-                    <p:outputLabel value="Section For People living in Urban Areas"/> 
+                    <center><p:outputLabel value="Section For People living in Urban Areas"/></center>
 
 
                     <div class="input-box">
                         <p:outputLabel for="city" value="City"/>
-                        <p:selectOneMenu id="city" value="#{registrationBean.city}">
+                        <p:selectOneMenu style="width: 100%;" id="city" value="#{registrationBean.city}">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true"  />                  
                             <f:selectItems  value="#{registrationBean.cities}" var="c" itemLabel="#{c.cityName}" itemValue="#{c.cityId}"/>
                             <f:ajax event="valueChange" execute="city" render="zone" listener="#{registrationBean.getZones()}"/>
@@ -82,7 +125,7 @@
 
                     <div class="input-box">
                         <p:outputLabel for="zone" value="Zone"/>
-                        <p:selectOneMenu id="zone" value="#{registrationBean.zone}">
+                        <p:selectOneMenu style="width: 100%;" id="zone" value="#{registrationBean.zone}">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true"  />                  
                             <f:selectItems  value="#{registrationBean.zones}" var="z" itemLabel="#{z.zoneName}" itemValue="#{z.zoneId}"/>
                             <f:ajax event="valueChange" execute="zone" render="ward" listener="#{registrationBean.getWards()}"/>
@@ -91,19 +134,19 @@
 
                     <div class="input-box">
                         <p:outputLabel for="ward" value="Ward"/>
-                        <p:selectOneMenu id="ward" value="#{registrationBean.ward}">
+                        <p:selectOneMenu style="width: 100%;" id="ward" value="#{registrationBean.ward}">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true"  />                  
                             <f:selectItems  value="#{registrationBean.wards}" var="w" itemLabel="#{w.wardName}" itemValue="#{w.wardId}"/>
                         </p:selectOneMenu>
                     </div>
 
                     <hr/>
-                    <h:outputText value="Section For People living in Rural Areas"/> 
+                    <center><h:outputText value="Section For People living in Rural Areas"/></center>
 
 
                     <div class="input-box">
                         <p:outputLabel for="taluka" value="Select Taluka "/>
-                        <p:selectOneMenu id="taluka" value="#{registrationBean.taluka}">
+                        <p:selectOneMenu style="width: 100%;" id="taluka" value="#{registrationBean.taluka}">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
                             <f:selectItems value="#{registrationBean.talukas}" var="t" itemLabel="#{t.talukaName}" itemValue="#{t.talukaId}"/>
                             <f:ajax event="valueChange" execute="taluka" render="village" listener="#{registrationBean.getVillages()}"/>
@@ -112,16 +155,17 @@
 
                     <div class="input-box">
                         <p:outputLabel for="village" value="Select Village "/>
-                        <p:selectOneMenu id="village" value="#{registrationBean.village}">
+                        <p:selectOneMenu style="width: 100%;" id="village" value="#{registrationBean.village}">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
                             <f:selectItems value="#{registrationBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>
                         </p:selectOneMenu>
                     </div>
                     
                     <div class="button">
-                        <h:commandButton id="cmd" value="Register" action="#{registrationBean.registerUser()}"/>
+                        <h:commandButton class="btnAdd" id="cmd" value="Register" action="#{registrationBean.registerUser()}"/>
                     </div>
                 </div>
+                   
             </h:form>
         </div>
     </h:body>

@@ -27,6 +27,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "UserAnswer.findAll", query = "SELECT u FROM UserAnswer u"),
     @NamedQuery(name = "UserAnswer.findByAnswerId", query = "SELECT u FROM UserAnswer u WHERE u.answerId = :answerId"),
+    @NamedQuery(name = "UserAnswer.findByLevel", query = "SELECT u FROM UserAnswer u WHERE u.level = :level"),
     @NamedQuery(name = "UserAnswer.findByOption1", query = "SELECT u FROM UserAnswer u WHERE u.option1 = :option1"),
     @NamedQuery(name = "UserAnswer.findByOption2", query = "SELECT u FROM UserAnswer u WHERE u.option2 = :option2"),
     @NamedQuery(name = "UserAnswer.findByOption3", query = "SELECT u FROM UserAnswer u WHERE u.option3 = :option3"),
@@ -39,6 +40,9 @@ public class UserAnswer implements Serializable {
     @Basic(optional = false)
     @Column(name = "answer_id")
     private Integer answerId;
+    @Size(max = 100)
+    @Column(name = "level")
+    private String level;
     @Size(max = 2000)
     @Column(name = "option1")
     private String option1;
@@ -54,6 +58,9 @@ public class UserAnswer implements Serializable {
     @JoinColumn(name = "qid", referencedColumnName = "qid")
     @ManyToOne(optional = false)
     private Questiontb qid;
+    @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
+    @ManyToOne
+    private Category categoryid;
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     @ManyToOne
     private Citytb cityId;
@@ -94,6 +101,14 @@ public class UserAnswer implements Serializable {
         this.answerId = answerId;
     }
 
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     public String getOption1() {
         return option1;
     }
@@ -132,6 +147,14 @@ public class UserAnswer implements Serializable {
 
     public void setQid(Questiontb qid) {
         this.qid = qid;
+    }
+
+    public Category getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(Category categoryid) {
+        this.categoryid = categoryid;
     }
 
     public Citytb getCityId() {

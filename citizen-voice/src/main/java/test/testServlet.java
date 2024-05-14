@@ -85,7 +85,7 @@ public class testServlet extends HttpServlet {
 //              p.setState_ids(stateids);
               //adll.addQuestion("how is life?", "state", "GOOD", "NOT GOOD", "Neutral", "PATHETIC", p);
               
-              usll.giveAnswer(10, 11, "Ok", "", "", "", 12, 523, 4612, 23, 3, 102, 35);
+//              usll.giveAnswer(10, 11, "Ok", "", "", "", 12, 523, 4612, 23, 3, 102, 35);
             out.println("<h1>Citizen voice testing Servlet");
             out.println("</body>");
             out.println("</html>");

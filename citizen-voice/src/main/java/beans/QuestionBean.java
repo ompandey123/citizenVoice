@@ -221,12 +221,8 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Districttb> getDistricts() {
-        if(stateid != 0)
-        {
-           return admin.getDistrictByState(stateid);
-        }
-        
-        return null;
+       
+        return districts;
     }
 
     public void setDistricts(Collection<Districttb> districts) {
@@ -249,10 +245,8 @@ public class QuestionBean implements Serializable {
     }
     
     public Collection<Talukatb> getTalukas() {
-        if(districtid != 0){
-        return admin.getTalukaByDistrict(districtid);
-        }
-        return null;
+       
+        return talukas;
     }
 
     public void setTalukas(Collection<Talukatb> talukas) {
@@ -275,10 +269,8 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Villagetb> getVillages() {
-        if(talukaid != 0){
-         return admin.getVillagesByTaluka(talukaid);
-        }
-        return null;
+       
+        return villages;
     }
 
     public void setVillages(Collection<Villagetb> villages) {
@@ -286,10 +278,8 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Citytb> getCities() {
-        if(districtid != 0){
-        return cities = admin.getCitiesByDistrict(districtid);
-        }
-        return null;
+       
+        return cities;
     }
 
     
@@ -313,10 +303,7 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Zonetb> getZones() {
-        if(cityid != 0){
-        return admin.getZonesByCity(cityid);
-        }
-        return null;
+        return zones;
     }
     
     public void populateZones()
@@ -338,10 +325,7 @@ public class QuestionBean implements Serializable {
     }
 
     public Collection<Wardtb> getWards() {
-        if(zoneid != 0){
-        return admin.getWardsByZone(zoneid);
-        }
-        return null;
+       return wards;
     }
     
     public void populateWards()

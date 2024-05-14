@@ -4,6 +4,7 @@
  */
 package ejb;
 
+import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
 import entities.Questiontb;
@@ -129,7 +130,7 @@ public class User implements UserLocal {
 
     @RolesAllowed("citizen")
     @Override
-    public void giveAnswer(int qid, int user_id, String option1, String option2, String option3, String option4 , int state_id, int district_id, int city_id, int ward_id, int zone_id, int taluka_id, int village_id) {
+    public void giveAnswer(int qid, int user_id,  String option1, String option2, String option3, String option4 , int state_id, int district_id, int city_id, int ward_id, int zone_id, int taluka_id, int village_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         try{
         Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
@@ -159,14 +160,20 @@ public class User implements UserLocal {
         Usertb u = (Usertb) em.find(Usertb.class, user_id);
         Collection<UserAnswer> uanswers = u.getUserAnswerCollection();
         
+        Category cat = q.getCategoryid();
+        Collection<UserAnswer> canswers = cat.getUserAnswerCollection();
+        
         UserAnswer ua = new UserAnswer();
         
         ua.setOption1(option1);
         ua.setOption2(option2);
         ua.setOption3(option3);
         ua.setOption4(option4);
+        ua.setLevel(q.getLevel());
         
         ua.setQid(q);
+        
+        ua.setCategoryid(cat);
         ua.setUserId(u);
         ua.setStateId(s);
         ua.setDistrictId(d);
@@ -203,6 +210,9 @@ public class User implements UserLocal {
         uanswers.add(ua);
         u.setUserAnswerCollection(uanswers);
         
+        canswers.add(ua);
+        cat.setUserAnswerCollection(uanswers);
+        
          em.merge(v);
         em.merge(t);
         em.merge(z);
@@ -212,6 +222,7 @@ public class User implements UserLocal {
         em.merge(w);
         em.merge(q);
         em.merge(u);
+        em.merge(cat);
         em.persist(ua);
         }catch(Exception e)
         {
@@ -224,10 +235,12 @@ public class User implements UserLocal {
     @Override
     public Collection<Questiontb> getQuestionByUserId(int user_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      
         Collection<Questiontb> userquestionCollection  = new ArrayList<>();
          //System.out.println("uderid in method "+ user_id);
         Usertb u = (Usertb) em.find(Usertb.class, user_id);
-        
+         Collection<UserAnswer> uans = u.getUserAnswerCollection();
+         
         Statetb sid = u.getStateId();
         Collection<Questiontb> statequestions =  sid.getQuestiontbCollection();
         userquestionCollection.addAll(statequestions);
@@ -255,6 +268,21 @@ public class User implements UserLocal {
         Villagetb vid = u.getVillageId();
         Collection<Questiontb> villageQuestion =  vid.getQuestiontbCollection();
         userquestionCollection.addAll(villageQuestion);
+        
+        Collection<Questiontb> finalQuestionCollection = new ArrayList<>();
+        
+       
+        for(UserAnswer ua : uans)
+        {
+              System.out.println("in ua");
+           if(userquestionCollection.contains(ua.getQid())) 
+           {
+                 System.out.println("in condition");
+               userquestionCollection.remove(ua.getQid());
+           }
+            
+            
+        }
         
         
        return userquestionCollection; 
