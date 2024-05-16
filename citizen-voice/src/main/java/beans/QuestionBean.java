@@ -468,4 +468,9 @@ public class QuestionBean implements Serializable {
         
         return "Admin.jsf";
     }
+    
+    public String goBackToAdmin()
+    {
+        return "Admin.jsf";
+    }
 }

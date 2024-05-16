@@ -972,8 +972,7 @@ System.out.println("qid="+q1.getQid());
         return c.getQuestiontbCollection();
     }
 
-    
-        
+ 
     @RolesAllowed("admin")
     @Override
     public Collection<Category> getAllCategories()
