@@ -49,8 +49,49 @@ public class QuestionSearchBean implements Serializable {
     Collection<Wardtb> wards;
     Collection<Category> categories;
     Collection<Questiontb> questions;
+    int pid;
 
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    
     public String getLevel() {
+        
+        if(level!=null){
+        if(level.equals("state"))
+        {
+            pid = stateid;
+        }
+        else if(level.equals("district"))
+        {
+         pid = districtid;
+        }
+        else if(level.equals("city"))
+        {
+            pid = cityid;
+        }
+        else if(level.equals("zone"))
+        {
+            pid = zoneid;
+        }
+        else if(level.equals("ward"))
+        {
+            pid = wardid;
+        }
+        else if(level.equals("taluka"))
+        {
+            pid = talukaid;
+        }
+        else if(level.equals("village"))
+        {
+         pid = villageid;
+        }
+      }
         return level;
     }
 

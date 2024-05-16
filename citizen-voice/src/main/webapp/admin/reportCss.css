@@ -23,3 +23,16 @@
     font-weight: bold;
     margin: 10px;
 }
+
+.infoContainer {
+    display: flex;
+}
+
+.info {
+    flex: 1;
+}
+
+.graphContainer {
+    flex: 1;
+}
+

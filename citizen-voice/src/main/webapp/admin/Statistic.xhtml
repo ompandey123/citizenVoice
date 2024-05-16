@@ -7,6 +7,27 @@
     <h:head>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="reportCss.css"/>
+        <style>
+                    .viewBtn{
+                        background-color: white; 
+                        width: 108%; height: 100%;
+                        font-weight: bold;
+                        font-size: 17px;
+                        border: solid purple 1px;
+                        border-radius: 15px;
+                        color:purple;
+                        transition: background-color 0.3s, color 0.3s;
+                    }
+                    
+                    .viewBtn:hover{
+                        background-color: purple;
+                        color: white;
+                    }
+                    .mainDD{
+                        display: flex;
+                        padding: 5px;
+                    }
+                </style>
         <script>
             function showDropDowns(level) {
     if (level === 'state') {
@@ -106,7 +127,7 @@
         </h:form>
         <div class="container">
             <div class="filterText">
-                <h1>Filter Questions By Regions</h1>
+                <h1>Filter Questions By Region</h1>
             </div>
 
             <h:form>
@@ -123,14 +144,14 @@
                 <f:selectItem itemLabel="Ward" itemValue="ward" />
                 <f:ajax execute="@this" render="@none"/>
                
-            </p:selectOneMenu>
-                
+                </p:selectOneMenu><br/><br/>
+                <div class="mainDD">
                 <div id="stateDropdown" style="display: none;">
                     <p:selectOneMenu id="state"
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select States"
-                              style="width: 100%" panelStyle="width: 100%"
+                              style="width: 15rem" panelStyle="width: 15rem"
                               value="#{questionSearchBean.stateid}">
                         <f:selectItem itemLabel="---Select State----" noSelectionOption="true" />
                 <f:selectItems value="#{questionSearchBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
@@ -143,7 +164,7 @@
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Districts"
-                              style="width: 100%" panelStyle="width: 100%"
+                              style="width: 15rem" panelStyle="width: 15rem"
                               value="#{questionSearchBean.districtid}">
                                             <f:selectItem itemLabel="---Select District----" noSelectionOption="true" />
 
@@ -158,7 +179,7 @@
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Cities"
-                              style="width: 100%" panelStyle="width: 100%"
+                              style="width: 15rem" panelStyle="width: 15rem"
                               value="#{questionSearchBean.cityid}">
                                             <f:selectItem itemLabel="---Select City----" noSelectionOption="true" />
 
@@ -173,7 +194,7 @@
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Zones"
-                              style="width: 100%" panelStyle="width: 100%"
+                              style="width: 15rem" panelStyle="width: 15rem"
                               value="#{questionSearchBean.zoneid}">
                                             <f:selectItem itemLabel="---Select Zone----" noSelectionOption="true" />
 
@@ -187,7 +208,7 @@
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Wards"
-                              style="width: 100%" panelStyle="width: 100%"
+                              style="width: 15rem" panelStyle="width: 15rem"
                               value="#{questionSearchBean.wardid}">
                                             <f:selectItem itemLabel="---Select Ward----" noSelectionOption="true" />
 
@@ -200,7 +221,7 @@
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Talukas"
-                              style="width: 100%" panelStyle="width: 100%"
+                              style="width: 15rem" panelStyle="width: 15rem"
                               value="#{questionSearchBean.talukaid}">
                                     <f:selectItem itemLabel="---Select Taluka----" noSelectionOption="true" />
 
@@ -214,19 +235,23 @@
                               dynamic="true"
                               filter="true" filterMatchMode="startsWith"
                               label="Select Villages"
-                              style="width: 100%" panelStyle="width: 100%"
+                              style="width: 15rem" panelStyle="width: 15rem"
                               value="#{questionSearchBean.villageid}">
                                     <f:selectItem itemLabel="---Select Village----" noSelectionOption="true" />
 
             <f:selectItems value="#{questionSearchBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>         
         </p:selectOneMenu>
+            </div>
             </div><br/>
                 <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 200px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; " id="cmd" value="SEARCH QUESTION" action="#{questionSearchBean.getQuestions()}"/>
         </h:form>
         </div>
-        <h:form>
+        <div class="infoContainer">
+        <div class="info">
+        <h:form> 
+          
             <div class="card">
-                <p:dataTable var="q" value="#{questionSearchBean.questions}">
+                <p:dataTable var="q" value="#{questionSearchBean.questions}" style="width: 80%;">
             <p:column headerText="Question ID">
                 <h:outputText value="#{q.qid}" />
             </p:column>
@@ -236,10 +261,34 @@
             </p:column>
 
             <p:column headerText="Action">
-                <h:commandButton id="cmd2" value="VIEW STATS"/>
+                <h:commandButton class="viewBtn" value="VIEW STATS" action="#{statsBean.showStat(q.qid,q.level ,pid )}">
+                    <f:param name="pid" value="#{q.level eq 'state' ? questionSearchBean.stateid : 
+                                q.level eq 'district' ? questionSearchBean.districtid :
+                                q.level eq 'city' ? questionSearchBean.cityid :
+                                q.level eq 'zone' ? questionSearchBean.zoneid :
+                                q.level eq 'ward' ? questionSearchBean.wardid :
+                                q.level eq 'taluka' ? questionSearchBean.talukaid :
+                                q.level eq 'village' ? questionSearchBean.villageid : null}" />
+                </h:commandButton>
             </p:column>
         </p:dataTable>
     </div>
+   </h:form>
+        </div>
+        <div class="graphContainer">
+        <h:form>
+            <h1>Get Stats</h1>
+            <p:dataTable>
+                <p:column headerText="Question ID"></p:column>
+                <p:column headerText="Question"></p:column>
+                <p:column headerText="Option 1"></p:column>
+                <p:column headerText="Option 2"></p:column>
+                <p:column headerText="Option 3"></p:column>
+                <p:column headerText="Option 4"></p:column>
+                
+            </p:dataTable>
         </h:form>
+        </div>
+            </div>
     </h:body>
 </html>

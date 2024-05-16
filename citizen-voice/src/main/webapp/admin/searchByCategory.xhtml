@@ -7,6 +7,23 @@
     <h:head>
         <title>Facelet Title</title>
                 <link rel="stylesheet" href="reportCss.css"/>
+                <style>
+                    .viewBtn{
+                        background-color: white; 
+                        width: 108%; height: 100%;
+                        font-weight: bold;
+                        font-size: 17px;
+                        border: solid purple 1px;
+                        border-radius: 15px;
+                        color:purple;
+                        transition: background-color 0.3s, color 0.3s;
+                    }
+                    
+                    .viewBtn:hover{
+                        background-color: purple;
+                        color: white;
+                    }
+                </style>
 
     </h:head>
     <h:body>
@@ -57,9 +74,11 @@
                 <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 200px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; "     id="cmd3" value="SEARCH QUESTION" action="#{searchByCategoryBean.getQuestionsByCat()}"/>
             </h:form>
         </div>
+        <div class="infoContainer">
+        <div class="info">
         <h:form>
             <div class="card">
-                <p:dataTable var="q" value="#{searchByCategoryBean.questions}">
+                <p:dataTable var="q" value="#{searchByCategoryBean.questions}" style="width: 90%;">
                     <p:column headerText="Question ID">
                         <h:outputText value="#{q.qid}"/>
                     </p:column>
@@ -73,11 +92,27 @@
                     </p:column>
                     
                     <p:column headerText="Action">
-                        <h:commandButton id="cmd2" value="VIEW STATS"/>
+                        <h:commandButton class="viewBtn" value="VIEW STATS" action="#{statsBean.showStat(q.qid, q.level, 0)}"/>
                     </p:column>
                 </p:dataTable>
                 
             </div>
         </h:form>
+        </div>
+            <div class="graphContainer">
+        <h:form>
+            <h1>Get Stats</h1>
+            <p:dataTable>
+                <p:column headerText="Question ID"></p:column>
+                <p:column headerText="Question"></p:column>
+                <p:column headerText="Option 1"></p:column>
+                <p:column headerText="Option 2"></p:column>
+                <p:column headerText="Option 3"></p:column>
+                <p:column headerText="Option 4"></p:column>
+                
+            </p:dataTable>
+        </h:form>
+        </div>
+            </div>
     </h:body>
 </html>
