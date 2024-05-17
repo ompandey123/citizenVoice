@@ -7,26 +7,8 @@
     font-family: "Poppins", sans-serif;
 }
 
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-/*    background: rgb(131,58,180);
-    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);*/
-}
 
-.wrapper{
-    width: 420px;
-    background-color: orange;
-    background: transparent;
-    border: 2px solid rgba(255,255,255,.2);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
-    color: black;
-    border-radius: 10px;
-    padding: 30px 40px;
-}
+
 
 .wrapper h1{
     font-size: 36px;
@@ -53,7 +35,7 @@ body{
 }
 
 .input-box input::placeholder{
-    color: #fff;
+    color: #000000;
 }
 
 .wrapper .operations{

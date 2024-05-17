@@ -7,29 +7,76 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
-        <link rel="stylesheet" href="user/userPageStyle.css"/>
+        <!--<link rel="stylesheet" href="user/userPageStyle.css"/>-->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display;');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+            
+            .container{
+                margin-top: 160px;
+            }
+            
+            .questionFrame{
+                 width: 90%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+           
+        </style>
     </h:head>
     <h:body>
-        
+        <h:form>
+            <p:menubar style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #fa8d5f">
+                <p:menuitem style="background-color: transparent !important; margin-right: 20px;">
+                    <p:graphicImage library="images" name="citizen-voice-logo.png" styleClass="logo" style="width: 120px; height: 100px; pointer-events: none;"/>
+                </p:menuitem>
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-weight: bolder; font-size: 20px" value="Home" url="userHome.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-weight: bolder;  font-size: 20px" value="Contact Us" url="ContactUs.jsf" />
+            <p:submenu label="See Stats" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: bolder; font-size: 20px;">
+                    <p:menuitem value="Region Wise Questions" url="user/Statistic.jsf"/>
+                    <p:menuitem value="Level Wise Questions" url="user/searchByLevel.jsf"/>
+                    <p:menuitem value="Category Wise Questions" url="user/searchByCategory.jsf"/>      
+            </p:submenu>
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2" style="margin: 50px;">
+                        <a style="color:#000000; font-size: 20px; text-decoration: none; margin: 25px;" href="/citizen-voice/Logout.jsf">Logout</a>
+                    </div>
+                    <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
+                </f:facet>
+            </p:menubar>
+        </h:form>
+        <div class="container">
+            <div class="text" style="margin-left: 78px;" >
         <h1>Welcome ${userBean.username}</h1>
         <h5>Hello Citizen!! Give answers of the questions provided below</h5>
+            </div>
         
         <c:forEach var="q" items="#{userBean.questions}">
             
             <div class="questionFrame">
                 <h:form>
                    
-            <h3>Q.) ${q.question} - #{q.level} Level</h3>
+            <h3>Q.) ${q.question} - #{q.level} level question</h3>
+            <h4 style="margin-left: 35px;">Category - #{q.categoryid.categoryname}</h4><br/>
             <p:selectOneRadio id="page" value="#{userBean.answer}" layout="pageDirection">
                 <f:selectItem itemLabel="#{q.option1}" itemValue="option1-#{q.option1}"/>
             <f:selectItem itemLabel="#{q.option2}" itemValue="option2-#{q.option2}"/>
             <f:selectItem itemLabel="#{q.option3}" itemValue="option3-#{q.option3}"/>
              <f:selectItem itemLabel="#{q.option4}" itemValue="option4-#{q.option4}"/>
-        </p:selectOneRadio>
-            <h:commandButton id="cmd" value="Answer This Question" action="#{userBean.ans(q.qid)}"/>
+        </p:selectOneRadio><br/>
+            <h:commandButton class="answer" style="font-size: 15px;  background-color: #3399ff; height: 25px; margin-top: 10px; border: solid 1px aliceblue; padding: 2px; font-weight: bolder; color: white; border-radius: 10px" value="Answer This Question" action="#{userBean.ans(q.qid)}"/>
           </h:form>
             </div>
         </c:forEach>
-        
+        </div>
     </h:body>
 </html>

@@ -8,6 +8,14 @@
         <link rel="stylesheet" href="../homeStyle.css"/>
         <title>Citizen Voice - Home</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display;');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
             .bgimage {
                 position: relative;
                 width: 100%;
@@ -31,6 +39,11 @@
                 transform: translate(-50%, -50%);
                 text-align: justify;
                 color: Black;
+            }
+            .mainPage{
+                margin-top: 170px;
+                font-family: cursive;
+                margin-left: 5px;
             }
         </style>
     </h:head>
@@ -65,12 +78,10 @@
                     <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
                 </f:facet>
             </p:menubar>
-            <div class="bgimage">
-
-                <div class="text-overlay">
-
-                </div>
-            </div> 
+            <div class="mainPage">
+                <h1>Hello Admin! Welcome To Citizen Voice</h1>
+                
+            </div>
         </h:form>
     </h:body>
 </html>
