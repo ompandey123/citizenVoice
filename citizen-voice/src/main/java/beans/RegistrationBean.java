@@ -10,6 +10,7 @@ import entities.Citytb;
 import entities.Districttb;
 import entities.Statetb;
 import entities.Talukatb;
+import entities.Usertb;
 import entities.Villagetb;
 import entities.Wardtb;
 import entities.Zonetb;
@@ -43,6 +44,7 @@ public class RegistrationBean implements Serializable {
     Date dob;
     String zip_code;
     
+    int userid;
     int state;
     int district;
     int city;
@@ -60,6 +62,8 @@ public class RegistrationBean implements Serializable {
     Collection<Villagetb> villages;
     Collection<Zonetb> zones;
     Collection<Wardtb> wards;
+    Collection<Usertb> users;
+    Usertb current;
     
 
     /**
@@ -68,6 +72,15 @@ public class RegistrationBean implements Serializable {
     public RegistrationBean() {
     }
 
+    public Collection<Usertb> getUsers() {
+        users = admin.getAllUsers();
+        return users;
+    }
+
+    public void setUsers(Collection<Usertb> users) {
+        this.users = users;
+    }
+    
     public String getUsername() {
         return username;
     }
@@ -325,4 +338,12 @@ public class RegistrationBean implements Serializable {
         return "Login.jsf";
     }
     
+    public String deleteUser(Usertb user)
+    {
+        current = user;
+        userid = current.getUserId();
+        System.out.println("user id = " + userid);
+        admin.deleteUser(userid);
+        return "UserOperation.jsf";
+    }
 }
