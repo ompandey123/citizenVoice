@@ -306,7 +306,23 @@ public class RegistrationBean implements Serializable {
                 System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
         admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
        
-        return "/user/UserRegistration.jsf";
+        return "Admin.jsf";
+    }
+    
+    public String addUser()
+    {
+//    {
+//        SimpleDateFormat sdt = new SimpleDateFormat("dd-MM-yyyy");
+//              Date dt = null;
+//        try {
+//            dob = sdt.parse(myDate);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(JakartaEE8Resource.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+                System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
+        admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
+       
+        return "Login.jsf";
     }
     
 }

@@ -111,7 +111,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                         request.getRequestDispatcher("admin/Admin.jsf").forward(request, response);
                     }
                     if (result.getCallerGroups().contains("citizen")) {
-                        request.getRequestDispatcher("user/User.jsf").forward(request, response);
+                        request.getRequestDispatcher("user/UserHome.jsf").forward(request, response);
                     }
 
                     return status;
