@@ -26,8 +26,9 @@ import javax.ejb.Local;
 public interface AdminLocal {
     //User related operations
     void addUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id);
-    void updateUser(int user_id ,String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id);
+    void updateUser(int user_id, String email, String contact, String gender, String address, Date dob, String zip_code);
     void deleteUser(int user_id);
+    void updatePassword(int user_id, String password);
     Collection<Usertb> getAllUsers();
     Collection<Usertb> getUsersByUsername(String username);
     Collection<Usertb> getUsersById(int user_id);

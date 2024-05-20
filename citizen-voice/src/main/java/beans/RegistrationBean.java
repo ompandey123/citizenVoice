@@ -76,6 +76,8 @@ public class RegistrationBean implements Serializable {
     /**
      * Creates a new instance of RegistrationBean
      */
+    
+    
     public RegistrationBean() {
     }
 
@@ -430,31 +432,28 @@ public class RegistrationBean implements Serializable {
         return "UserOperation.jsf";
     }
     
-    public String updateUser()
-    {
-        userid = current.getUserId();
-        username = current.getUsername();
-        password = current.getPassword();
-        email = current.getEmail();
-        adhaar_card_no = current.getAdhaarCardNo();
-        contact = current.getContact();
-        gender = current.getGender();
-        address = current.getAddress();
-        dob = current.getDob();
-        zip_code = current.getZipCode();
-        state = current.getStateId().getStateId();
-        district = current.getDistrictId().getDistrictId();
-        taluka = current.getTalukaId().getTalukaId();
-        village = current.getVillageId().getVillageId();
-        city = current.getCityId().getCityId();
-        zone = current.getZoneId().getZoneId();
-        ward = current.getWardId().getWardId();
-        admin.updateUser(userid, username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
-        return "UserOperation.jsf";
-    }
+//    public String updateUser()
+//    {
+//        userid = current.getUserId();
+//        username = current.getUsername();
+//        password = current.getPassword();
+//        email = current.getEmail();
+//        adhaar_card_no = current.getAdhaarCardNo();
+//        contact = current.getContact();
+//        gender = current.getGender();
+//        address = current.getAddress();
+//        dob = current.getDob();
+//        zip_code = current.getZipCode();
+//        state = current.getStateId().getStateId();
+//        district = current.getDistrictId().getDistrictId();
+//        taluka = current.getTalukaId().getTalukaId();
+//        village = current.getVillageId().getVillageId();
+//        city = current.getCityId().getCityId();
+//        zone = current.getZoneId().getZoneId();
+//        ward = current.getWardId().getWardId();
+//        admin.updateUser(userid, username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
+//        return "UserOperation.jsf";
+//    }
     
-    public String redirectToEdit()
-    {
-        return "updateUser.jsf";
-    }
+    
 }

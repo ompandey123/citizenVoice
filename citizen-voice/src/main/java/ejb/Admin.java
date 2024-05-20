@@ -137,89 +137,35 @@ public class Admin implements AdminLocal {
 
     @RolesAllowed("admin")
     @Override
-    public void updateUser(int user_id, String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
+    public void updateUser(int user_id, String email, String contact, String gender, String address, Date dob, String zip_code) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-         Pbkdf2PasswordHashImpl pb;
-        PasswordHashCompare phc;
-         pb = new Pbkdf2PasswordHashImpl();
-        
-        Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
-        Collection<Usertb> vusers = v.getUsertbCollection();
-        
-        Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
-        Collection<Usertb> tusers = t.getUsertbCollection();
-        
-        Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
-        Collection<Usertb> zusers = z.getUsertbCollection();
-        
-        Citytb c = (Citytb) em.find(Citytb.class, city_id);
-        Collection<Usertb> cusers = c.getUsertbCollection();
-        
-        Districttb d = (Districttb) em.find(Districttb.class, district_id);
-        Collection<Usertb> dusers = d.getUsertbCollection();
-        
-        Statetb s = (Statetb) em.find(Statetb.class, state_id);
-        Collection<Usertb> susers = s.getUsertbCollection();
-        
-        Wardtb w = (Wardtb) em.find(Wardtb.class, ward_id);
-        Collection<Usertb> wusers = w.getUsertbCollection();
         
         Usertb u = (Usertb) em.find(Usertb.class, user_id);
-        
-        u.setUsername(username);
-        String encpass = pb.generate(password.toCharArray());
-        u.setPassword(encpass);
+
         u.setEmail(email);
-        u.setAdhaarCardNo(adhaar_card_no);
+        
         u.setContact(contact);
         u.setGender(gender);
         u.setAddress(address);
         u.setDob(dob);
         u.setZipCode(zip_code);
-        
-        
-        
-        u.setVillageId(v);
-        u.setTalukaId(t);
-        u.setZoneId(z);
-        u.setCityId(c);
-        u.setDistrictId(d);
-        u.setWardId(w);
-        u.setStateId(s);
-        
-        vusers.add(u);
-        v.setUsertbCollection(vusers);
-        
-        tusers.add(u);
-        t.setUsertbCollection(tusers);
-        
-        zusers.add(u);
-        z.setUsertbCollection(zusers);
-        
-        cusers.add(u);
-        c.setUsertbCollection(cusers);
-        
-        dusers.add(u);
-        d.setUsertbCollection(dusers);
-        
-        susers.add(u);
-        s.setUsertbCollection(susers);
-        
-        wusers.add(u);
-        w.setUsertbCollection(wusers);
-        
-        
-        
-        em.merge(v);
-        em.merge(t);
-        em.merge(z);
-        em.merge(c);
-        em.merge(d);
-        em.merge(s);
-        em.merge(w);
         em.merge(u);
     }
 
+    @Override
+    public void updatePassword(int user_id, String password) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         Pbkdf2PasswordHashImpl pb;
+        PasswordHashCompare phc;
+         pb = new Pbkdf2PasswordHashImpl();
+         Usertb u = (Usertb) em.find(Usertb.class, user_id);
+         String encpass = pb.generate(password.toCharArray());
+          u.setPassword(encpass);
+          em.merge(u);
+    }
+
+    
+    
     @RolesAllowed("admin")
     @Override
     public void deleteUser(int user_id) {

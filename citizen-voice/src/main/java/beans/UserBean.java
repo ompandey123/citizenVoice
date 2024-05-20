@@ -4,6 +4,7 @@
  */
 package beans;
 
+import ejb.AdminLocal;
 import ejb.UserLocal;
 import entities.Questiontb;
 import entities.UserAnswer;
@@ -12,6 +13,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.ejb.EJB;
 import record.KeepRecord;
 
@@ -24,6 +26,7 @@ import record.KeepRecord;
 public class UserBean implements Serializable {
     
     @EJB UserLocal ul;
+    @EJB AdminLocal adl;
     
     String username;
     int userid;// = ul.getIdByUsername(KeepRecord.getPrincipal().getName());
@@ -42,6 +45,109 @@ public class UserBean implements Serializable {
     int zoneid;
     int talukaid;
     int villageid;
+    Usertb current;
+    String password;
+    String email;
+    String adhaar_card_no;
+    String contact;
+    String gender;
+    String address;
+    Date dob;
+    String zip_code;
+    String pwd;
+    String cpwd;
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getCpwd() {
+        return cpwd;
+    }
+
+    public void setCpwd(String cpwd) {
+        this.cpwd = cpwd;
+    }
+
+    
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAdhaar_card_no() {
+        return adhaar_card_no;
+    }
+
+    public void setAdhaar_card_no(String adhaar_card_no) {
+        this.adhaar_card_no = adhaar_card_no;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public String getZip_code() {
+        return zip_code;
+    }
+
+    public void setZip_code(String zip_code) {
+        this.zip_code = zip_code;
+    }
+
+    
+    
+    public Usertb getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Usertb current) {
+        this.current = current;
+    }
     
     
 
@@ -217,6 +323,15 @@ public class UserBean implements Serializable {
     public void setLevel(String level) {
         this.level = level;
     }
+
+    public AdminLocal getAdl() {
+        return adl;
+    }
+
+    public void setAdl(AdminLocal adl) {
+        this.adl = adl;
+    }
+    
     
     
     
@@ -277,6 +392,69 @@ public class UserBean implements Serializable {
              ul.giveAnswer(qid,  userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
     }
     
+    
+    public String redirectToProfile()
+    {
+        userid = getUserid();
+    current = ul.getUserById(userid);
+    // Setting the current user's properties
+    setEmail(current.getEmail());
+    setContact(current.getContact());
+    setGender(current.getGender());
+    setAddress(current.getAddress());
+    setDob(current.getDob());
+    setZip_code(current.getZipCode());
+        return "userProfile.jsf";
+    }
+    
+    public String updateUser()
+    {
+        
+         int userId = getUserid();
+    
+    // Retrieve the current user from the database using the user ID
+    Usertb currentUser = ul.getUserById(userId);
+    
+    // Update the current user's details with the form field values
+    currentUser.setEmail(email);
+    currentUser.setContact(contact);
+    currentUser.setGender(gender);
+    currentUser.setAddress(address);
+    currentUser.setDob(dob);
+    currentUser.setZipCode(zip_code);
+       adl.updateUser(userid, current.getEmail(), current.getContact(), current.getGender(), current.getAddress(), current.getDob(), current.getZipCode());
+        return "userProfile.jsf";
+    }
+    
+    public String redirectToChangePassword()
+    {
+        userid = getUserid();
+    current = ul.getUserById(userid);
+    // Setting the current user's properties
+    setPassword(current.getPassword());
+        return "user/changePassword.jsf";
+    }
+    
+    public String updatePassword() {
+    // Get the current user ID
+    int userId = getUserid();
+    
+    // Get the current user from the database using the user ID
+    Usertb currentUser = ul.getUserById(userId);
+    
+    // Set the new password to the current user
+    currentUser.setPassword(pwd); // Assuming pwd is the new password input
+    
+    // Call the method in your AdminLocal EJB to update the password
+    adl.updatePassword(userId, pwd); // Assuming adl.updatePassword(int userId, String newPassword) method exists
+    
+    // Optionally, you might want to clear the password fields after the update
+    pwd = "";
+    cpwd = "";
+    
+    // Redirect to the user profile page after updating the password
+    return "userProfile.jsf";
+}
     
     /**
      * Creates a new instance of UserBean

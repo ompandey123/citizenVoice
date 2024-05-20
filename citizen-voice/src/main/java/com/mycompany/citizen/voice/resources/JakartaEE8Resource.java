@@ -86,9 +86,9 @@ public class JakartaEE8Resource {
 
     @RolesAllowed("admin")
     @POST
-    @Path("updateUser/{user_id}/{username}/{password}/{email}/{adhaar_card_no}/{contact}/{gender}/{address}/{dob}/{zip_code}/{village_id}/{taluka_id}/{zone_id}/{city_id}/{district_id}/{state_id}/{ward_id}")
+    @Path("updateUser/{user_id}/{email}/{contact}/{gender}/{address}/{dob}/{zip_code}")
     public void updateUser(@PathParam("user_id") int user_id,@PathParam("username") String username,@PathParam("password") String password,@PathParam("email") String email,@PathParam("adhaar_card_no") String adhaar_card_no,@PathParam("contact") String contact,@PathParam("gender") String gender,@PathParam("address") String address,@PathParam("dob") Date dob,@PathParam("zip_code") String zip_code,@PathParam("village_id") int village_id,@PathParam("taluka_id") int taluka_id,@PathParam("zone_id") int zone_id,@PathParam("city_id") int city_id,@PathParam("district_id") int district_id,@PathParam("state_id") int state_id,@PathParam("ward_id") int ward_id) {
-        adl.updateUser(user_id, username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village_id, taluka_id, zone_id, city_id, district_id, state_id, ward_id);
+        adl.updateUser(user_id, email, contact, gender, address, dob, zip_code);
     }
 
     @RolesAllowed("admin")

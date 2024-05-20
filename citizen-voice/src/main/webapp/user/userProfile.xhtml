@@ -22,7 +22,7 @@
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
                 padding: 160px;
                 width: calc(100% - 22px); /* 98% width minus margins */
-                background-color: orange;
+                background-color: white;
                 margin-top: 113px;
             }
             
@@ -53,12 +53,31 @@
                 
             }
             .imageProfile{
-                border: 1px solid white;
+                border: 1px solid black;
                 border-radius: 250px;
                 height: 150px;
                 margin-bottom: 25px;
                 margin-left: 10px;
                 width: 150px;
+            }
+            .updateBTN{
+                background-color: #3399ff;
+                padding: 10px;
+                margin-left: 500px;
+                margin-top: 50px;
+                color: white;
+                font-weight: bolder;
+                border: 1px solid #3399ff;
+                border-radius: 15px;
+            }
+            .cngPwd{
+                background-color: #3399ff;
+                padding: 10px;
+                color: white;
+                font-weight: bolder;
+                margin-left: 15px;
+                border: 1px solid #3399ff;
+                border-radius: 15px;
             }
           </style>
     </h:head>
@@ -76,15 +95,14 @@
                     <p:menuitem value="Level Wise Questions" url="searchByLevel.jsf"/>
                     <p:menuitem value="Category Wise Questions" url="searchByCategory.jsf"/>      
                 </p:submenu>
+                 <p:submenu label="Profile" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: bolder; font-size: 20px;">
+                    <p:menuitem value="Edit Profile" url="userProfile.jsf"/>
+                    <p:menuitem value="Change Password" url="changePassword.jsf"/>
+                    <p:menuitem value="Category Wise Questions" url="searchByCategory.jsf"/>      
+                </p:submenu>
                 <f:facet name="options">
                     <div class="ui-input-icon-left mr-2" style="margin: 50px;">
                         <a style="color:#000000; font-size: 20px; text-decoration: none; margin: 25px;" href="/citizen-voice/Logout.jsf">Logout</a>
-                    </div>
-                    <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
-                </f:facet>
-                <f:facet name="options">
-                    <div class="ui-input-icon-left mr-2" style="margin: 50px;">
-                        <h2><a style="color: black; text-decoration: none" href="userProfile.jsf">Your Profile</a></h2>
                     </div>
                     <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
                 </f:facet>
@@ -99,27 +117,28 @@
                 <h:form>
                     <div class="box1">
                     <div class="inputBox" style="padding: 5px;">
-                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="username" value="" placeholder="Username"/>
+                        <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="username" value="#{userBean.current.username}" placeholder="Username" readonly="true"/>
+                    </div>
+                        
+                        <div class="inputBox" style="padding: 5px;">
+                            <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="adh" value="#{userBean.current.adhaarCardNo}" placeholder="Adhar Card Number" disabled="true"/>
                     </div>
                         <div class="inputBox" style="padding: 5px;">
-                         <p:password style="border: 1px solid white; border-radius: 15px;" class="box" id="password" value="" placeholder="Password" />
-                    </div>
-                        <div class="inputBox" style="padding: 5px;">
-                            <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="adh" value="" placeholder="Adhar Card Number"/>
+                            <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="contact" value="#{userBean.current.contact}" placeholder="Contact"/>
                     </div>
                     </div>
                     <div class="box2">
                      <div class="inputBox">
-                         <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="email" value="" placeholder="Email"/>
+                         <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="email" value="#{userBean.current.email}" placeholder="Email"/>
                     </div>
                      
                     </div>
                     <div class="box3">
                         <div class="inputBox">
-                         <p:inputTextarea style="border: 1px solid white; border-radius: 15px;" class="box" id="address" value="" placeholder="Address"/>
+                            <p:inputTextarea style="border: 1px solid black; border-radius: 15px;" class="box" id="address" value="#{userBean.current.address}" placeholder="Address"/>
                     </div>
                     <div class="inputBox">
-                        <p:selectOneRadio id="gender" required="true" layout="lineDirection" style="margin-left: 52px; width: 100%;">
+                        <p:selectOneRadio id="gender" required="true" layout="lineDirection" value="#{userBean.current.gender}" style="margin-left: 52px; width: 100%;">
                             <f:selectItem itemLabel="Male" itemValue="male"/>
                             <f:selectItem itemLabel="Female" itemValue="female"/>
                         </p:selectOneRadio>
@@ -127,39 +146,44 @@
                     </div>   
                     <div class="box4">
                     <div class="inputBox" style="padding: 5px;">
-                        <p:calendar style="border: 1px solid white; border-radius: 15px;" class="box" id="dob" value="" placeholder="Date Of Birth"/>
+                        <p:calendar style="border: 1px solid black; border-radius: 15px;" class="box" id="dob" value="#{userBean.current.dob}" placeholder="Date Of Birth"/>
                     </div>
                      <div class="inputBox">
-                         <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="zip" value="" placeholder="Pin Code"/>
+                         <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="zip" value="#{userBean.current.zipCode}" placeholder="Pin Code"/>
                     </div>
                     </div>
                     <div class="box1">
                     <div class="inputBox" style="padding: 5px;">
-                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="state" value="" placeholder="State" disabled="true"/>
+                        <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="state" value="#{userBean.current.stateId.stateName}" placeholder="State" disabled="true"/>
                     </div>
                         <div class="inputBox" style="padding: 5px;">
-                            <p:password style="border: 1px solid white; border-radius: 15px;" class="box" id="district" value="" placeholder="District" disabled="true" />
+                            <p:password style="border: 1px solid black; border-radius: 15px;" class="box" id="district" value="#{userBean.current.districtId.districtName}" placeholder="District" disabled="true" />
                     </div>
                         <div class="inputBox" style="padding: 5px;">
-                            <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="city" value="" placeholder="City" disabled="true"/>
+                            <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="city" value="#{userBean.current.cityId.cityName}" placeholder="City" disabled="true"/>
                     </div>
                     </div>
                     <div class="box1">
                     <div class="inputBox" style="padding: 5px;">
-                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="zone" value="" placeholder="Zone" disabled="true"/>
+                        <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="zone" value="#{userBean.current.zoneId.zoneName}" placeholder="Zone" disabled="true"/>
                     </div>
                         <div class="inputBox" style="padding: 5px;">
-                            <p:password style="border: 1px solid white; border-radius: 15px;" class="box" id="ward" value="" placeholder="Ward" disabled="true" />
+                            <p:password style="border: 1px solid black; border-radius: 15px;" class="box" id="ward" value="#{userBean.current.wardId.wardName}" placeholder="Ward" disabled="true" />
                     </div>
                         <div class="inputBox" style="padding: 5px;">
-                            <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="taluka" value="" placeholder="Taluka" disabled="true"/>
+                            <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="taluka" value="#{userBean.current.talukaId.talukaName}" placeholder="Taluka" disabled="true"/>
                     </div>
                     </div>
                      <div class="box1">
                     <div class="inputBox" style="padding: 5px;">
-                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="village" value="" placeholder="Village" disabled="true"/>
+                        <p:inputText style="border: 1px solid black; border-radius: 15px;" class="box" id="village" value="#{userBean.current.villageId.villageName}" placeholder="Village" disabled="true"/>
                     </div>
                     </div>
+                    
+                    <h:commandButton class="updateBTN" id="val2" value="Update Your Profile" action="#{userBean.updateUser()}"/>
+                    <!--<h:commandButton class="updateBTN" id="val2" value="Change Password" action="#{userBean.redirectToChangePassword()}"/>-->
+
+                    
                     </h:form>
            
         </div>
