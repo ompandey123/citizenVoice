@@ -473,9 +473,9 @@ public class JakartaEE8Resource {
     @POST
     @Consumes("application/json")
     @Path("updateQuestion/{qid}/{categoryid}/{question}/{level}/{option1}/{option2}/{option3}/{option4}")
-    public void updateQuestion(@PathParam("qid") int qid, @PathParam("categoryid") int categoryid, @PathParam("question") String question,@PathParam("level") String level,@PathParam("option1") String option1,@PathParam("option2") String option2,@PathParam("option3") String option3,@PathParam("option4") String option4, PackedObjects p) {
+    public void updateQuestion(@PathParam("qid") int qid, @PathParam("categoryid") int categoryid, @PathParam("question") String question,@PathParam("level") String level,@PathParam("option1") String option1,@PathParam("option2") String option2,@PathParam("option3") String option3,@PathParam("option4") String option4) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        adl.updateQuestion(qid, categoryid, question, level, option1, option2, option3, option4, p);
+        adl.updateQuestion(qid, categoryid, question, level, option1, option2, option3, option4);
     }
 
     @RolesAllowed("admin")

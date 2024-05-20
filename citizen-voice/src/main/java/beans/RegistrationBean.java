@@ -54,6 +54,13 @@ public class RegistrationBean implements Serializable {
     int ward;
     String myDate;
     
+    Statetb stateid;
+    Districttb districtid;
+    Citytb cityid;
+    Zonetb zoneid;
+    Wardtb wardid;
+    Talukatb talukaid;
+    Villagetb villageid;
     
     Collection<Statetb> states;
     Collection<Districttb> districts;
@@ -71,6 +78,82 @@ public class RegistrationBean implements Serializable {
      */
     public RegistrationBean() {
     }
+
+    public Statetb getStateid() {
+        return stateid;
+    }
+
+    public void setStateid(Statetb stateid) {
+        this.stateid = stateid;
+    }
+
+    public Districttb getDistrictid() {
+        return districtid;
+    }
+
+    public void setDistrictid(Districttb districtid) {
+        this.districtid = districtid;
+    }
+
+    public Citytb getCityid() {
+        return cityid;
+    }
+
+    public void setCityid(Citytb cityid) {
+        this.cityid = cityid;
+    }
+
+    public Zonetb getZoneid() {
+        return zoneid;
+    }
+
+    public void setZoneid(Zonetb zoneid) {
+        this.zoneid = zoneid;
+    }
+
+    public Wardtb getWardid() {
+        return wardid;
+    }
+
+    public void setWardid(Wardtb wardid) {
+        this.wardid = wardid;
+    }
+
+    public Talukatb getTalukaid() {
+        return talukaid;
+    }
+
+    public void setTalukaid(Talukatb talukaid) {
+        this.talukaid = talukaid;
+    }
+
+    public Villagetb getVillageid() {
+        return villageid;
+    }
+
+    public void setVillageid(Villagetb villageid) {
+        this.villageid = villageid;
+    }
+
+    
+    
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public Usertb getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Usertb current) {
+        this.current = current;
+    }
+    
+    
 
     public Collection<Usertb> getUsers() {
         users = admin.getAllUsers();
@@ -345,5 +428,33 @@ public class RegistrationBean implements Serializable {
         System.out.println("user id = " + userid);
         admin.deleteUser(userid);
         return "UserOperation.jsf";
+    }
+    
+    public String updateUser()
+    {
+        userid = current.getUserId();
+        username = current.getUsername();
+        password = current.getPassword();
+        email = current.getEmail();
+        adhaar_card_no = current.getAdhaarCardNo();
+        contact = current.getContact();
+        gender = current.getGender();
+        address = current.getAddress();
+        dob = current.getDob();
+        zip_code = current.getZipCode();
+        state = current.getStateId().getStateId();
+        district = current.getDistrictId().getDistrictId();
+        taluka = current.getTalukaId().getTalukaId();
+        village = current.getVillageId().getVillageId();
+        city = current.getCityId().getCityId();
+        zone = current.getZoneId().getZoneId();
+        ward = current.getWardId().getWardId();
+        admin.updateUser(userid, username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
+        return "UserOperation.jsf";
+    }
+    
+    public String redirectToEdit()
+    {
+        return "updateUser.jsf";
     }
 }

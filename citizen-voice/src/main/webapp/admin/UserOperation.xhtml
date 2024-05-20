@@ -109,16 +109,6 @@
                     <h:outputText value="#{u.cityId.cityName}" />
                 </p:column>
 
-                <p:column headerText="Actions">
-                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{registrationBean.deleteUser(u)}"/>
-
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{cityBean.redirectToEdit()}" >
-                        <f:setPropertyActionListener value="#{c}" target="#{cityBean.current}" />
-                    </h:commandButton>
-
-
-                </p:column>
-
 
             </p:dataTable>
 

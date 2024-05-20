@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display;');
+
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Poppins", sans-serif;
+            }
+            .container{
+                margin: 10px;
+                border: 1px solid white;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                padding: 160px;
+                width: calc(100% - 22px); /* 98% width minus margins */
+                background-color: orange;
+                margin-top: 113px;
+            }
+            
+            .citizenProfile{
+                margin-left: 200px;
+            }
+            
+            .box1, .box2, .box3, .box4{
+                display: flex;
+                padding: 5px;
+                width: 100%;
+            }
+            
+            .box1 .box, .box2 .box, .box3 .box, .box4 .box{
+                margin: 5px;
+            }
+            
+            .box2 .box{
+                flex: 1; /* Ensure the email field stretches */
+            }
+
+            .inputBox {
+                width: 100%;
+            }
+
+            .inputBox input, .inputBox textarea {
+                width: 100%;
+                
+            }
+            .imageProfile{
+                border: 1px solid white;
+                border-radius: 250px;
+                height: 150px;
+                margin-bottom: 25px;
+                margin-left: 10px;
+                width: 150px;
+            }
+          </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:menubar style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #fa8d5f">
+                <p:menuitem style="background-color: transparent !important; margin-right: 20px;">
+                    <p:graphicImage library="images" name="citizen-voice-logo.png" styleClass="logo" style="width: 120px; height: 100px; pointer-events: none;"/>
+                </p:menuitem>
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-weight: bolder; font-size: 20px" value="Home" url="userHome.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-weight: bolder;  font-size: 20px" value="Contact Us" url="ContactUs.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-weight: bolder;  font-size: 20px" value="Answer the questions" url="User.jsf" />
+                <p:submenu label="See Stats" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: bolder; font-size: 20px;">
+                    <p:menuitem value="Region Wise Questions" url="Statistic.jsf"/>
+                    <p:menuitem value="Level Wise Questions" url="searchByLevel.jsf"/>
+                    <p:menuitem value="Category Wise Questions" url="searchByCategory.jsf"/>      
+                </p:submenu>
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2" style="margin: 50px;">
+                        <a style="color:#000000; font-size: 20px; text-decoration: none; margin: 25px;" href="/citizen-voice/Logout.jsf">Logout</a>
+                    </div>
+                    <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
+                </f:facet>
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2" style="margin: 50px;">
+                        <h2><a style="color: black; text-decoration: none" href="userProfile.jsf">Your Profile</a></h2>
+                    </div>
+                    <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
+                </f:facet>
+            </p:menubar>
+        </h:form>
+        <div class="Text" style="margin-left: 15px;"><h1>Your Profile</h1></div>
+        <div class="container">
+            <div class="image">
+                <p:graphicImage class="imageProfile" library="images" name="userProf.jpeg"/>
+            </div>
+            <h1 style="margin-left: 15px;">Your Profile</h1>
+                <h:form>
+                    <div class="box1">
+                    <div class="inputBox" style="padding: 5px;">
+                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="username" value="" placeholder="Username"/>
+                    </div>
+                        <div class="inputBox" style="padding: 5px;">
+                         <p:password style="border: 1px solid white; border-radius: 15px;" class="box" id="password" value="" placeholder="Password" />
+                    </div>
+                        <div class="inputBox" style="padding: 5px;">
+                            <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="adh" value="" placeholder="Adhar Card Number"/>
+                    </div>
+                    </div>
+                    <div class="box2">
+                     <div class="inputBox">
+                         <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="email" value="" placeholder="Email"/>
+                    </div>
+                     
+                    </div>
+                    <div class="box3">
+                        <div class="inputBox">
+                         <p:inputTextarea style="border: 1px solid white; border-radius: 15px;" class="box" id="address" value="" placeholder="Address"/>
+                    </div>
+                    <div class="inputBox">
+                        <p:selectOneRadio id="gender" required="true" layout="lineDirection" style="margin-left: 52px; width: 100%;">
+                            <f:selectItem itemLabel="Male" itemValue="male"/>
+                            <f:selectItem itemLabel="Female" itemValue="female"/>
+                        </p:selectOneRadio>
+                    </div>
+                    </div>   
+                    <div class="box4">
+                    <div class="inputBox" style="padding: 5px;">
+                        <p:calendar style="border: 1px solid white; border-radius: 15px;" class="box" id="dob" value="" placeholder="Date Of Birth"/>
+                    </div>
+                     <div class="inputBox">
+                         <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="zip" value="" placeholder="Pin Code"/>
+                    </div>
+                    </div>
+                    <div class="box1">
+                    <div class="inputBox" style="padding: 5px;">
+                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="state" value="" placeholder="State" disabled="true"/>
+                    </div>
+                        <div class="inputBox" style="padding: 5px;">
+                            <p:password style="border: 1px solid white; border-radius: 15px;" class="box" id="district" value="" placeholder="District" disabled="true" />
+                    </div>
+                        <div class="inputBox" style="padding: 5px;">
+                            <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="city" value="" placeholder="City" disabled="true"/>
+                    </div>
+                    </div>
+                    <div class="box1">
+                    <div class="inputBox" style="padding: 5px;">
+                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="zone" value="" placeholder="Zone" disabled="true"/>
+                    </div>
+                        <div class="inputBox" style="padding: 5px;">
+                            <p:password style="border: 1px solid white; border-radius: 15px;" class="box" id="ward" value="" placeholder="Ward" disabled="true" />
+                    </div>
+                        <div class="inputBox" style="padding: 5px;">
+                            <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="taluka" value="" placeholder="Taluka" disabled="true"/>
+                    </div>
+                    </div>
+                     <div class="box1">
+                    <div class="inputBox" style="padding: 5px;">
+                        <p:inputText style="border: 1px solid white; border-radius: 15px;" class="box" id="village" value="" placeholder="Village" disabled="true"/>
+                    </div>
+                    </div>
+                    </h:form>
+           
+        </div>
+    </h:body>
+</html>

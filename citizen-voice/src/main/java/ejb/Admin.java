@@ -139,6 +139,10 @@ public class Admin implements AdminLocal {
     @Override
     public void updateUser(int user_id, String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         Pbkdf2PasswordHashImpl pb;
+        PasswordHashCompare phc;
+         pb = new Pbkdf2PasswordHashImpl();
+        
         Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
         Collection<Usertb> vusers = v.getUsertbCollection();
         
@@ -163,7 +167,8 @@ public class Admin implements AdminLocal {
         Usertb u = (Usertb) em.find(Usertb.class, user_id);
         
         u.setUsername(username);
-        u.setPassword(password);
+        String encpass = pb.generate(password.toCharArray());
+        u.setPassword(encpass);
         u.setEmail(email);
         u.setAdhaarCardNo(adhaar_card_no);
         u.setContact(contact);
@@ -835,14 +840,14 @@ System.out.println("qid="+q1.getQid());
 
     @RolesAllowed("admin")
     @Override
-    public void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p) {
+    public void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Questiontb q = (Questiontb) em.find(Questiontb.class, qid);
         Category c = (Category) em.find(Category.class, categoryid);
         if(q != null)
         {
-            q.setCategoryid(c);
-            q.setQuestion(question);
+        q.setCategoryid(c);
+        q.setQuestion(question);
         q.setLevel(level);
         q.setOption1(option1);
         q.setOption2(option2);
@@ -851,45 +856,6 @@ System.out.println("qid="+q1.getQid());
         
         em.merge(q);
         em.merge(c);
-        em.refresh(q);
-        
-        if(level.equals("state"))
-        {
-            addQuestionState(q.getQid(), p.getState_ids());
-        }
-        else if(level.equals("district"))
-        {
-            addQuestionDistrict(q.getQid(), p.getDistrict_ids());
-        }
-        else if(level.equals("city"))
-        {
-            addQuestionCity(q.getQid(), p.getCity_ids());
-        }
-        else if(level.equals("ward"))
-        {
-            addQuestionWard(q.getQid(), p.getWard_ids());
-        }
-        else if(level.equals("zone"))
-        {
-            addQuestionZone(q.getQid(), p.getZone_ids());
-        }
-        else if(level.equals("taluka"))
-        {
-            addQuestionTaluka(q.getQid(), p.getTaluka_ids());
-        }
-        else if(level.equals("village"))
-        {
-            addQuestionVillage(q.getQid(), p.getVillage_ids());
-        }
-        else
-        {
-            System.out.println("Level Invalid or Level unavailable");
-        }
-        
-        
-        }else
-        {
-            System.out.println("Question not found so cannot be updated");
         }
     }
 

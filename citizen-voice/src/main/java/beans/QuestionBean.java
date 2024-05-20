@@ -30,6 +30,7 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class QuestionBean implements Serializable {
     @EJB AdminLocal admin;
+    int qid;
     int stateid;
     int districtid;
     int cityid;
@@ -63,6 +64,7 @@ public class QuestionBean implements Serializable {
     Collection<Wardtb> wards;
     Collection<Category> categories;
     Collection<Questiontb> questions;
+    Questiontb current;
     
     public QuestionBean(){
         
@@ -76,6 +78,24 @@ public class QuestionBean implements Serializable {
         
     }
 
+    public int getQid() {
+        return qid;
+    }
+
+    public void setQid(int qid) {
+        this.qid = qid;
+    }
+
+    public Questiontb getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Questiontb current) {
+        this.current = current;
+    }
+
+    
+    
     public AdminLocal getAdmin() {
         return admin;
     }
@@ -469,8 +489,11 @@ public class QuestionBean implements Serializable {
         return "Admin.jsf";
     }
     
-    public String goBackToAdmin()
-    {
-        return "Admin.jsf";
+    public String deleteQuestion(Questiontb q){
+        current = q;
+        qid = current.getQid();
+        admin.deleteQuestion(qid);
+        return "QuestionOperation.jsf";
     }
+    
 }
