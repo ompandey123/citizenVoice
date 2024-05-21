@@ -67,16 +67,13 @@
         <div class="container">
             <div class="title">Citizen Registration</div>
            
-            <h:messages id="hmsg" layout="list"  />
+            <h:messages style="color:red" layout="list"/>
             <h:form>
                 
                 <div class="citizenDetails">
                     <div class="input-box">
                         <p:outputLabel for="username" value="Username "/>
-                        <p:inputText style="width: 100%;"  id="username" value="#{registrationBean.username}" placeholder="Enter Username">
-                            <f:ajax event="valueChange" execute="username" render="msg1" listener="#{registrationBean.checkUname()}"/>
-                        </p:inputText>
-                        <h:outputText id="msg1" value="#{registrationBean.msg}"/>
+                        <p:inputText style="width: 100%;"  id="username" value="#{registrationBean.username}" placeholder="Enter Username" validator="#{registrationBean.checkUname}" />
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="password" value="Password "/>
@@ -84,10 +81,8 @@
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="email" value="Email "/>
-                        <p:inputText style="width: 100%;" id="email" value="#{registrationBean.email}" placeholder="Enter Email">
-                            <f:ajax event="valueChange" execute="email" render="emC" listener="#{registrationBean.checkEmail()}"/>
-                        </p:inputText>
-                        <h:outputText id="emC" value="#{registrationBean.msg}"/>
+                        <p:inputText style="width: 100%;" id="email" value="#{registrationBean.email}" placeholder="Enter Email" validator="#{registrationBean.checkEmail}"/>
+                        
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="adhaar" value="Adhaar Card Number "/>
@@ -95,10 +90,8 @@
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="contact" value="Contact "/>
-                        <p:inputText style="width: 100%;" id="contact" value="#{registrationBean.contact}" placeholder="Enter Contact Number">
-                            <f:ajax event="valueChange" execute="contact" render="contactC" listener="#{registrationBean.checkPhone()}"/>
-                        </p:inputText>
-                        <h:outputText id="contactC" value="#{registrationBean.msg}"/>
+                        <p:inputText style="width: 100%;" id="contact" value="#{registrationBean.contact}" placeholder="Enter Contact Number" validator="#{registrationBean.checkContact}" />
+
                         
                     </div>
                     <div class="input-box">

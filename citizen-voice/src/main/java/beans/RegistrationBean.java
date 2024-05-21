@@ -28,6 +28,10 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -41,7 +45,7 @@ import javax.mail.internet.MimeMessage;
  * @author ompan
  */
 @Named(value = "registrationBean")
-@RequestScoped
+@SessionScoped
 public class RegistrationBean implements Serializable {
     @EJB AdminLocal admin;
     @EJB UserLocal ul;
@@ -81,7 +85,7 @@ public class RegistrationBean implements Serializable {
     boolean userok=false;
     boolean emailok=false;
     boolean phoneok=false;
-    String msg;
+//    String msg;
     
     Collection<Statetb> states;
     Collection<Districttb> districts;
@@ -102,80 +106,85 @@ public class RegistrationBean implements Serializable {
     public RegistrationBean() {
     }
 
-    public String getMsg() {
-        // msg = "Username Already Exist";
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    
 
     
     
-    public void checkUname()
+    public void checkUname(FacesContext ctx, UIComponent cmp, Object obj)
     {
-        System.out.println("username "+ username);
+        username = (String) obj;
         if(ul.checkUsername(username))
         {
-           //  System.out.println("username "+ username);
-            msg = "Username Already Exist";
-            setMsg(msg);
-            
-            userok=false;
-        }
-        else
-        {
-            // System.out.println("username Available "+ username);
-            msg = "Username  Available";
-            setMsg(msg);
-            System.out.println(msg);
-            userok=true;
+            FacesMessage msg = new FacesMessage("Username already exists");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
         }
     }
     
-    public void checkEmail()
+    public void checkEmail(FacesContext ctx, UIComponent cmp, Object obj)
     {
-        System.out.println("email "+ email);
+        email = (String) obj;
         if(ul.checkEmail(email))
         {
-           //  System.out.println("username "+ username);
-            msg = "Email Already Exist";
-            System.out.println(msg);
-            setMsg(msg);
-            
-            userok=false;
-        }
-        else
-        {
-            // System.out.println("username Available "+ username);
-            msg = "Email  Available";
-            setMsg(msg);
-            System.out.println(msg);
-            userok=true;
+            FacesMessage msg = new FacesMessage("Email already exists");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
         }
     }
     
-    public void checkPhone(){
-        System.out.println("contact "+ contact);
+    public void checkContact(FacesContext ctx, UIComponent cmp, Object obj)
+    {
+        contact = (String) obj;
         if(ul.checkPhone(contact))
         {
-           //  System.out.println("username "+ username);
-            msg = "Contact Already Exist";
-            System.out.println(msg);
-            setMsg(msg);
-            
-            userok=false;
-        }
-        else
-        {
-            // System.out.println("username Available "+ username);
-            msg = "Contact  Available";
-            setMsg(msg);
-            System.out.println(msg);
-            userok=true;
+            FacesMessage msg = new FacesMessage("Contact already exists");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
         }
     }
+    
+//    public void checkEmail()
+//    {
+//        System.out.println("email "+ email);
+//        if(ul.checkEmail(email))
+//        {
+//           //  System.out.println("username "+ username);
+//            msg = "Email Already Exist";
+//            System.out.println(msg);
+//            setMsg(msg);
+//            
+//            userok=false;
+//        }
+//        else
+//        {
+//            // System.out.println("username Available "+ username);
+//            msg = "Email  Available";
+//            setMsg(msg);
+//            System.out.println(msg);
+//            userok=true;
+//        }
+//    }
+    
+//    public void checkPhone(){
+//        System.out.println("contact "+ contact);
+//        if(ul.checkPhone(contact))
+//        {
+//           //  System.out.println("username "+ username);
+//            msg = "Contact Already Exist";
+//            System.out.println(msg);
+//            setMsg(msg);
+//            
+//            userok=false;
+//        }
+//        else
+//        {
+//            // System.out.println("username Available "+ username);
+//            msg = "Contact  Available";
+//            setMsg(msg);
+//            System.out.println(msg);
+//            userok=true;
+//        }
+//    }
     
     public OTP getOtp() {
         return otp;
@@ -640,8 +649,7 @@ public class RegistrationBean implements Serializable {
 //        }
         //System.out.println(otpentered + "---" + otpsend);
         
-        if(userok && emailok && phoneok)
-        {
+        
         if(!otpentered.equals(otpsend))
         {
             message = "OTP dosen't match, Please try again or request new OTP";
@@ -655,10 +663,6 @@ public class RegistrationBean implements Serializable {
         admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
        
         return "/MyHome.jsf";
-        }
-        }
-        else{
-            return "user/UserRegistration.jsf";
         }
                 return "/MyHome.jsf";
     }
