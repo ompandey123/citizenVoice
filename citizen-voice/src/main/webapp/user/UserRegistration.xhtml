@@ -25,9 +25,10 @@
             width: 80%;
             margin: 50px auto;
             background-color: #fff;
-            padding: 20px;
+            padding: 50px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
         }
         
           body {
@@ -65,12 +66,17 @@
         
         <div class="container">
             <div class="title">Citizen Registration</div>
+           
+            <h:messages id="hmsg" layout="list"  />
             <h:form>
                 
                 <div class="citizenDetails">
                     <div class="input-box">
                         <p:outputLabel for="username" value="Username "/>
-                        <p:inputText style="width: 100%;"  id="username" value="#{registrationBean.username}" placeholder="Enter Username"/>
+                        <p:inputText style="width: 100%;"  id="username" value="#{registrationBean.username}" placeholder="Enter Username">
+                            <f:ajax event="valueChange" execute="username" render="msg1" listener="#{registrationBean.checkUname()}"/>
+                        </p:inputText>
+                        <h:outputText id="msg1" value="#{registrationBean.msg}"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="password" value="Password "/>
@@ -78,7 +84,10 @@
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="email" value="Email "/>
-                        <p:inputText style="width: 100%;" id="email" value="#{registrationBean.email}" placeholder="Enter Email"/>
+                        <p:inputText style="width: 100%;" id="email" value="#{registrationBean.email}" placeholder="Enter Email">
+                            <f:ajax event="valueChange" execute="email" render="emC" listener="#{registrationBean.checkEmail()}"/>
+                        </p:inputText>
+                        <h:outputText id="emC" value="#{registrationBean.msg}"/>
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="adhaar" value="Adhaar Card Number "/>
@@ -86,7 +95,11 @@
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="contact" value="Contact "/>
-                        <p:inputText style="width: 100%;" id="contact" value="#{registrationBean.contact}" placeholder="Enter Contact Number"/>
+                        <p:inputText style="width: 100%;" id="contact" value="#{registrationBean.contact}" placeholder="Enter Contact Number">
+                            <f:ajax event="valueChange" execute="contact" render="contactC" listener="#{registrationBean.checkPhone()}"/>
+                        </p:inputText>
+                        <h:outputText id="contactC" value="#{registrationBean.msg}"/>
+                        
                     </div>
                     <div class="input-box">
                         <p:outputLabel for="gender" value="Gender "/>
@@ -172,12 +185,15 @@
                             <f:selectItems value="#{registrationBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>
                         </p:selectOneMenu>
                     </div>
-                    
+                    <p:inputText style="width: 100%;"  id="otp" value="#{registrationBean.otpentered}" placeholder="Enter OTP"/>
+                     <h:commandButton value="Get OTP" action="#{registrationBean.sendOtp()}"/>
+                     <h:outputText value="#{registrationBean.message}" id="message" />
                     <div class="button">
                         <h:commandButton class="btnAdd" id="cmd" value="Register" action="#{registrationBean.addUser()}"/>
                     </div>
+                    
                 </div>
-                   
+                
             </h:form>
         </div>
     </h:body>

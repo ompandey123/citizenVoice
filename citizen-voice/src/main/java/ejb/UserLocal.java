@@ -21,4 +21,7 @@ public interface UserLocal {
     Collection<Questiontb> getQuestionByUserId(int user_id);
     int getIdByUsername(String username);
     Usertb getUserById(int userid);
+    boolean checkUsername(String username);
+    boolean checkEmail(String email);
+    boolean checkPhone(String contact);
 }

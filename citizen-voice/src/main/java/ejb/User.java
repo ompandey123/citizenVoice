@@ -35,7 +35,7 @@ import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 public class User implements UserLocal {
     @PersistenceContext(unitName = "citizenpu")
     EntityManager em;
-    
+    String msg;
     
     @RolesAllowed("citizen")
     @Override
@@ -305,6 +305,78 @@ public class User implements UserLocal {
         Usertb user = (Usertb) em.find(Usertb.class, userid);
         return user;
     }
+
+    @Override
+    public boolean checkUsername(String username) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Usertb user =null;
+        {
+        try{
+            user = (Usertb) em.createNamedQuery("Usertb.findByUsername").setParameter("username", username).getSingleResult();
+            if(user != null)
+            {
+               return true;
+            }
+            else
+            {
+               return false;
+            }
+        }catch(Exception e)
+        {
+            return false;
+         //  e.printStackTrace();
+        }
+    //return true;
+    }
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          Usertb user =null;
+        {
+        try{
+            user = (Usertb) em.createNamedQuery("Usertb.findByEmail").setParameter("email", email).getSingleResult();
+            if(user != null)
+            {
+               return true;
+            }
+            else
+            {
+               return false;
+            }
+        }catch(Exception e)
+        {
+            return false;
+         //  e.printStackTrace();
+        }
+    //return true;
+    }
+    }
     
-    
+
+    @Override
+    public boolean checkPhone(String contact)
+    {
+       //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Usertb user =null;
+        {
+        try{
+            user = (Usertb) em.createNamedQuery("Usertb.findByContact").setParameter("contact", contact).getSingleResult();
+            if(user != null)
+            {
+               return true;
+            }
+            else
+            {
+               return false;
+            }
+        }catch(Exception e)
+        {
+            return false;
+         //  e.printStackTrace();
+        }
+    //return true;
+    }
+    }
 }

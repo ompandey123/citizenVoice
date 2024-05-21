@@ -6,6 +6,7 @@ package beans;
 
 import com.mycompany.citizen.voice.resources.JakartaEE8Resource;
 import ejb.AdminLocal;
+import ejb.UserLocal;
 import entities.Citytb;
 import entities.Districttb;
 import entities.Statetb;
@@ -20,20 +21,30 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
  * @author ompan
  */
 @Named(value = "registrationBean")
-@SessionScoped
+@RequestScoped
 public class RegistrationBean implements Serializable {
     @EJB AdminLocal admin;
+    @EJB UserLocal ul;
     String username;
     String password;
     String email;
@@ -62,6 +73,16 @@ public class RegistrationBean implements Serializable {
     Talukatb talukaid;
     Villagetb villageid;
     
+    OTP otp;
+    String otpsend;
+    String otpentered;
+    String message; 
+    String otpmsg;
+    boolean userok=false;
+    boolean emailok=false;
+    boolean phoneok=false;
+    String msg;
+    
     Collection<Statetb> states;
     Collection<Districttb> districts;
     Collection<Citytb> cities;
@@ -81,6 +102,204 @@ public class RegistrationBean implements Serializable {
     public RegistrationBean() {
     }
 
+    public String getMsg() {
+        // msg = "Username Already Exist";
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    
+    
+    public void checkUname()
+    {
+        System.out.println("username "+ username);
+        if(ul.checkUsername(username))
+        {
+           //  System.out.println("username "+ username);
+            msg = "Username Already Exist";
+            setMsg(msg);
+            
+            userok=false;
+        }
+        else
+        {
+            // System.out.println("username Available "+ username);
+            msg = "Username  Available";
+            setMsg(msg);
+            System.out.println(msg);
+            userok=true;
+        }
+    }
+    
+    public void checkEmail()
+    {
+        System.out.println("email "+ email);
+        if(ul.checkEmail(email))
+        {
+           //  System.out.println("username "+ username);
+            msg = "Email Already Exist";
+            System.out.println(msg);
+            setMsg(msg);
+            
+            userok=false;
+        }
+        else
+        {
+            // System.out.println("username Available "+ username);
+            msg = "Email  Available";
+            setMsg(msg);
+            System.out.println(msg);
+            userok=true;
+        }
+    }
+    
+    public void checkPhone(){
+        System.out.println("contact "+ contact);
+        if(ul.checkPhone(contact))
+        {
+           //  System.out.println("username "+ username);
+            msg = "Contact Already Exist";
+            System.out.println(msg);
+            setMsg(msg);
+            
+            userok=false;
+        }
+        else
+        {
+            // System.out.println("username Available "+ username);
+            msg = "Contact  Available";
+            setMsg(msg);
+            System.out.println(msg);
+            userok=true;
+        }
+    }
+    
+    public OTP getOtp() {
+        return otp;
+    }
+
+    public void setOtp(OTP otp) {
+        this.otp = otp;
+    }
+
+    public String getOtpsend() {
+        return otpsend;
+    }
+
+    public void setOtpsend(String otpsend) {
+        this.otpsend = otpsend;
+    }
+
+    public String getOtpentered() {
+        return otpentered;
+    }
+
+    public void setOtpentered(String otpentered) {
+        this.otpentered = otpentered;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getOtpmsg() {
+        return otpmsg;
+    }
+
+    public void setOtpmsg(String otpmsg) {
+        this.otpmsg = otpmsg;
+    }
+
+    public void sendOtp()
+    {
+        otp = new OTP();
+        otpsend = otp.generateOTP(4);
+        otpmsg = "This OTP is for your verification " + otpsend + ". This OTP is valid only for 30 minutes";
+        sendMail(otpmsg);
+    }
+    
+    public void compareOTP()
+    {
+        System.out.println(otpentered + "---" + otpsend);
+        if(!otpentered.equals(otpsend))
+        {
+            message = "OTP dosen't match, Please try again or request new OTP";
+        }
+        
+        else
+        {
+            message = "User Verified Succesfully";
+        }
+    }
+    
+    public void sendMail(String msg)
+   {
+       
+        // Recipient's email ID needs to be mentioned.
+        String to = email;
+
+        // Sender's email ID needs to be mentioned
+        String from = "ompandey037@gmail.com";
+
+        // Assuming you are sending email from through gmails smtp
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass username and password
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication(from, "ypetldqyixnrfetu");
+
+            }
+
+        });
+
+        // Used to debug SMTP issues
+        session.setDebug(true);
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("OTP Sent from citizen voice");
+
+            // Now set the actual message
+            message.setText(msg);
+
+            System.out.println("sending...");
+            // Send message
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+
+}
+    
     public Statetb getStateid() {
         return stateid;
     }
@@ -401,6 +620,8 @@ public class RegistrationBean implements Serializable {
 //        } catch (ParseException ex) {
 //            Logger.getLogger(JakartaEE8Resource.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+        
+        
                 System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
         admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
        
@@ -417,10 +638,29 @@ public class RegistrationBean implements Serializable {
 //        } catch (ParseException ex) {
 //            Logger.getLogger(JakartaEE8Resource.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-                System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
+        //System.out.println(otpentered + "---" + otpsend);
+        
+        if(userok && emailok && phoneok)
+        {
+        if(!otpentered.equals(otpsend))
+        {
+            message = "OTP dosen't match, Please try again or request new OTP";
+        }
+        
+        else
+        {
+            System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
+       
+            
         admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
        
-        return "Login.jsf";
+        return "/MyHome.jsf";
+        }
+        }
+        else{
+            return "user/UserRegistration.jsf";
+        }
+                return "/MyHome.jsf";
     }
     
     public String deleteUser(Usertb user)
