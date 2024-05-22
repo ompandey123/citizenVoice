@@ -496,4 +496,20 @@ public class QuestionBean implements Serializable {
         return "QuestionOperation.jsf";
     }
     
+//    public String updateQuestion(int qid)
+//    {
+//         
+//        PackedObjects p = new PackedObjects();
+//        p.setState_ids(stateids);
+//        p.setDistrict_ids(districtids);
+//        p.setCity_ids(cityids);
+//        p.setZone_ids(zoneids);
+//        p.setWard_ids(wardids);
+//        p.setTaluka_ids(talukaids);
+//        p.setVillage_ids(villageids);
+//        
+//        admin.updateQuestion(qid, categoryid, question, level, option1, option2, option3, option4, p);
+//        
+//        return "Admin.jsf";
+//    }
 }
