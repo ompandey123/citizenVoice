@@ -7,6 +7,7 @@ package ejb;
 import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
+import entities.Forgotpassword;
 import entities.Groups;
 import entities.Questiontb;
 import entities.Statetb;
@@ -128,6 +129,11 @@ public class Admin implements AdminLocal {
             g.setGroupname("citizen");
             g.setUsername(username);
             em.persist(g);
+            
+            Forgotpassword f = new Forgotpassword();
+            f.setEmail(email);
+            f.setPassword(password);
+            em.persist(f);
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -786,7 +792,7 @@ System.out.println("qid="+q1.getQid());
 
     @RolesAllowed("admin")
     @Override
-    public void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4) {
+    public void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Questiontb q = (Questiontb) em.find(Questiontb.class, qid);
         Category c = (Category) em.find(Category.class, categoryid);

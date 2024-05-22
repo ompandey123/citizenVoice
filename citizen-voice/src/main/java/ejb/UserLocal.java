@@ -24,4 +24,5 @@ public interface UserLocal {
     boolean checkUsername(String username);
     boolean checkEmail(String email);
     boolean checkPhone(String contact);
+    String getPasswordByEmail(String email);
 }

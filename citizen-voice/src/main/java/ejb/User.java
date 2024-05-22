@@ -7,6 +7,7 @@ package ejb;
 import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
+import entities.Forgotpassword;
 import entities.Questiontb;
 import entities.Statetb;
 import entities.Talukatb;
@@ -379,4 +380,14 @@ public class User implements UserLocal {
     //return true;
     }
     }
+
+    @Override
+    public String getPasswordByEmail(String email) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Forgotpassword fp = (Forgotpassword) em.createNamedQuery("Forgotpassword.findByEmail").setParameter("email", email)
+                .getSingleResult();
+        return fp.getPassword();
+    }
+    
+    
 }

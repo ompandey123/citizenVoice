@@ -106,10 +106,9 @@ public class RegistrationBean implements Serializable {
     public RegistrationBean() {
     }
 
-    
 
     
-    
+
     public void checkUname(FacesContext ctx, UIComponent cmp, Object obj)
     {
         username = (String) obj;
@@ -143,48 +142,6 @@ public class RegistrationBean implements Serializable {
         }
     }
     
-//    public void checkEmail()
-//    {
-//        System.out.println("email "+ email);
-//        if(ul.checkEmail(email))
-//        {
-//           //  System.out.println("username "+ username);
-//            msg = "Email Already Exist";
-//            System.out.println(msg);
-//            setMsg(msg);
-//            
-//            userok=false;
-//        }
-//        else
-//        {
-//            // System.out.println("username Available "+ username);
-//            msg = "Email  Available";
-//            setMsg(msg);
-//            System.out.println(msg);
-//            userok=true;
-//        }
-//    }
-    
-//    public void checkPhone(){
-//        System.out.println("contact "+ contact);
-//        if(ul.checkPhone(contact))
-//        {
-//           //  System.out.println("username "+ username);
-//            msg = "Contact Already Exist";
-//            System.out.println(msg);
-//            setMsg(msg);
-//            
-//            userok=false;
-//        }
-//        else
-//        {
-//            // System.out.println("username Available "+ username);
-//            msg = "Contact  Available";
-//            setMsg(msg);
-//            System.out.println(msg);
-//            userok=true;
-//        }
-//    }
     
     public OTP getOtp() {
         return otp;
