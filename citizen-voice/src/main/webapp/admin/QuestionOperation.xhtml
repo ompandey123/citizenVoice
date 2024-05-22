@@ -313,7 +313,9 @@
                             
                             <p:column headerText="Actions">
                                 <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{questionBean.deleteQuestion(q)}"/>
-                                <h:commandButton id="edit" class="updateBtn" value="Update"/>
+                                <h:commandButton id="edit" class="updateBtn" value="Update" action="#{questionBean.redirectToEdit()}">
+                                    <f:setPropertyActionListener value="#{q}" target="#{questionBean.current}"/>
+                                </h:commandButton>
                             </p:column>
                         </p:dataTable>
                     </div>

@@ -496,20 +496,31 @@ public class QuestionBean implements Serializable {
         return "QuestionOperation.jsf";
     }
     
-//    public String updateQuestion(int qid)
-//    {
-//         
-//        PackedObjects p = new PackedObjects();
-//        p.setState_ids(stateids);
-//        p.setDistrict_ids(districtids);
-//        p.setCity_ids(cityids);
-//        p.setZone_ids(zoneids);
-//        p.setWard_ids(wardids);
-//        p.setTaluka_ids(talukaids);
-//        p.setVillage_ids(villageids);
-//        
-//        admin.updateQuestion(qid, categoryid, question, level, option1, option2, option3, option4, p);
-//        
-//        return "Admin.jsf";
-//    }
+    public String redirectToEdit()
+    {
+        qid = current.getQid();
+        categoryid = current.getCategoryid().getCategoryid();
+        level = current.getLevel();
+        question = current.getQuestion();
+        option1 = current.getOption1();
+        option2 = current.getOption2();
+        option3 = current.getOption3();
+        option4 = current.getOption4();
+        System.out.println("question = " + question);
+        return "updateQuestion.jsf";
+    }
+    
+    public String updateQuestion()
+    {
+        qid = current.getQid();
+        categoryid = current.getCategoryid().getCategoryid();
+        level = current.getLevel();
+        question = current.getQuestion();
+        option1 = current.getOption1();
+        option2 = current.getOption2();
+        option3 = current.getOption3();
+        option4 = current.getOption4();
+        admin.updateQuestion(qid, categoryid, question, level, option1, option2, option3, option4);
+        return "QuestionOperation.jsf";
+    }
 }

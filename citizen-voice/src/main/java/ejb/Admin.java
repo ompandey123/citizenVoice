@@ -793,152 +793,29 @@ System.out.println("qid="+q1.getQid());
 
     @RolesAllowed("admin")
     @Override
-    public void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p) {
+    public void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-         Category c = (Category) em.find(Category.class, categoryid);
-        Questiontb q = new Questiontb();
-        q.setCategoryid(c);
-        q.setQuestion(question);
-        q.setLevel(level);
-        q.setOption1(option1);
-        q.setOption2(option2);
-        q.setOption3(option3);
-        q.setOption4(option4);
-
-//        Questiontb q=null;
-         PackedObjects oldp = new PackedObjects();
-      //  Questiontb q = admin.getQuestionById(qid);
-      String oldlevel=q.getLevel();
-      if(oldlevel.equals("state"))
-        {
-            Collection<Integer> oldsids = new ArrayList<>();
-            for(Statetb s : q.getStatetbCollection())
-            {
-               oldsids.add(s.getStateId());             
-            }            
-            oldp.setState_ids(oldsids);
-        }
-        else if(oldlevel.equals("district"))
-        {
-            Collection<Integer> olddistids = new ArrayList<>();
-            for(Districttb s : q.getDistricttbCollection())
-            {
-               olddistids.add(s.getDistrictId());             
-            }            
-            oldp.setDistrict_ids(olddistids);
-          
-        }
-        else if(oldlevel.equals("city"))
-        {
-             Collection<Integer> oldcids = new ArrayList<>();
-            for(Citytb s : q.getCitytbCollection())
-            {
-               oldcids.add(s.getCityId());             
-            }            
-            oldp.setCity_ids(oldcids);
-        }
-        else if(oldlevel.equals("ward"))
-        {
-             Collection<Integer> oldwids = new ArrayList<>();
-            for(Wardtb s : q.getWardtbCollection())
-            {
-               oldwids.add(s.getWardId());             
-            }            
-            oldp.setWard_ids(oldwids);
-        }
-        else if(oldlevel.equals("zone"))
-        {
-             Collection<Integer> oldzids = new ArrayList<>();
-            for(Zonetb s : q.getZonetbCollection())
-            {
-               oldzids.add(s.getZoneId());             
-            }            
-            oldp.setZone_ids(oldzids);
-        }
-        else if(oldlevel.equals("taluka"))
-        {
-             Collection<Integer> oldtids = new ArrayList<>();
-            for(Talukatb s : q.getTalukatbCollection())
-            {
-               oldtids.add(s.getTalukaId());             
-            }            
-            oldp.setTaluka_ids(oldtids);
-        }
-        else if(oldlevel.equals("village"))
-        {
-             Collection<Integer> oldvids = new ArrayList<>();
-            for(Villagetb s : q.getVillagetbCollection())
-            {
-               oldvids.add(s.getVillageId());             
-            }            
-            oldp.setCity_ids(oldvids);
-        }
-        else
-        {
-            System.out.println("Level Invalid or Level unavailable");
-        }
-        
-//        
-//        
-//        
-//       // em.getTransaction().begin();
-//        em.persist(q);
+          Category c = (Category) em.find(Category.class,categoryid);
+       Collection<Questiontb> questions = c.getQuestiontbCollection();
+       Questiontb q = (Questiontb) em.find(Questiontb.class, qid);
+      if(questions.contains(q))
+      {   
+       questions.remove(q);
+      }
+       q.setCategoryid(c);
+       q.setLevel(level);
+       q.setQuestion(question);
+       q.setOption1(option1);
+       q.setOption2(option2);
+       q.setOption3(option3);
+       q.setOption4(option4);
       
-//        //em.getTransaction().commit();
-//  
-//        
-//        
-        
-        
-//Questiontb q1 = (Questiontb) em.createNamedQuery("Questiontb.findByQuestion").setParameter("question", question).getSingleResult();
-
-
-
-
-//  em.refresh(q);
-//System.out.println("qid="+q1.getQid());
-        if(level.equals("state"))
-        {
-            deleteStateQuestion(q.getQid(), oldp.getState_ids());
-            addQuestionState(q.getQid(), p.getState_ids());
-        }
-        else if(level.equals("district"))
-        {
-            deleteDistrictQuestion(q.getQid(), oldp.getDistrict_ids());
-            addQuestionDistrict(q.getQid(), p.getDistrict_ids());
-        }
-        else if(level.equals("city"))
-        {
-            deleteCityQuestion(q.getQid(), oldp.getCity_ids());
-            addQuestionCity(q.getQid(), p.getCity_ids());
-        }
-        else if(level.equals("ward"))
-        {
-            deleteWardQuestion(q.getQid(), oldp.getWard_ids());
-            addQuestionWard(q.getQid(), p.getWard_ids());
-        }
-        else if(level.equals("zone"))
-        {
-            deleteZoneQuestion(q.getQid(), oldp.getZone_ids());
-            addQuestionZone(q.getQid(), p.getZone_ids());
-        }
-        else if(level.equals("taluka"))
-        {
-            deleteTalukaQuestion(q.getQid(), oldp.getTaluka_ids());
-            addQuestionTaluka(q.getQid(), p.getTaluka_ids());
-        }
-        else if(level.equals("village"))
-        {
-            deleteVillageQuestion(q.getQid(), oldp.getVillage_ids());
-            addQuestionVillage(q.getQid(), p.getVillage_ids());
-        }
-        else
-        {
-            System.out.println("Level Invalid or Level unavailable");
-        }
-        
-         em.merge(c);
-         em.merge(q);
+       questions.add(q);
+       
+       c.setQuestiontbCollection(questions);
+       
+       em.merge(q);
+       em.merge(c);
     }
 
     @RolesAllowed("admin")

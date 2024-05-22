@@ -92,7 +92,7 @@ public interface AdminLocal {
     
     //QUESTION OPERATION
     void addQuestion(int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p);
-    void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4, PackedObjects p);
+    void updateQuestion(int qid,int categoryid, String question, String level, String option1, String option2, String option3, String option4);
     void deleteQuestion(int qid);
     Collection<Questiontb> getAllQuestions();
     Collection<Questiontb> getQuestionsByState(int stateid);
