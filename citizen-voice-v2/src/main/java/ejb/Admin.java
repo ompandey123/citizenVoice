@@ -159,6 +159,7 @@ public class Admin implements AdminLocal {
         em.merge(u);
     }
 
+    @PermitAll
     @Override
     public void updatePassword(int user_id, String password) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -171,16 +172,6 @@ public class Admin implements AdminLocal {
           em.merge(u);
     }
 
-    
-    
-    @RolesAllowed("admin")
-    @Override
-    public void deleteUser(int user_id) {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        Usertb u = (Usertb) em.find(Usertb.class, user_id);
-        em.remove(u);
-    }
-
     @RolesAllowed("admin")
     @Override
     public Collection<Usertb> getAllUsers() {
@@ -188,28 +179,28 @@ public class Admin implements AdminLocal {
         return em.createNamedQuery("Usertb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Usertb> getUsersByUsername(String username) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Usertb.findByUsername").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Usertb> getUsersById(int user_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Usertb.findByUserId").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Usertb> getUsersByEmail(String email) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Usertb.findByEmail").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Usertb> getUsersByContact(String contact) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -253,14 +244,14 @@ public class Admin implements AdminLocal {
         em.remove(s);
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Statetb> getAllStates() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Statetb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Statetb> getStatesByName(String state_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -318,14 +309,14 @@ public class Admin implements AdminLocal {
         em.remove(d);
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Districttb> getAllDistricts() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Districttb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Districttb> getDistrictsByName(String district_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -401,14 +392,14 @@ public class Admin implements AdminLocal {
         em.remove(c);
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Citytb> getAllCities() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Citytb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Citytb> getCitiesByName(String city_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -417,7 +408,7 @@ public class Admin implements AdminLocal {
                 .getResultList();
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Citytb> getCitiesByDistrict(int district_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -478,14 +469,14 @@ public class Admin implements AdminLocal {
         em.remove(z);
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Zonetb> getAllZones() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Zonetb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Zonetb> getZoneByName(String zone_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -494,7 +485,7 @@ public class Admin implements AdminLocal {
                 .getResultList();
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Zonetb> getZonesByCity(int city_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -555,14 +546,14 @@ public class Admin implements AdminLocal {
          em.remove(w);
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Wardtb> getAllWards() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Wardtb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Wardtb> getWardByName(String ward_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -571,7 +562,7 @@ public class Admin implements AdminLocal {
                  .getResultList();
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Wardtb> getWardsByZone(int zone_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -640,14 +631,14 @@ public class Admin implements AdminLocal {
     }    
     
     
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Talukatb> getAllTaluka() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Talukatb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Talukatb> getTalukaByName(String taluka_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -705,14 +696,14 @@ public class Admin implements AdminLocal {
          em.remove(v);
     }
 
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @Override
     public Collection<Villagetb> getAllVillages() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Villagetb.findAll").getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Villagetb> getVillageByName(String village_name) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -721,7 +712,7 @@ public class Admin implements AdminLocal {
                 .getResultList();
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Villagetb> getVillagesByTaluka(int taluka_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -826,13 +817,14 @@ System.out.println("qid="+q1.getQid());
         em.remove(q);
     }
 
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Questiontb> getAllQuestions() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         return em.createNamedQuery("Questiontb.findAll").getResultList();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByState(int stateid) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -840,6 +832,7 @@ System.out.println("qid="+q1.getQid());
         return s.getQuestiontbCollection();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByDistrict(int districtid) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -847,6 +840,7 @@ System.out.println("qid="+q1.getQid());
         return d.getQuestiontbCollection();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByCity(int cityid) {
        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -854,6 +848,7 @@ System.out.println("qid="+q1.getQid());
         return c.getQuestiontbCollection();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByZone(int zoneid) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -861,6 +856,7 @@ System.out.println("qid="+q1.getQid());
           return z.getQuestiontbCollection();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByWard(int wardid) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -868,6 +864,7 @@ System.out.println("qid="+q1.getQid());
         return w.getQuestiontbCollection();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByTaluka(int talukaid) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -875,6 +872,7 @@ System.out.println("qid="+q1.getQid());
         return t.getQuestiontbCollection();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByVillage(int villageid) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -882,6 +880,7 @@ System.out.println("qid="+q1.getQid());
         return v.getQuestiontbCollection();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionsByLevel(String level) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -890,6 +889,7 @@ System.out.println("qid="+q1.getQid());
                 .getResultList();
     }
 
+    @PermitAll
     @Override
     public Collection<Questiontb> getQuestionByCategories(int catid) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -898,7 +898,7 @@ System.out.println("qid="+q1.getQid());
     }
 
  
-    @RolesAllowed("admin")
+    @PermitAll
     @Override
     public Collection<Category> getAllCategories()
     {

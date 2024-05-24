@@ -25,4 +25,5 @@ public interface UserLocal {
     boolean checkEmail(String email);
     boolean checkPhone(String contact);
     String getPasswordByEmail(String email);
+    void updateUser(int user_id, String email, String contact, String gender, String address, Date dob, String zip_code);
 }

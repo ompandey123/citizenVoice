@@ -8,6 +8,7 @@ import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
 import entities.Forgotpassword;
+import entities.Groups;
 import entities.Questiontb;
 import entities.Statetb;
 import entities.Talukatb;
@@ -17,6 +18,7 @@ import entities.Villagetb;
 import entities.Wardtb;
 import entities.Zonetb;
 import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +40,7 @@ public class User implements UserLocal {
     EntityManager em;
     String msg;
     
-    @RolesAllowed("citizen")
+    @PermitAll
     @Override
     public void RegisterUser(String username, String password, String email, String adhaar_card_no, String contact, String gender, String address, Date dob, String zip_code, int village_id, int taluka_id, int zone_id, int city_id, int district_id, int state_id, int ward_id) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -121,6 +123,16 @@ public class User implements UserLocal {
         em.merge(d);
         em.merge(s);
         em.merge(w);
+        
+        Groups g = new Groups();
+            g.setGroupname("citizen");
+            g.setUsername(username);
+            em.persist(g);
+            
+            Forgotpassword f = new Forgotpassword();
+            f.setEmail(email);
+            f.setPassword(password);
+            em.persist(f);
         
         }catch(Exception e)
         {
@@ -289,8 +301,8 @@ public class User implements UserLocal {
        return userquestionCollection; 
     }
 
-    @Override
     @RolesAllowed("citizen")
+    @Override
     public int getIdByUsername(String username) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         
@@ -300,6 +312,7 @@ public class User implements UserLocal {
         return user.getUserId();
     }
 
+    @RolesAllowed("citizen")
     @Override
     public Usertb getUserById(int userid) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -307,6 +320,7 @@ public class User implements UserLocal {
         return user;
     }
 
+    @RolesAllowed("citizen")
     @Override
     public boolean checkUsername(String username) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -331,6 +345,7 @@ public class User implements UserLocal {
     }
     }
 
+    @RolesAllowed("citizen")
     @Override
     public boolean checkEmail(String email) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -356,6 +371,7 @@ public class User implements UserLocal {
     }
     
 
+    @RolesAllowed("citizen")
     @Override
     public boolean checkPhone(String contact)
     {
@@ -381,6 +397,7 @@ public class User implements UserLocal {
     }
     }
 
+    @RolesAllowed("citizen")
     @Override
     public String getPasswordByEmail(String email) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -389,5 +406,20 @@ public class User implements UserLocal {
         return fp.getPassword();
     }
     
-    
+    @RolesAllowed("citizen")
+    @Override
+    public void updateUser(int user_id, String email, String contact, String gender, String address, Date dob, String zip_code) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        Usertb u = (Usertb) em.find(Usertb.class, user_id);
+
+        u.setEmail(email);
+        
+        u.setContact(contact);
+        u.setGender(gender);
+        u.setAddress(address);
+        u.setDob(dob);
+        u.setZipCode(zip_code);
+        em.merge(u);
+    }
 }

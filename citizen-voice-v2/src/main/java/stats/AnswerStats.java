@@ -13,6 +13,8 @@ import entities.Talukatb;
 import entities.Villagetb;
 import entities.Wardtb;
 import entities.Zonetb;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.PermitAll;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,16 +26,19 @@ import javax.persistence.PersistenceContext;
  *
  * @author root
  */
+@DeclareRoles({"admin", "citizen"})
 @Stateless
 public class AnswerStats {
 
     @PersistenceContext(unitName = "citizenpu")
     EntityManager em;
 
+    @PermitAll
     public Questiontb getQuestionById(int id) {
         return (Questiontb) em.find(Questiontb.class, id);
     }
 
+    @PermitAll
     public Collection<StatsData> getStats(int qid, String level, Integer pid) {
         List<Object[]> data = null;
         

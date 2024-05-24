@@ -578,20 +578,21 @@ public class RegistrationBean implements Serializable {
     
     public String registerUser()
     {
-//    {
-//        SimpleDateFormat sdt = new SimpleDateFormat("dd-MM-yyyy");
-//              Date dt = null;
-//        try {
-//            dob = sdt.parse(myDate);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(JakartaEE8Resource.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+     if(!otpentered.equals(otpsend))
+        {
+            message = "OTP dosen't match, Please try again or request new OTP";
+        }
         
-        
-                System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
+        else
+        {
+            System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
+       
+            
         admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
        
-        return "Admin.jsf";
+        return "/MyHome.jsf";
+        }
+                return "/MyHome.jsf";
     }
     
     public String addUser()
@@ -617,7 +618,7 @@ public class RegistrationBean implements Serializable {
             System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
        
             
-        admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
+        ul.RegisterUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
        
         return "/MyHome.jsf";
         }

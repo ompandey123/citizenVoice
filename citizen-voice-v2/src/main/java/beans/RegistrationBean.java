@@ -624,14 +624,6 @@ public class RegistrationBean implements Serializable {
                 return "/MyHome.jsf";
     }
     
-    public String deleteUser(Usertb user)
-    {
-        current = user;
-        userid = current.getUserId();
-        System.out.println("user id = " + userid);
-        admin.deleteUser(userid);
-        return "UserOperation.jsf";
-    }
     
 //    public String updateUser()
 //    {
