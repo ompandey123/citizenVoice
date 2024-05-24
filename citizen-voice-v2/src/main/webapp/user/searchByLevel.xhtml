@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+                        <link rel="stylesheet" href="reportCss.css"/>
+                        <style>
+                    .viewBtn{
+                        background-color: white; 
+                        width: 50%; height: 100%;
+                        font-weight: bold;
+                        font-size: 17px;
+                        border: solid purple 1px;
+                        border-radius: 15px;
+                        color:purple;
+                        transition: background-color 0.3s, color 0.3s;
+                    }
+                    
+                    .viewBtn:hover{
+                        background-color: purple;
+                        color: white;
+                    }
+                </style>
+
+    </h:head>
+    <h:body>
+          <h:form>
+            <p:menubar style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #fa8d5f">
+                <p:menuitem style="background-color: transparent !important; margin-right: 20px;">
+                    <p:graphicImage library="images" name="citizen-voice-logo.png" styleClass="logo" style="width: 120px; height: 100px; pointer-events: none;"/>
+                </p:menuitem>
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-weight: bolder; font-size: 20px" value="Home" url="userHome.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-weight: bolder;  font-size: 20px" value="Contact Us" url="ContactUs.jsf" />
+            <p:submenu label="See Stats" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: bolder; font-size: 20px;">
+                    <p:menuitem value="Region Wise Questions" url="Statistic.jsf"/>
+                    <p:menuitem value="Level Wise Questions" url="searchByLevel.jsf"/>
+                    <p:menuitem value="Category Wise Questions" url="searchByCategory.jsf"/>      
+            </p:submenu>
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2" style="margin: 50px;">
+                        <a style="color:#000000; font-size: 20px; text-decoration: none; margin: 25px;" href="/citizen-voice/Logout.jsf">Logout</a>
+                    </div>
+                    <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
+                </f:facet>
+            </p:menubar>
+        </h:form>
+        <div class="container">
+            <div class="filterText">
+                <h1>Filter Question By Level</h1><br/>
+            </div>
+            <h:form>
+                <p:outputLabel for="level" value="Select Level"/>
+                <p:selectOneMenu id="level" value="#{searchByLevelBean.level}" style="width: 100%;">
+                <f:selectItem itemLabel="Select Level" noSelectionOption="true"/>
+                <f:selectItem itemLabel="Country" itemValue="country" />
+                <f:selectItem itemLabel="State" itemValue="state" />
+                <f:selectItem itemLabel="District" itemValue="district" />
+                <f:selectItem itemLabel="City" itemValue="city" />
+                <f:selectItem itemLabel="Taluka" itemValue="taluka" />
+                <f:selectItem itemLabel="Village" itemValue="village" />
+                <f:selectItem itemLabel="Zone" itemValue="zone" />
+                <f:selectItem itemLabel="Ward" itemValue="ward" />
+            </p:selectOneMenu><br/>
+                
+                <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 200px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; " id="cmd3" value="SEARCH QUESTION" action="#{searchByLevelBean.getQuestionsByLevel()}"/>
+            </h:form>
+        </div>
+        
+        <div class="infoContainer">
+        <div class="info">
+        <h:form>
+            <div class="card">
+                <p:dataTable var="q" value="#{searchByLevelBean.questions}">
+                    <p:column headerText="Question ID">
+                        <h:outputText value="#{q.qid}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Level">
+                        <h:outputText value="#{q.level}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Question">
+                        <h:outputText value="#{q.question}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Action">
+                        <h:commandButton class="viewBtn" value="VIEW STATS" action="#{statsBean.showStat(q.qid, q.level, 0)}"/>
+                    </p:column>
+                </p:dataTable>
+                
+            </div>
+        </h:form>
+        </div>
+            
+            </div>
+            </h:body>
+</html>
