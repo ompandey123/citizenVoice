@@ -10,8 +10,6 @@ import ejb.PackedObjects;
 import entities.Category;
 import entities.Citytb;
 import entities.Districttb;
-import entities.Forgotpassword;
-import entities.Groups;
 import entities.Questiontb;
 import entities.Statetb;
 import entities.Talukatb;
@@ -28,15 +26,12 @@ import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
-import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import org.glassfish.soteria.identitystores.hash.PasswordHashCompare;
-import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 import stats.AnswerStats;
 
 /**
@@ -171,7 +166,7 @@ public class AdminResource {
     @RolesAllowed("admin")
     @POST
     @Path("updateDistrict/{district_id}/{state_id}/{district_name}")
-    public void updateDistrict(int district_id, int state_id, String district_name) {
+    public void updateDistrict(@PathParam("district_id") int district_id, @PathParam("state_id") int state_id, @PathParam("district_name") String district_name) {
             al.updateDistrict(district_id, state_id, district_name);
     }
 

@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -83,6 +84,7 @@ public class Statetb implements Serializable {
         this.stateName = stateName;
     }
 
+    @JsonbTransient
     public Collection<Questiontb> getQuestiontbCollection() {
         return questiontbCollection;
     }
@@ -91,6 +93,7 @@ public class Statetb implements Serializable {
         this.questiontbCollection = questiontbCollection;
     }
 
+    @JsonbTransient
     public Collection<Districttb> getDistricttbCollection() {
         return districttbCollection;
     }
@@ -99,6 +102,7 @@ public class Statetb implements Serializable {
         this.districttbCollection = districttbCollection;
     }
 
+    @JsonbTransient
     public Collection<UserAnswer> getUserAnswerCollection() {
         return userAnswerCollection;
     }
@@ -107,6 +111,7 @@ public class Statetb implements Serializable {
         this.userAnswerCollection = userAnswerCollection;
     }
 
+    @JsonbTransient
     public Collection<Usertb> getUsertbCollection() {
         return usertbCollection;
     }
@@ -115,6 +120,7 @@ public class Statetb implements Serializable {
         this.usertbCollection = usertbCollection;
     }
 
+    @JsonbTransient
     public Collection<Citytb> getCitytbCollection() {
         return citytbCollection;
     }

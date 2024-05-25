@@ -6,24 +6,12 @@ package com.mycompany.citizen.voice.resources;
 
 import beans.StatsData;
 import ejb.UserLocal;
-import entities.Category;
-import entities.Citytb;
-import entities.Districttb;
-import entities.Forgotpassword;
 import entities.Questiontb;
-import entities.Statetb;
-import entities.Talukatb;
-import entities.UserAnswer;
 import entities.Usertb;
-import entities.Villagetb;
-import entities.Wardtb;
-import entities.Zonetb;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -33,8 +21,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import org.glassfish.soteria.identitystores.hash.PasswordHashCompare;
-import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 import stats.AnswerStats;
 
 /**
