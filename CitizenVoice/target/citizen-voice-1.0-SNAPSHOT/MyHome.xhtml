@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link rel="stylesheet" href="homeStyle.css"/>
+        <title>Citizen Voice - Home</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Poppins", sans-serif;
+            }
+            .bgimage {
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            .bgimage-blur {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                filter: blur(5px); /* Adjust blur amount as needed */
+            }
+
+            .text-overlay {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: justify;
+                color: Black;
+            }
+        </style>
+    </h:head>
+    <h:body style="padding: 0px; margin: 0px;">
+        <h:form>
+        <p:menubar style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
+            <p:menuitem style="background-color: transparent !important; margin-right: 20px;">
+                <p:graphicImage library="images" name="citizen-voice-logo.png" styleClass="logo" style="width: 120px; height: 100px; pointer-events: none;"/>
+            </p:menuitem>
+            <p:menuitem style="background-color: transparent !important; margin-right: 20px; color: black; font-weight: bold; font-size: 20px" value="Home" url="MyHome.jsf" />
+            <p:menuitem style="background-color: transparent !important; margin-right: 20px; color: black; font-weight: bold; font-size: 20px" value="About Us" url="AboutUs.jsf" />
+            <p:menuitem style="background-color: transparent !important; margin-right: 20px; color: black; font-weight: bold; font-size: 20px" value="Feedback" url="Feedback.jsf" />
+            <p:menuitem style="background-color: transparent !important; margin-right: 20px; color: black; font-weight: bold; font-size: 20px" value="Contact Us" url="ContactUs.jsf" />
+            <f:facet name="options">
+                <div class="ui-input-icon-left mr-2" style="margin: 50px;">
+                    <p:button value="Register" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="UserRegistration.jsf" />
+                </div>
+                <p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>
+            </f:facet>
+        </p:menubar>
+        <div class="bgimage">
+            <div class="bgimage-blur">
+                <center><p:graphicImage library="images" name="citizen-voice-logo.png" styleClass="logo" style="width: 500px; height: 500px; margin: 245px; pointer-events: none;"/></center>            
+            </div>
+            <div class="text-overlay">
+                <p:card style="width: 1000px; height: 300px; background-color: #ffffff; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-bottom: 2em; margin-top: 10em;">
+                    <f:facet name="title">
+                        Welcome to Citizen Voice!!
+                    </f:facet>
+
+                    <p style="font-weight: normal">Welcome to Citizen Voice, the platform where every Indian citizen has a chance to make their voice heard. At Citizen Voice, we believe that every opinion matters, and we provide a platform for citizens from all corners of our diverse nation to share their thoughts, concerns, and ideas. Whether you're passionate about local issues in your state or eager to contribute to national conversations, Citizen Voice is your avenue to engage with fellow citizens, participate in questionnaires, and share your valuable insights. Together, let's shape the dialogue and drive positive change for our communities, our states, and our country. Join us today and let your voice be heard on the issues that matter most to you!</p>
+
+                </p:card>
+            </div>
+        </div> 
+        </h:form>
+    </h:body>
+</html>
