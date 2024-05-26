@@ -28,6 +28,7 @@ public class CitizenClient {
 
     public CitizenClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
+         client.register(new MyRestFilter());
         webTarget = client.target(BASE_URI).path("citizen");
     }
 

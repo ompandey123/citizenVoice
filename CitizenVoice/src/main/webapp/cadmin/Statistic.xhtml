@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="../reportCss.css"/>
+        <style>
+                    .viewBtn{
+                        background-color: white; 
+                        width: 50%; height: 100%;
+                        font-weight: bold;
+                        font-size: 17px;
+                        border: solid purple 1px;
+                        border-radius: 15px;
+                        color:purple;
+                        transition: background-color 0.3s, color 0.3s;
+                    }
+                    
+                    .viewBtn:hover{
+                        background-color: purple;
+                        color: white;
+                    }
+                    .mainDD{
+                        display: flex;
+                        padding: 5px;
+                    }
+                </style>
+        <script>
+            function showDropDowns(level) {
+    if (level === 'state') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'none';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'district') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'city') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'block';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'zone') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'block';
+        document.getElementById('zoneDropdown').style.display = 'block';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'ward') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'block';
+        document.getElementById('zoneDropdown').style.display = 'block';
+        document.getElementById('wardDropdown').style.display = 'block';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'taluka') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('talukaDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'village') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('talukaDropdown').style.display = 'block';
+        document.getElementById('villageDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+    }
+}
+
+        </script>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:menubar style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #ccccff">
+                <p:menuitem style="background-color: transparent !important; margin-right: 20px;">
+                    <p:graphicImage library="images" name="citizen-voice-logo.png" styleClass="logo" style="width: 120px; height: 100px; pointer-events: none;"/>
+                </p:menuitem>
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-size: 20px" value="All Users" url="MyHome.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black;  font-size: 20px" value="Add Questions" url="cadmin/addQuestion.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black;  font-size: 20px" value="All Answers" url="ContactUs.jsf" />
+        <p:submenu label="Regions" style="background-color: transparent;margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
+                    <p:menuitem value="States" url="StateOperation.jsf"/>
+                    <p:menuitem value="Districts" url="DistrictOperation.jsf"/>
+                    <p:menuitem value="Cities" url="CityOperation.jsf"/>
+                    <p:menuitem value="Zones" url="ZoneOperation.jsf"/>
+                    <p:menuitem value="Wards" url="WardOperation.jsf"/>
+                    <p:menuitem value="Talukas" url="TalukaOperation.jsf"/>
+                    <p:menuitem value="Villages" url="VillageOperation.jsf"/>
+            </p:submenu>
+            <p:submenu label="Reports" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
+                    <p:menuitem value="Region Wise Questions" url="Statistic.jsf"/>
+                    <p:menuitem value="Level Wise Questions" url="searchByLevel.jsf"/>
+                    <p:menuitem value="Category Wise Questions" url="searchByCategory.jsf"/>      
+            </p:submenu>
+
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2" style="margin: 50px;">
+                        <a style="color:red; margin: 25px;" href="/CitizenVoice/Logout.jsf">Logout</a>
+                    </div>
+                    <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
+                </f:facet>
+            </p:menubar>
+        </h:form>
+        <div class="container">
+            <div class="filterText">
+                <h1>Filter Questions By Region</h1>
+            </div>
+
+            <h:form>
+                <p:outputLabel for="level" value="Select Level"/>
+                <p:selectOneMenu id="level" value="#{questionSearchBean.level}" onchange="showDropDowns(this.value)" style="width: 100%;">
+                <f:selectItem itemLabel="Select Level" noSelectionOption="true"/>
+                <f:selectItem itemLabel="Country" itemValue="country" />
+                <f:selectItem itemLabel="State" itemValue="state" />
+                <f:selectItem itemLabel="District" itemValue="district" />
+                <f:selectItem itemLabel="City" itemValue="city" />
+                <f:selectItem itemLabel="Taluka" itemValue="taluka" />
+                <f:selectItem itemLabel="Village" itemValue="village" />
+                <f:selectItem itemLabel="Zone" itemValue="zone" />
+                <f:selectItem itemLabel="Ward" itemValue="ward" />
+                <f:ajax execute="@this" render="@none"/>
+               
+                </p:selectOneMenu><br/><br/>
+                <div class="mainDD">
+                <div id="stateDropdown" style="display: none;">
+                    <p:selectOneMenu id="state"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select States"
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionSearchBean.stateid}">
+                        <f:selectItem itemLabel="---Select State----" noSelectionOption="true" />
+                <f:selectItems value="#{questionSearchBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
+                <f:ajax event="valueChange" execute="state" render="district" listener="#{questionSearchBean.getDistricts()}" />
+        </p:selectOneMenu>
+            </div>        
+            
+            <div id="districtDropdown" style="display: none;">
+                <p:selectOneMenu id="district"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Districts"
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionSearchBean.districtid}">
+                                            <f:selectItem itemLabel="---Select District----" noSelectionOption="true" />
+
+                <f:selectItems value="#{questionSearchBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
+                <f:ajax event="valueChange" execute="district" render="taluka" listener="#{questionSearchBean.getTalukas()}" />
+                <f:ajax event="valueChange" execute="district" render="city" listener="#{questionSearchBean.getCities()}" />      
+        </p:selectOneMenu>
+            </div>
+      
+            <div id="cityDropdown" style="display: none;">
+                <p:selectOneMenu id="city"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Cities"
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionSearchBean.cityid}">
+                                            <f:selectItem itemLabel="---Select City----" noSelectionOption="true" />
+
+                <f:selectItems value="#{questionSearchBean.cities}" var="c" itemLabel="#{c.cityName}" itemValue="#{c.cityId}"/>
+                <f:ajax event="valueChange" execute="city" render="zone" listener="#{questionSearchBean.getZones()}" />            
+        </p:selectOneMenu>
+            </div>
+                
+                
+            <div id="zoneDropdown" style="display: none;">
+                <p:selectOneMenu id="zone"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Zones"
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionSearchBean.zoneid}">
+                                            <f:selectItem itemLabel="---Select Zone----" noSelectionOption="true" />
+
+                <f:selectItems value="#{questionSearchBean.zones}" var="z" itemLabel="#{z.zoneName}" itemValue="#{z.zoneId}"/>
+                <f:ajax event="change" execute="zone" render="ward" listener="#{questionSearchBean.getWards()}" />        
+                </p:selectOneMenu>
+            </div>
+                
+            <div id="wardDropdown" style="display: none;">  
+                <p:selectOneMenu id="ward"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Wards"
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionSearchBean.wardid}">
+                                            <f:selectItem itemLabel="---Select Ward----" noSelectionOption="true" />
+
+            <f:selectItems value="#{questionSearchBean.wards}" var="w" itemLabel="#{w.wardName}" itemValue="#{w.wardId}"/>         
+        </p:selectOneMenu><br/><br/>
+            </div>
+        
+            <div id="talukaDropdown" style="display: none;">
+        <p:selectOneMenu id="taluka"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Talukas"
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionSearchBean.talukaid}">
+                                    <f:selectItem itemLabel="---Select Taluka----" noSelectionOption="true" />
+
+            <f:selectItems value="#{questionSearchBean.talukas}" var="t" itemLabel="#{t.talukaName}" itemValue="#{t.talukaId}"/>     
+            <f:ajax event="valueChange" execute="taluka" render="village" listener="#{questionSearchBean.getVillages()}" />
+        </p:selectOneMenu>
+            </div>
+        
+            <div id="villageDropdown" style="display: none;">
+        <p:selectOneMenu id="village"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Villages"
+                              style="width: 15rem" panelStyle="width: 15rem"
+                              value="#{questionSearchBean.villageid}">
+                                    <f:selectItem itemLabel="---Select Village----" noSelectionOption="true" />
+
+            <f:selectItems value="#{questionSearchBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>         
+        </p:selectOneMenu>
+            </div>
+            </div><br/>
+                <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 200px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; " id="cmd" value="SEARCH QUESTION" action="#{questionSearchBean.getQuestions()}"/>
+        </h:form>
+        </div>
+        <div class="infoContainer">
+        <div class="info">
+        <h:form> 
+          
+            <div class="card">
+                <p:dataTable var="q" value="#{questionSearchBean.questions}" style="width: 100%;">
+            <p:column headerText="Question ID">
+                <h:outputText value="#{q.qid}" />
+            </p:column>
+
+            <p:column headerText="Question">
+                <h:outputText value="#{q.question}"/>
+            </p:column>
+
+            <p:column headerText="Action">
+                <h:commandButton class="viewBtn" value="VIEW STATS" action="#{statsBean.showStat(q.qid,q.level ,pid )}">
+                    <f:param name="pid" value="#{q.level eq 'state' ? questionSearchBean.stateid : 
+                                q.level eq 'district' ? questionSearchBean.districtid :
+                                q.level eq 'city' ? questionSearchBean.cityid :
+                                q.level eq 'zone' ? questionSearchBean.zoneid :
+                                q.level eq 'ward' ? questionSearchBean.wardid :
+                                q.level eq 'taluka' ? questionSearchBean.talukaid :
+                                q.level eq 'village' ? questionSearchBean.villageid : null}" />
+                </h:commandButton>
+            </p:column>
+        </p:dataTable>
+    </div>
+   </h:form>
+        </div>
+            </div>
+    </h:body>
+</html>

@@ -108,7 +108,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
 
                    
                     if (result.getCallerGroups().contains("admin")) {
-                        request.getRequestDispatcher("admin/Admin.jsf").forward(request, response);
+                        request.getRequestDispatcher("cadmin/Admin.jsf").forward(request, response);
                     }
                     if (result.getCallerGroups().contains("citizen")) {
                         request.getRequestDispatcher("user/UserHome.jsf").forward(request, response);
@@ -140,7 +140,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                 for(String s : result.getCallerGroups()){
                 System.out.println("role = "+ s);
                 }
-                if(request.getRequestURI().contains("admin") && result.getCallerGroups().contains("citizen"))
+                if(request.getRequestURI().contains("cadmin") && result.getCallerGroups().contains("citizen"))
                 {
                     ctx.responseUnauthorized();
                 }

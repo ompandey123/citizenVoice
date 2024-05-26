@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="../addQuestionStyle.css"/>
+        <script>
+            function showDropDowns(level) {
+    if (level === 'state') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'none';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'district') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'city') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'block';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'zone') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'block';
+        document.getElementById('zoneDropdown').style.display = 'block';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'ward') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'block';
+        document.getElementById('zoneDropdown').style.display = 'block';
+        document.getElementById('wardDropdown').style.display = 'block';
+        document.getElementById('talukaDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'taluka') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('talukaDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+        document.getElementById('villageDropdown').style.display = 'none';
+    } else if (level === 'village') {
+        document.getElementById('stateDropdown').style.display = 'block';
+        document.getElementById('districtDropdown').style.display = 'block';
+        document.getElementById('talukaDropdown').style.display = 'block';
+        document.getElementById('villageDropdown').style.display = 'block';
+        document.getElementById('cityDropdown').style.display = 'none';
+        document.getElementById('zoneDropdown').style.display = 'none';
+        document.getElementById('wardDropdown').style.display = 'none';
+    }
+}
+
+        </script>
+        
+    </h:head>
+    <h:body style="padding: 0px; margin: 0px;">
+        <h:form>
+            <p:menubar style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #ccccff">
+                <p:menuitem style="background-color: transparent !important; margin-right: 20px;">
+                    <p:graphicImage library="images" name="citizen-voice-logo.png" styleClass="logo" style="width: 120px; height: 100px; pointer-events: none;"/>
+                </p:menuitem>
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-size: 20px" value="All Users" url="MyHome.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black;  font-size: 20px" value="Add Questions" url="cadmin/addQuestion.jsf" />
+                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black;  font-size: 20px" value="All Answers" url="ContactUs.jsf" />
+        <p:submenu label="Regions" style="background-color: transparent;margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
+                    <p:menuitem value="States" url="StateOperation.jsf"/>
+                    <p:menuitem value="Districts" url="DistrictOperation.jsf"/>
+                    <p:menuitem value="Cities" url="CityOperation.jsf"/>
+                    <p:menuitem value="Zones" url="ZoneOperation.jsf"/>
+                    <p:menuitem value="Wards" url="WardOperation.jsf"/>
+                    <p:menuitem value="Talukas" url="TalukaOperation.jsf"/>
+                    <p:menuitem value="Villages" url="VillageOperation.jsf"/>
+            </p:submenu>
+            <p:submenu label="Reports" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
+                    <p:menuitem value="Region Wise Questions" url="Statistic.jsf"/>
+                    <p:menuitem value="Level Wise Questions" url="searchByLevel.jsf"/>
+                    <p:menuitem value="Category Wise Questions" url="searchByCategory.jsf"/>      
+            </p:submenu>
+                                <p:menuitem style="background-color: transparent; margin-right: 20px; color: black;  font-size: 20px" value="Go back" url="Admin.jsf" />
+
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2" style="margin: 50px;">
+                        <a style="color:red; margin: 25px;" href="/CitizenVoice/Logout.jsf">Logout</a>
+                    </div>
+                    <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
+                </f:facet>
+            </p:menubar>
+        </h:form>
+        
+        <div class="container">
+        <div class="main-form">
+            <div class="textQuestion">
+                <h1>Add Questions</h1>
+            </div>   
+        <h:form>
+            
+            <p:outputLabel for="question" value="Question &nbsp;"/>
+            <p:inputText id="question" value="#{questionBean.question}" placeholder="Question" style="width: 100%;"/><br/><br/>
+            <p:outputLabel for="level" value="Select Level &nbsp;"/>
+            <p:selectOneMenu id="level" value="#{questionBean.level}" onchange="showDropDowns(this.value)" style="width: 100%;" >
+                <f:selectItem itemLabel="Select Level" noSelectionOption="true"/>
+                <f:selectItem itemLabel="Country" itemValue="country" />
+                <f:selectItem itemLabel="State" itemValue="state" />
+                <f:selectItem itemLabel="District" itemValue="district" />
+                <f:selectItem itemLabel="City" itemValue="city" />
+                <f:selectItem itemLabel="Taluka" itemValue="taluka" />
+                <f:selectItem itemLabel="Village" itemValue="village" />
+                <f:selectItem itemLabel="Zone" itemValue="zone" />
+                <f:selectItem itemLabel="Ward" itemValue="ward" />
+                <f:ajax execute="@this" render="@none"/>
+               
+            </p:selectOneMenu><br/><br/>
+            <p:outputLabel for="category" value="Select Category &nbsp;"/>
+            <p:selectOneMenu id="category" value="#{questionBean.categoryid}" style="width: 100%;">
+                <f:selectItem itemLabel="Select Category" noSelectionOption="true"/>
+                <f:selectItems value="#{questionBean.categories}" var="c" itemLabel="#{c.categoryname}" itemValue="#{c.categoryid}" />
+            </p:selectOneMenu>
+            <br/><br/>
+            <div class="options">
+                <div class="option-box">
+            <p:outputLabel for="option1" value="Option 1&nbsp;"/>
+            <p:inputText id="option1" value="#{questionBean.option1}" placeholder="Option 1" style="width: 100%;" />
+                </div>
+                <div class="option-box">
+            <p:outputLabel for="option2" value="Option 2 &nbsp;"/>
+            <p:inputText id="option2" value="#{questionBean.option2}" placeholder="Option 2" style="width: 100%;" />
+                </div>
+            <div class="option-box">
+            <p:outputLabel for="option3" value="Option 3 &nbsp;"/>
+            <p:inputText id="option3" value="#{questionBean.option3}" placeholder="Option 3" style="width: 100%;" />
+            </div>
+            <div class="option-box">
+            <p:outputLabel for="option4" value="Option 4 &nbsp;"/>
+            <p:inputText id="option4" value="#{questionBean.option4}" placeholder="Option 4" style="width: 100%;" /><br/><br/>
+            </div>
+            </div>
+            
+            <div id="stateDropdown" style="display: none;">
+            <p:selectCheckboxMenu id="state"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select States"
+                              style="width: 100%;" panelStyle="width: 100%;" scrollHeight="250"
+                              value="#{questionBean.stateids}">
+                <f:selectItems value="#{questionBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
+                <f:ajax event="change" execute="state" render="district" listener="#{questionBean.populateDistricts()}" />
+                <f:ajax event="itemUnselect" execute="state" render="district" listener="#{questionBean.populateDistricts()}" />
+                <f:ajax event="itemUnselect" execute="state" render="city" listener="#{questionBean.populateCities()}" />
+                <f:ajax event="itemUnselect" execute="state" render="taluka" listener="#{questionBean.populateTaluka()}" />
+        </p:selectCheckboxMenu>
+            </div><br/>       
+            
+            <div id="districtDropdown" style="display: none;">
+            <p:selectCheckboxMenu id="district"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Districts"
+                              style="width: 100%" panelStyle="width: 100%" scrollHeight="250"
+                              value="#{questionBean.districtids}">
+                <f:selectItems value="#{questionBean.districts}" var="d" itemLabel="#{d.districtName}" itemValue="#{d.districtId}"/>
+                <f:ajax event="change" execute="district" render="taluka" listener="#{questionBean.populateTaluka()}" />
+                <f:ajax event="itemUnselect" execute="district" render="taluka" listener="#{questionBean.populateTaluka()}" />
+                <f:ajax event="change" execute="district" render="city" listener="#{questionBean.populateCities()}" />
+                <f:ajax event="itemUnselect" execute="district" render="city" listener="#{questionBean.populateTaluka()}" />                
+        </p:selectCheckboxMenu>
+            </div>
+      
+            <div id="cityDropdown" style="display: none;">
+            <p:selectCheckboxMenu id="city"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Cities"
+                              style="width: 100%" panelStyle="width: 100%" scrollHeight="250"
+                              value="#{questionBean.cityids}">
+                <f:selectItems value="#{questionBean.cities}" var="c" itemLabel="#{c.cityName}" itemValue="#{c.cityId}"/>
+                <f:ajax event="change" execute="city" render="zone" listener="#{questionBean.populateZones()}" />
+                <f:ajax event="itemUnselect" execute="city" render="zone" listener="#{questionBean.populateZones()}" />                
+        </p:selectCheckboxMenu>
+            </div>
+                
+                
+            <div id="zoneDropdown" style="display: none;">
+            <p:selectCheckboxMenu id="zone"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Zones"
+                              style="width: 100%" panelStyle="width: 100%" scrollHeight="250"
+                              value="#{questionBean.zoneids}">
+                <f:selectItems value="#{questionBean.zones}" var="z" itemLabel="#{z.zoneName}" itemValue="#{z.zoneId}"/>
+                <f:ajax event="change" execute="zone" render="ward" listener="#{questionBean.populateWards()}" />
+                <f:ajax event="itemUnselect" execute="zone" render="ward" listener="#{questionBean.populateWards()}" />                
+        </p:selectCheckboxMenu>
+            </div>
+                
+            <div id="wardDropdown" style="display: none;">  
+        <p:selectCheckboxMenu id="ward"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Wards"
+                              style="width: 100%" panelStyle="width: 100%" scrollHeight="250"
+                              value="#{questionBean.wardids}">
+            <f:selectItems value="#{questionBean.wards}" var="w" itemLabel="#{w.wardName}" itemValue="#{w.wardId}"/>         
+        </p:selectCheckboxMenu><br/><br/>
+            </div>
+        
+            <div id="talukaDropdown" style="display: none;">
+        <p:selectCheckboxMenu id="taluka"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Talukas"
+                              style="width: 100%" panelStyle="width: 100%" scrollHeight="250"
+                              value="#{questionBean.talukaids}">
+            <f:selectItems value="#{questionBean.talukas}" var="t" itemLabel="#{t.talukaName}" itemValue="#{t.talukaId}"/>     
+            <f:ajax event="change" execute="taluka" render="village" listener="#{questionBean.populateVillages()}" />
+            <f:ajax event="itemUnselect" execute="taluka" render="village" listener="#{questionBean.populateVillages()}" />                
+        </p:selectCheckboxMenu>
+            </div>
+        
+            <div id="villageDropdown" style="display: none;">
+        <p:selectCheckboxMenu id="village"
+                              dynamic="true"
+                              filter="true" filterMatchMode="startsWith"
+                              label="Select Villages"
+                              style="width: 100%" panelStyle="width: 100%" scrollHeight="250"
+                              value="#{questionBean.villageids}">
+            <f:selectItems value="#{questionBean.villages}" var="v" itemLabel="#{v.villageName}" itemValue="#{v.villageId}"/>         
+        </p:selectCheckboxMenu>
+            </div>
+            <h:commandButton class="addQ" value="Add" id="cmd" action="#{questionBean.addQuestion()}"/>
+        
+        </h:form>
+        </div>
+        </div>
+    </h:body>
+</html>

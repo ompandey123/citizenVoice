@@ -194,14 +194,15 @@ public class QuestionSearchBean implements Serializable {
     
 
     public Collection<Statetb> getStates() {
-//        ac = new AdminClient();
-//        rs = ac.getAllStates(Response.class);
-//       
-//        states= new ArrayList<>();
-//       gstates = new GenericType<Collection<Statetb>>(){};
-//       
-//        states = rs.readEntity(gstates);
-        return adl.getAllStates();
+        System.out.println("in get states");
+        ac = new AdminClient();
+        rs = ac.getAllStates(Response.class);
+       
+        states= new ArrayList<>();
+       gstates = new GenericType<Collection<Statetb>>(){};
+       
+        states = rs.readEntity(gstates);
+        return states;
     }
 
     public void setStates(Collection<Statetb> states) {

@@ -28,6 +28,7 @@ public class AdminClient {
 
     public AdminClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
+         client.register(new MyRestFilter());
         webTarget = client.target(BASE_URI).path("admin");
     }
 

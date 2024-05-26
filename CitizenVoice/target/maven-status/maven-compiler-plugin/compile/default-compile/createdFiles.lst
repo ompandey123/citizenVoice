@@ -22,6 +22,7 @@ beans\TalukaBean.class
 beans\VillageBean$1.class
 beans\QuestionSearchBean$8.class
 beans\WardBean.class
+beans\QuestionSearchBean$10.class
 beans\QuestionBean$6.class
 beans\RegistrationBean$5.class
 beans\VillageBean$4.class
