@@ -447,6 +447,12 @@ public class User implements UserLocal {
          String encpass = pb.generate(password.toCharArray());
           u.setPassword(encpass);
           em.merge(u);
+          
+          String email = u.getEmail();
+          Forgotpassword f = new Forgotpassword();
+          f.setEmail(email);
+          f.setPassword(password);
+          em.merge(f);
     }
     
 }

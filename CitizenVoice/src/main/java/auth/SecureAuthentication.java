@@ -140,14 +140,14 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                 for(String s : result.getCallerGroups()){
                 System.out.println("role = "+ s);
                 }
-                if(request.getRequestURI().contains("cadmin") && result.getCallerGroups().contains("citizen"))
-                {
-                    ctx.responseUnauthorized();
-                }
-               else if(request.getRequestURI().contains("user") && result.getCallerGroups().contains("admin"))
-               {
-                  ctx.responseUnauthorized();
-               }
+//                if(request.getRequestURI().contains("cadmin") && result.getCallerGroups().contains("citizen"))
+//                {
+//                    ctx.responseUnauthorized();
+//                }
+//               else if(request.getRequestURI().contains("user") && result.getCallerGroups().contains("admin"))
+//               {
+//                  ctx.responseUnauthorized();
+//               }
                 
                 ctx.notifyContainerAboutLogin(KeepRecord.getPrincipal(), KeepRecord.getRoles());
             }

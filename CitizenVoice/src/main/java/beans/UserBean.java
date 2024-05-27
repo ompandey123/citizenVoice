@@ -403,8 +403,8 @@ public class UserBean implements Serializable {
            System.out.println(qid + " " + userid + " " + option4 + " " + stateid + " " + level + " " + categoryid);
 //           ul.giveAnswer(qid, userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
            //ul.giveAnswer(qid, categoryid, userid, level, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
-//             ul.giveAnswer(qid,  userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
-            cc.giveAnswer(String.valueOf(qid), String.valueOf(userid), option1, option2, option3, option4, String.valueOf(stateid), String.valueOf(districtid), String.valueOf(cityid), String.valueOf(wardid), String.valueOf(zoneid), String.valueOf(talukaid), String.valueOf(villageid));
+             ul.giveAnswer(qid,  userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
+            //cc.giveAnswer(String.valueOf(qid), String.valueOf(userid), option1, option2, option3, option4, String.valueOf(stateid), String.valueOf(districtid), String.valueOf(cityid), String.valueOf(wardid), String.valueOf(zoneid), String.valueOf(talukaid), String.valueOf(villageid));
     }
     
     
@@ -437,8 +437,8 @@ public class UserBean implements Serializable {
     currentUser.setAddress(address);
     currentUser.setDob(dob);
     currentUser.setZipCode(zip_code);
-//       adl.updateUser(userid, current.getEmail(), current.getContact(), current.getGender(), current.getAddress(), current.getDob(), current.getZipCode());
-        cc.updateUser(String.valueOf(userId), email, contact, gender, address, pwd, zip_code);
+       adl.updateUser(userid, current.getEmail(), current.getContact(), current.getGender(), current.getAddress(), current.getDob(), current.getZipCode());
+       // cc.updateUser(String.valueOf(userId), email, contact, gender, address, pwd, zip_code);
         return "userProfile.jsf";
     }
     
@@ -466,6 +466,7 @@ public class UserBean implements Serializable {
 //    adl.updatePassword(userId, pwd); // Assuming adl.updatePassword(int userId, String newPassword) method exists
       cc.updatePassword(String.valueOf(userId), password);
     // Optionally, you might want to clear the password fields after the update
+    ul.updatePassword(userId, pwd);
     pwd = "";
     cpwd = "";
     

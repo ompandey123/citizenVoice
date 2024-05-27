@@ -462,8 +462,8 @@ public class RegistrationBean implements Serializable {
     
     
     public Collection<Statetb> getStates() {
-        rs = ac.getAllStates(Response.class);
-        states = rs.readEntity(gstates);
+        //rs = ac.getAllStates(Response.class);
+        states = admin.getAllStates();
         return states;
     }
 
@@ -473,8 +473,8 @@ public class RegistrationBean implements Serializable {
 
     public Collection<Districttb> getDistricts() {
         if(state != 0){
-            rs = ac.getDistrictByState(Response.class, String.valueOf(state));
-            districts = rs.readEntity(gdistricts);
+            //rs = ac.getDistrictByState(Response.class, String.valueOf(state));
+            districts = admin.getDistrictByState(state);
             return districts;
         }
         return null;
@@ -486,8 +486,8 @@ public class RegistrationBean implements Serializable {
 
     public Collection<Citytb> getCities() {
         if(district != 0){
-           rs = ac.getCitiesByDistrict(Response.class, String.valueOf(district));
-           cities = rs.readEntity(gcities);
+           //rs = ac.getCitiesByDistrict(Response.class, String.valueOf(district));
+           cities = admin.getCitiesByDistrict(district);
         return cities;
         }
         return null;
@@ -500,8 +500,8 @@ public class RegistrationBean implements Serializable {
     public Collection<Talukatb> getTalukas() {
         
         if(district != 0){
-            rs = ac.getTalukaByDistrict(Response.class, String.valueOf(district));
-            talukas = rs.readEntity(gtalukas);
+            //rs = ac.getTalukaByDistrict(Response.class, String.valueOf(district));
+            talukas = admin.getTalukaByDistrict(district);
         return talukas;
         }
         return null;
@@ -513,8 +513,8 @@ public class RegistrationBean implements Serializable {
 
     public Collection<Villagetb> getVillages() {
         if(taluka != 0){
-            rs = ac.getVillagesByTaluka(Response.class, String.valueOf(taluka));
-            villages = rs.readEntity(gvillages);
+            //rs = ac.getVillagesByTaluka(Response.class, String.valueOf(taluka));
+            villages = admin.getVillagesByTaluka(taluka);
         return villages;
         }
         return null;
@@ -527,8 +527,8 @@ public class RegistrationBean implements Serializable {
     
     public Collection<Zonetb> getZones() {
         if(city != 0){
-            rs = ac.getZonesByCity(Response.class, String.valueOf(city));
-            zones = rs.readEntity(gzones);
+            //rs = ac.getZonesByCity(Response.class, String.valueOf(city));
+            zones = admin.getZonesByCity(city);
         return zones;
         }
         return null;
@@ -541,8 +541,8 @@ public class RegistrationBean implements Serializable {
     public Collection<Wardtb> getWards() {
         if(zone != 0)
         {
-            rs = ac.getWardsByZone(Response.class, String.valueOf(zone));
-            wards = rs.readEntity(gwards);
+            //rs = ac.getWardsByZone(Response.class, String.valueOf(zone));
+            wards = admin.getWardsByZone(zone);
         return wards;
         }
         return null;
@@ -630,8 +630,8 @@ public class RegistrationBean implements Serializable {
             System.out.println(username + " " + password + " " + email + " " + adhaar_card_no + " " + contact + " " + gender + " " + address + " " + dob + " " + zip_code + " " + village + " " + taluka + " " + zone + " " + city + " " + district + " " + state + " " + ward);
        
             
-//        admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
-            cc.RegisterUser(username, password, email, adhaar_card_no, contact, gender, address, String.valueOf(dob), zip_code, String.valueOf(villageid), String.valueOf(talukaid), String.valueOf(zoneid), String.valueOf(cityid), String.valueOf(districtid), String.valueOf(stateid), String.valueOf(wardid));
+        admin.addUser(username, password, email, adhaar_card_no, contact, gender, address, dob, zip_code, village, taluka, zone, city, district, state, ward);
+           // cc.RegisterUser(username, password, email, adhaar_card_no, contact, gender, address, String.valueOf(dob), zip_code, String.valueOf(villageid), String.valueOf(talukaid), String.valueOf(zoneid), String.valueOf(cityid), String.valueOf(districtid), String.valueOf(stateid), String.valueOf(wardid));
             return "/MyHome.jsf";
         
         }

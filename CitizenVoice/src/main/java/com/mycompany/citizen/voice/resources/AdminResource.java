@@ -136,7 +136,7 @@ public class AdminResource {
        al.deleteState(state_id);
     }
     
-    @RolesAllowed({"admin","citizen"})
+    @PermitAll
     @GET
     @Produces("application/json")
    @Path("getAllStates")
