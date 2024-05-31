@@ -9,32 +9,32 @@
         <link rel="stylesheet" href="../regionsCss.css"/>
         <style>
             .deleteBtn {
-            width: 70px;
-            height: 35px;
-            border: 1px solid red;
-            background-color: white;
-            color: red;
-            border-radius: 10px;
-        }
+                width: 70px;
+                height: 35px;
+                border: 1px solid red;
+                background-color: white;
+                color: red;
+                border-radius: 10px;
+            }
 
-        .deleteBtn:hover {
-            background-color: red;
-            color: white;
-        }
-        .updateBtn {
-            width: 70px;
-            height: 35px;
-            border: 1px solid green;
-            background-color: white;
-            color: green;
-            border-radius: 10px;
-            margin-left: 25px;
-        }
+            .deleteBtn:hover {
+                background-color: red;
+                color: white;
+            }
+            .updateBtn {
+                width: 70px;
+                height: 35px;
+                border: 1px solid green;
+                background-color: white;
+                color: green;
+                border-radius: 10px;
+                margin-left: 25px;
+            }
 
-        .updateBtn:hover {
-            background-color: green;
-            color: white;
-        }
+            .updateBtn:hover {
+                background-color: green;
+                color: white;
+            }
         </style>
     </h:head>
     <h:body>
@@ -46,7 +46,7 @@
                 <p:menuitem style="background-color: transparent; margin-right: 20px; color: black; font-size: 20px" value="All Users" url="UserOperation.jsf" />
                 <p:menuitem style="background-color: transparent; margin-right: 20px; color: black;  font-size: 20px" value="Add Questions" url="addQuestion.jsf" />
                 <p:menuitem style="background-color: transparent; margin-right: 20px; color: black;  font-size: 20px" value="Questions" url="QuestionOperation.jsf" />
-        <p:submenu label="Regions" style="background-color: transparent;margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
+                <p:submenu label="Regions" style="background-color: transparent;margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
                     <p:menuitem value="States" url="StateOperation.jsf"/>
                     <p:menuitem value="Districts" url="DistrictOperation.jsf"/>
                     <p:menuitem value="Cities" url="CityOperation.jsf"/>
@@ -54,12 +54,12 @@
                     <p:menuitem value="Wards" url="WardOperation.jsf"/>
                     <p:menuitem value="Talukas" url="TalukaOperation.jsf"/>
                     <p:menuitem value="Villages" url="VillageOperation.jsf"/>
-            </p:submenu>
-            <p:submenu label="Reports" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
+                </p:submenu>
+                <p:submenu label="Reports" style=" background-color: transparent; margin-right: 20px; color: black; font-weight: 800; font-size: 20px;">
                     <p:menuitem value="Region Wise Questions" url="Statistic.jsf"/>
                     <p:menuitem value="Level Wise Questions" url="searchByLevel.jsf"/>
                     <p:menuitem value="Category Wise Questions" url="searchByCategory.jsf"/>      
-            </p:submenu>
+                </p:submenu>
 
                 <f:facet name="options">
                     <div class="ui-input-icon-left mr-2" style="margin: 50px;">
@@ -73,51 +73,62 @@
             <div class="textRegion">
                 <h1>District Operations</h1><br/>
             </div> 
-               <div class="card">
-                   <h:form>
-                       <div class="input">
-                           <p:outputLabel value="Select State &nbsp;" for="states"/>
-                           <p:selectOneMenu id="states" value="#{districtBean.stateid}" style="width: 100%;">
+            <div class="card">
+                <h:form>
+                    <div class="input">
+                        <p:outputLabel value="Select State &nbsp;" for="states"/>
+                        <p:selectOneMenu id="states" value="#{districtBean.stateid}" style="width: 100%;">
                             <f:selectItem itemLabel="---Select----" noSelectionOption="true" />
                             <f:selectItems value="#{districtBean.states}" var="s" itemLabel="#{s.stateName}" itemValue="#{s.stateId}"/>
                         </p:selectOneMenu>
-                       </div><br/>
-                        <div class="input">
-                            <p:outputLabel value="Enter District Name &nbsp;" for="dname"/>
+                    </div><br/>
+                    <div class="input">
+                        <p:outputLabel value="Enter District Name &nbsp;" for="dname"/>
                         <p:inputText id="dname" value="#{districtBean.districtname}" style="width: 100%;" />
-                        </div>
-                       <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 135px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; " id="add" value="Add" action="#{districtBean.addDistrict()}"/>
-                   </h:form>
-               </div>
-        </div>
-                 <h:form>   
-                    <p:dataTable var="d" value="#{districtBean.districts}" paginator="true" rows="10">
-                        <p:column headerText="District ID">
-                            <h:outputText value="#{d.districtId}" />
-                        </p:column>
-                        
-                        <p:column headerText="State ID">
-                            <h:outputText value="#{d.stateId.stateName}" />
-                        </p:column>
-
-                        <p:column headerText="District Name">
-                            <h:outputText value="#{d.districtName}" />
-                        </p:column>
-
-                        <p:column headerText="Actions">
-                            <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{districtBean.deleteDistrict(d)}" />
-                               
-                            <h:commandButton id="edit" class="updateBtn" value="Update" action="#{districtBean.redirectToedit()}" >
-                                <f:setPropertyActionListener value="#{d}" target="#{districtBean.current}" />
-                            </h:commandButton>
-                           
-
-                        </p:column>
-
-                    
-                        </p:dataTable>
-                   
+                    </div>
+                    <h:commandButton style="margin-left: 5px; margin-top:15px; height: 40px; width: 135px; background-color: #3399ff; color: white;  font-weight: bold;  font-size: 20px;border: 1px solid white; border-radius: 10px; " id="add" value="Add" action="#{districtBean.addDistrict()}"/>
                 </h:form>
-            
+            </div>
+        </div>
+        <h:form> 
+            <!--<p:growl id="message" showDetail="true"/>-->
+            <p:dataTable var="d" value="#{districtBean.districts}" paginator="true" rows="10">
+                <p:column headerText="District ID">
+                    <h:outputText value="#{d.districtId}" />
+                </p:column>
+
+                <p:column headerText="State ID">
+                    <h:outputText value="#{d.stateId.stateName}" />
+                </p:column>
+
+                <p:column headerText="District Name">
+                    <h:outputText value="#{d.districtName}" />
+                </p:column>
+
+                <p:column headerText="Actions">
+                            <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{districtBean.deleteDistrict(d)}" />
+<!--                    <p:commandButton value="Delete" action="#{districtBean.deleteDistrict(d)}" update=":districtForm:message" styleClass="ui-button-danger mr-2" icon="pi pi-times">
+                        <p:confirm header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                    </p:commandButton>-->
+                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{districtBean.redirectToedit()}" >
+                        <f:setPropertyActionListener value="#{d}" target="#{districtBean.current}" />
+                    </h:commandButton>
+
+
+                </p:column>
+
+
+            </p:dataTable>
+<!--            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="submitForm()"/>
+            </p:confirmDialog>-->
+
+        </h:form>
+<!--        <script type="text/javascript">
+            function submitForm() {
+                document.getElementById('districtForm').submit();
+            }
+        </script>-->
     </h:body>
 </html>

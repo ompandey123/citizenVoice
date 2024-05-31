@@ -45,6 +45,35 @@
                 font-family: cursive;
                 margin-left: 5px;
             }
+            .container {
+                width: 50%;
+                margin: 50px auto;
+                padding: 50px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                margin-top: 200px;
+                margin-left: 50px;
+                height: 350px;
+                /*background-color: #cccccc;*/
+                
+            }
+            .info{
+                display: flex;
+                margin: -10px;
+            }
+            
+            .container2 {
+                width: 50%;
+                margin: 50px auto;
+                padding: 50px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+/*                margin-top: 200px;*/
+                margin-right: 50px;
+                height: 350px;
+                /*background-color: #cccccc;*/
+                
+            }
         </style>
     </h:head>
     <h:body style="padding: 0px; margin: 0px;">
@@ -77,10 +106,38 @@
                     <!--<p:button value="Login" style="color: white; font-weight: bold;" styleClass="rounded-button" outcome="Login.jsf"/>-->
                 </f:facet>
             </p:menubar>
-            <div class="mainPage">
-                <h1>Hello Admin! Welcome To Citizen Voice</h1>
-                
+           <div class="container">
+            
+            <div class='info'>
+                <div class="info-text">
+                    <h2>Give Your Survey</h2>
+                    <p>Citizen Voice is a valuable tool for conducting surveys that capture public opinion with precision and clarity. By utilizing this platform, you can gather diverse perspectives from a broad demographic, ensuring that the collected data is both representative and insightful. The user-friendly interface and advanced analytic's
+                        offered by Citizen Voice streamline the survey process,
+                        making it easy to design, distribute, and analyze surveys.</p>
+                    <a href="user/User.jsf">Go To Questions</a>
+                </div>
+                <div class='info-image'>
+                    <p:graphicImage style="margin-top: 20px; border: 1px solid white; border-radius: 80px; padding: 5px;" library="images" name="citizens.jpeg" height="200px"/>
+                    </div>
             </div>
+        </div>
+        
+        <div class="container2">
+            <div class='info'>
+                <div class="info-text">
+                    <h2>Get Stats</h2>
+                    <p>Citizen Voice empowers you to delve into the insights gathered through surveys. With its "See Stats" menu, you can analyze responses from various perspectives, gaining a comprehensive understanding of public sentiment. Here's how you can navigate "See Stats"</p><br/>
+                    <ul style="margin-left: 15px;" type="circle">
+                        <li>Region Wise</li>
+                        <li>level Wise</li>
+                        <li>Category Wise</li>
+                    </ul>
+                </div>
+                <div class='info-image'>
+                        <p:graphicImage style="margin-top: 20px; border: 1px solid white; border-radius: 80px; padding: 5px;" library="images" name="graphImage.jpeg" height="200px"/>
+                    </div>
+            </div>
+        </div>
         </h:form>
     </h:body>
 </html>

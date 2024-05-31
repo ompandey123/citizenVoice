@@ -56,6 +56,14 @@ public class CitizenResource {
     @POST
     @Path("giveAnswer/{qid}/{user_id}/{option1}/{option2}/{option3}/{option4}/{state_id}/{district_id}/{city_id}/{ward_id}/{zone_id}/{taluka_id}/{village_id}")
     public void giveAnswer(@PathParam("qid") int qid, @PathParam("user_id") int user_id, @PathParam("option1") String option1, @PathParam("option2") String option2, @PathParam("option3") String option3, @PathParam("option4") String option4 , @PathParam("state_id") int state_id, @PathParam("district_id") int district_id, @PathParam("city_id") int city_id, @PathParam("ward_id") int ward_id, @PathParam("zone_id") int zone_id, @PathParam("taluka_id") int taluka_id, @PathParam("village_id") int village_id) {
+       
+       option1= (option1.equals("x"))?"":option1;
+       option2= (option2.equals("x"))?"":option2;
+       option3= (option3.equals("x"))?"":option3;
+       option4= (option4.equals("x"))?"":option4;
+       
+       
+        
         ul.giveAnswer(qid, user_id, option1, option2, option3, option4, state_id, district_id, city_id, ward_id, zone_id, taluka_id, village_id);
           
     }

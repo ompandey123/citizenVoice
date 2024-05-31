@@ -15,10 +15,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
-import record.KeepRecord;
-import sun.security.provider.certpath.ResponderId;
 
 /**
  *
@@ -156,6 +156,15 @@ public class CityBean implements Serializable {
         gstates = new GenericType<Collection<Statetb>>(){};
         gdistricts = new GenericType<Collection<Districttb>>(){};
         gcities = new GenericType<Collection<Citytb>>(){};
+    }
+    
+    public void delete() {
+        addMessage("Confirmed", "Record deleted");
+    }
+    
+     public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
 }

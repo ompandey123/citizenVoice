@@ -357,10 +357,10 @@ public class UserBean implements Serializable {
 //    }
     public void ans(int qid)
     {
-        option1="";
-        option2="";
-        option3="";
-        option4="";
+        option1="x";
+        option2="x";
+        option3="x";
+        option4="x";
         
         System.out.println("answerr = " + answer);
         System.out.println("answerr = " + answer.substring(0,7));
@@ -395,16 +395,16 @@ public class UserBean implements Serializable {
            categoryid = getCategoryid();
            stateid=getStateid();
            districtid=getDistrictid();
-           cityid=getCityid();
-           wardid=getWardid();
-           zoneid=getZoneid();
-           talukaid=getTalukaid();
-           villageid=getVillageid();
+           cityid=(getCityid()>0)?getCityid():0;
+           wardid=(getWardid()>0)?getWardid():0;
+           zoneid=(getZoneid()>0)?getZoneid():0;
+           talukaid=(getTalukaid()>0)?getTalukaid():0;
+           villageid=(getVillageid()>0)?getVillageid():0;
            System.out.println(qid + " " + userid + " " + option4 + " " + stateid + " " + level + " " + categoryid);
 //           ul.giveAnswer(qid, userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
            //ul.giveAnswer(qid, categoryid, userid, level, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
-             ul.giveAnswer(qid,  userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
-            //cc.giveAnswer(String.valueOf(qid), String.valueOf(userid), option1, option2, option3, option4, String.valueOf(stateid), String.valueOf(districtid), String.valueOf(cityid), String.valueOf(wardid), String.valueOf(zoneid), String.valueOf(talukaid), String.valueOf(villageid));
+            // ul.giveAnswer(qid,  userid, option1, option2, option3, option4, stateid, districtid, cityid, wardid, zoneid, talukaid, villageid);
+            cc.giveAnswer(String.valueOf(qid), String.valueOf(userid), option1, option2, option3, option4, String.valueOf(stateid), String.valueOf(districtid), String.valueOf(cityid), String.valueOf(wardid), String.valueOf(zoneid), String.valueOf(talukaid), String.valueOf(villageid));
     }
     
     
