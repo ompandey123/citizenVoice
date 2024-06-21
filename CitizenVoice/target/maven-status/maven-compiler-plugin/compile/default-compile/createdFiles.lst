@@ -25,7 +25,9 @@ beans\WardBean.class
 beans\QuestionSearchBean$10.class
 beans\QuestionBean$6.class
 beans\RegistrationBean$5.class
+client\AdminClient$1.class
 beans\VillageBean$4.class
+client\CitizenClient$1.class
 beans\VillageBean$2.class
 com\mycompany\citizen\voice\resources\JakartaEE8Resource.class
 ejb\Admin.class
@@ -41,6 +43,7 @@ ejb\PackedObjects.class
 beans\QuestionSearchBean$1.class
 beans\QuestionBean.class
 jwtrest\Constants.class
+beans\UserAnswerBean.class
 beans\CityBean.class
 beans\TalukaBean$3.class
 beans\ZoneBean$1.class

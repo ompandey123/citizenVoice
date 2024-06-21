@@ -150,9 +150,8 @@ public class ZoneBean implements Serializable {
         return "ZoneOperation.jsf";
     }
     
-    public String deleteZone(Zonetb zone)
+    public String deleteZone()
     {
-        current = zone;
         zoneid = current.getZoneId();
         ac.deleteZone(String.valueOf(zoneid));
         return "ZoneOperation.jsf";

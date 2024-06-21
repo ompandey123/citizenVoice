@@ -105,7 +105,7 @@
         </h:form>             
         </div>
         <h:form>   
-            <p:dataTable var="z" value="#{zoneBean.zones}" paginator="true" rows="10">
+            <p:dataTable id="tblZone" var="z" value="#{zoneBean.zones}" paginator="true" rows="10">
                 <p:column headerText="Zone ID">
                     <h:outputText value="#{z.zoneId}" />
                 </p:column>
@@ -119,18 +119,26 @@
                 </p:column>
 
                 <p:column headerText="Actions">
-                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{zoneBean.deleteZone(z)}"/>
-
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{zoneBean.redirectToEdit()}" >
+                    <p:growl id="message" showDetail="true" /> 
+                    <p:commandButton id="del" class="deleteBtn" update="tblZone" value="Delete" action="#{zoneBean.deleteZone()}" styleClass="ui-button-danger mr-2" icon="pi pi-times">
                         <f:setPropertyActionListener value="#{z}" target="#{zoneBean.current}" />
-                    </h:commandButton>
+            
+                <p:confirm  header="Confirmation" message="Are you sure you want to Delete this Record?" icon="pi pi-exclamation-triangle"/>
+              
+            </p:commandButton>
+                    <p:commandButton id="edit" class="updateBtn" value="Update" action="#{zoneBean.redirectToEdit()}" styleClass="ui-button-success" style="margin-left: 15px;">
+                        <f:setPropertyActionListener value="#{z}" target="#{zoneBean.current}" />
+            </p:commandButton>
 
 
                 </p:column>
 
 
             </p:dataTable>
-
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="true" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
         </h:form>
 
     </h:body>

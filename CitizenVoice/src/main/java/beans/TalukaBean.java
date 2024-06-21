@@ -122,9 +122,8 @@ public class TalukaBean implements Serializable {
         return "TalukaOperation.jsf";
     }
     
-    public String deleteTaluka(Talukatb taluka)
+    public String deleteTaluka()
     {
-        current = taluka;
         talukaid = current.getTalukaId();
         ac.deleteTaluka(String.valueOf(talukaid));
         return "TalukaOperation.jsf";

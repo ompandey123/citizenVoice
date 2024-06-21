@@ -36,6 +36,7 @@ import stats.AnswerStats;
 public class StatsBean implements Serializable {
     
     @EJB AnswerStats stats;
+   
     AdminClient ac;
     Response rs;
     private BarChartModel barModel2;

@@ -191,9 +191,8 @@ public class WardBean implements Serializable {
         return "WardOperation.jsf";
     }
     
-    public String deleteWard(Wardtb ward)
+    public String deleteWard()
     {
-        current = ward;
         wardid = current.getWardId();
         ac.deleteWard(String.valueOf(wardid));
         return "WardOperation.jsf";

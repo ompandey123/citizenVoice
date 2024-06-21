@@ -108,7 +108,7 @@
 </div>
         
         <h:form>   
-            <p:dataTable var="v" value="#{villageBean.villages}" paginator="true" rows="10">
+            <p:dataTable id="tblVillage" var="v" value="#{villageBean.villages}" paginator="true" rows="10">
                 <p:column headerText="Village ID">
                     <h:outputText value="#{v.villageId}" />
                 </p:column>
@@ -122,18 +122,26 @@
                 </p:column>
 
                 <p:column headerText="Actions">
-                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{villageBean.deleteVillage(v)}"/>
-
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{villageBean.redirectToEdit()}" >
-                        <f:setPropertyActionListener value="#{v}" target="#{villageBean.current}"/>
-                    </h:commandButton>
+                    <p:growl id="message" showDetail="true" /> 
+                    <p:commandButton id="del" class="deleteBtn" update="tblVillage" value="Delete" action="#{villageBean.deleteVillage()}" styleClass="ui-button-danger mr-2" icon="pi pi-times">
+                        <f:setPropertyActionListener value="#{v}" target="#{villageBean.current}" />
+            
+                <p:confirm  header="Confirmation" message="Are you sure you want to Delete this Record?" icon="pi pi-exclamation-triangle"/>
+              
+            </p:commandButton>
+                    <p:commandButton id="edit" class="updateBtn" value="Update" action="#{villageBean.redirectToEdit()}" styleClass="ui-button-success" style="margin-left: 15px;">
+                        <f:setPropertyActionListener value="#{v}" target="#{villageBean.current}" />
+            </p:commandButton>
 
 
                 </p:column>
 
 
             </p:dataTable>
-
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="true" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
         </h:form>
         
        

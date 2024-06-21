@@ -274,7 +274,13 @@ public class UserBean implements Serializable {
 
     public int getCityid() {
          Usertb user = cc.getUserById(Response.class, String.valueOf(userid)).readEntity(Usertb.class);
+         if(user.getCityId()!=null)
+         {
          cityid = user.getCityId().getCityId();
+         }
+         else{
+             cityid=0;
+         }
         return cityid;
     }
 
@@ -284,7 +290,13 @@ public class UserBean implements Serializable {
 
     public int getWardid() {
          Usertb user = cc.getUserById(Response.class, String.valueOf(userid)).readEntity(Usertb.class);
+         if(user.getWardId()!=null){
          wardid = user.getWardId().getWardId();
+         }
+         else
+         {
+             wardid = 0;
+         }
         return wardid;
     }
 
@@ -294,7 +306,14 @@ public class UserBean implements Serializable {
 
     public int getZoneid() {
          Usertb user = cc.getUserById(Response.class, String.valueOf(userid)).readEntity(Usertb.class);
+         if(user.getZoneId()!=null)
+         {
          zoneid = user.getZoneId().getZoneId();
+         }
+         else
+         {
+             zoneid = 0;
+         }
         return zoneid;
     }
 
@@ -304,7 +323,13 @@ public class UserBean implements Serializable {
 
     public int getTalukaid() {
          Usertb user = cc.getUserById(Response.class, String.valueOf(userid)).readEntity(Usertb.class);
+         if(user.getTalukaId()!=null){
          talukaid = user.getTalukaId().getTalukaId();
+         }
+         else{
+             talukaid=0;
+         }
+         
         return talukaid;
     }
 
@@ -314,7 +339,14 @@ public class UserBean implements Serializable {
 
     public int getVillageid() {
          Usertb user = cc.getUserById(Response.class, String.valueOf(userid)).readEntity(Usertb.class);
+         if(user.getVillageId()!=null)
+         {
          villageid = user.getVillageId().getVillageId();
+         }
+         else
+         {
+             villageid = 0;
+         }
         return villageid;
     }
 

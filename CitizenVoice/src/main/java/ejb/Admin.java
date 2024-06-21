@@ -52,19 +52,30 @@ public class Admin implements AdminLocal {
         PasswordHashCompare phc;
          pb = new Pbkdf2PasswordHashImpl();
        Villagetb v = (Villagetb) em.find(Villagetb.class, village_id);
-        Collection<Usertb> vusers = v.getUsertbCollection();
+      Collection<Usertb> vusers=null;
+       if(v!=null)
+         vusers = v.getUsertbCollection();
         
         Talukatb t = (Talukatb) em.find(Talukatb.class, taluka_id);
-        Collection<Usertb> tusers = t.getUsertbCollection();
+       Collection<Usertb> tusers=null;
+       if(t != null)
+         tusers = t.getUsertbCollection();
         
-        Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
-        Collection<Usertb> zusers = z.getUsertbCollection();
+        
+       Zonetb z = (Zonetb) em.find(Zonetb.class, zone_id);
+       Collection<Usertb> zusers=null;
+       if(z != null) 
+       zusers = z.getUsertbCollection();
         
         Citytb c = (Citytb) em.find(Citytb.class, city_id);
-        Collection<Usertb> cusers = c.getUsertbCollection();
+        Collection<Usertb> cusers=null ;
+        if(c!=null)
+         cusers = c.getUsertbCollection();
+        
         
         Districttb d = (Districttb) em.find(Districttb.class, district_id);
-        Collection<Usertb> dusers = d.getUsertbCollection();
+        
+         Collection<Usertb> dusers = d.getUsertbCollection();
         
         Statetb s = (Statetb) em.find(Statetb.class, state_id);
         Collection<Usertb> susers = s.getUsertbCollection();
@@ -95,36 +106,56 @@ public class Admin implements AdminLocal {
         u.setWardId(w);
         u.setStateId(s);
         
+        em.persist(u);
+        
+        if(vusers!=null)
+        {
         vusers.add(u);
         v.setUsertbCollection(vusers);
+         em.merge(v);
+        }
         
+        if(tusers!=null)
+        {
         tusers.add(u);
         t.setUsertbCollection(tusers);
+         em.merge(t);
+        }
         
+        if(zusers!=null)
+        {
         zusers.add(u);
         z.setUsertbCollection(zusers);
+        em.merge(z);
+        }
         
+        if(cusers!=null)
+        {
         cusers.add(u);
         c.setUsertbCollection(cusers);
+        em.merge(c);
+        }
         
+        if(dusers!=null)
+        {
         dusers.add(u);
         d.setUsertbCollection(dusers);
+        em.merge(d);
+        }
         
+        if(susers!=null)
+        {
         susers.add(u);
         s.setUsertbCollection(susers);
+         em.merge(s);
+        }
         
-        wusers.add(u);
+        if(wusers!=null)
+        {
+            wusers.add(u);
         w.setUsertbCollection(wusers);
-        
-        
-        em.persist(u);
-        em.merge(v);
-        em.merge(t);
-        em.merge(z);
-        em.merge(c);
-        em.merge(d);
-        em.merge(s);
-        em.merge(w);    
+        em.merge(w);   
+        }
         
             Groups g = new Groups();
             g.setGroupname("citizen");

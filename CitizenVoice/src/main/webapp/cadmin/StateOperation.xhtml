@@ -85,27 +85,38 @@
         </div>
 
         <h:form>
-            <p:dataTable var="s" value="#{stateBean.states}" paginator="true" rows="10">
-                <p:column headerText="State ID">
-                    <h:outputText value="#{s.stateId}" />
-                </p:column>
+    <p:dataTable id="tblstates" var="s" value="#{stateBean.states}" paginator="true" rows="10">
+        <p:column headerText="State ID">
+            <h:outputText value="#{s.stateId}" />
+        </p:column>
 
-                <p:column headerText="State Name">
-                    <h:outputText value="#{s.stateName}" />
-                </p:column>
+        <p:column headerText="State Name">
+            <h:outputText value="#{s.stateName}" />
+        </p:column>
 
-                <p:column headerText="Actions">
-                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{stateBean.deleteState(s)}"/>
-                      
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{stateBean.redirectToEdit()}">
-                        <f:setPropertyActionListener value="#{s}" target="#{stateBean.current}"/>
-                    </h:commandButton>
-
-                </p:column>
-
-
-            </p:dataTable>
+        <p:column headerText="Actions">
+            <p:growl id="message" showDetail="true" /> 
+            <p:commandButton id="del" class="deleteBtn" update="tblstates" value="Delete" action="#{stateBean.deleteState()}" styleClass="ui-button-danger mr-2" icon="pi pi-times">
+               <f:setPropertyActionListener value="#{s}" target="#{stateBean.current}" />
             
-        </h:form>
+                <p:confirm  header="Confirmation" message="Are you sure you want to Delete this Record?" icon="pi pi-exclamation-triangle"/>
+              
+            </p:commandButton>
+                  
+            <p:commandButton id="edit" class="updateBtn" value="Update" action="#{stateBean.redirectToEdit()}" styleClass="ui-button-success" style="margin-left: 15px;">
+                <f:setPropertyActionListener value="#{s}" target="#{stateBean.current}" />
+            </p:commandButton>
+        </p:column>
+
+            
+    </p:dataTable>
+
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="true" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
+
+        
+</h:form>
     </h:body>
 </html>

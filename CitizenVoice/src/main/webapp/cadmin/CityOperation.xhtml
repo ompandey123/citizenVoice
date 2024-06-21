@@ -100,7 +100,7 @@
         </div>
         
         <h:form> 
-            <p:dataTable var="c" value="#{cityBean.cities}" paginator="true" rows="10">
+            <p:dataTable id="tblCity" var="c" value="#{cityBean.cities}" paginator="true" rows="10">
                 <p:column headerText="City ID">
                     <h:outputText value="#{c.cityId}" />
                 </p:column>
@@ -118,18 +118,26 @@
                 </p:column>
 
                 <p:column headerText="Actions">
-                  <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{cityBean.deleteCity(c)}"/>
-
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{cityBean.redirectToEdit()}" >
+                    <p:growl id="message" showDetail="true" /> 
+                    <p:commandButton id="del" class="deleteBtn" update="tblCity" value="Delete" action="#{cityBean.deleteCity()}" styleClass="ui-button-danger mr-2" icon="pi pi-times">
                         <f:setPropertyActionListener value="#{c}" target="#{cityBean.current}" />
-                    </h:commandButton>
+            
+                <p:confirm  header="Confirmation" message="Are you sure you want to Delete this Record?" icon="pi pi-exclamation-triangle"/>
+              
+            </p:commandButton>
+                    <p:commandButton id="edit" class="updateBtn" value="Update" action="#{cityBean.redirectToEdit()}" styleClass="ui-button-success" style="margin-left: 15px;">
+                        <f:setPropertyActionListener value="#{c}" target="#{cityBean.current}" />
+            </p:commandButton>
                   
                   
                 </p:column>
 
 
             </p:dataTable>
-            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="true" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
         </h:form>
         
     </h:body>

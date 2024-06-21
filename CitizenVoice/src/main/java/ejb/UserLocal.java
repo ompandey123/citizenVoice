@@ -5,6 +5,7 @@
 package ejb;
 
 import entities.Questiontb;
+import entities.UserAnswer;
 import entities.Usertb;
 import java.util.Collection;
 import java.util.Date;
@@ -27,4 +28,5 @@ public interface UserLocal {
     String getPasswordByEmail(String email);
     void updateUser(int user_id, String email, String contact, String gender, String address, Date dob, String zip_code);
     void updatePassword(int user_id, String password);
+    Collection<UserAnswer> getAnswersByUserId(int userid);
 }

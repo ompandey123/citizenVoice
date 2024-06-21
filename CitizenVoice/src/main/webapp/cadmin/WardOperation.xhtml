@@ -114,7 +114,7 @@
         
         </div>
         <h:form>   
-            <p:dataTable var="w" value="#{wardBean.wards}" paginator="true" rows="10">
+            <p:dataTable id="tblWard" var="w" value="#{wardBean.wards}" paginator="true" rows="10">
                 <p:column headerText="Ward ID">
                     <h:outputText value="#{w.wardId}" />
                 </p:column>
@@ -128,18 +128,26 @@
                 </p:column>
 
                 <p:column headerText="Actions">
-                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{wardBean.deleteWard(w)}"/>
-
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{wardBean.redirectToEdit()}" >
+                    <p:growl id="message" showDetail="true" /> 
+                    <p:commandButton id="del" class="deleteBtn" update="tblWard" value="Delete" action="#{wardBean.deleteWard()}" styleClass="ui-button-danger mr-2" icon="pi pi-times">
                         <f:setPropertyActionListener value="#{w}" target="#{wardBean.current}" />
-                    </h:commandButton>
+            
+                <p:confirm  header="Confirmation" message="Are you sure you want to Delete this Record?" icon="pi pi-exclamation-triangle"/>
+              
+            </p:commandButton>
+                    <p:commandButton id="edit" class="updateBtn" value="Update" action="#{wardBean.redirectToEdit()}" styleClass="ui-button-success" style="margin-left: 15px;">
+                        <f:setPropertyActionListener value="#{w}" target="#{wardBean.current}" />
+            </p:commandButton>
 
 
                 </p:column>
 
 
             </p:dataTable>
-
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="true" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
         </h:form>
     </h:body>
 </html>

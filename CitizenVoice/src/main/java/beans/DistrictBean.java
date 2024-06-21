@@ -103,9 +103,8 @@ public class DistrictBean implements Serializable {
         return "DistrictOperation";
     }
     
-    public String deleteDistrict(Districttb district)
+    public String deleteDistrict()
     {
-        current = district;
         districtid = current.getDistrictId();
         ac.deleteDistrict(String.valueOf(districtid));
         return "DistrictOperation";

@@ -78,8 +78,7 @@ public class StateBean implements Serializable{
         return "StateOperation.jsf";
     }
     
-    public String deleteState(Statetb state) {
-    current = state;
+    public String deleteState() {
     stateid = current.getStateId();
         System.out.println("stateid - " + stateid);
         ac.deleteState(String.valueOf(stateid));

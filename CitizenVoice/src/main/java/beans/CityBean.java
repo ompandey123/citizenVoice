@@ -125,9 +125,8 @@ public class CityBean implements Serializable {
     }
 
     
-    public String deleteCity(Citytb city)
+    public String deleteCity()
     {
-        current = city;
         cityid = current.getCityId();
         ac.deleteCity(String.valueOf(cityid));
         return "CityOperation.jsf";

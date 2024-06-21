@@ -101,7 +101,7 @@
                  </div>
    
         <h:form>   
-            <p:dataTable var="t" value="#{talukaBean.talukas}" paginator="true" rows="10">
+            <p:dataTable id="tblTaluka" var="t" value="#{talukaBean.talukas}" paginator="true" rows="10">
                 <p:column headerText="Taluka ID">
                     <h:outputText value="#{t.talukaId}" />
                 </p:column>
@@ -115,18 +115,27 @@
                 </p:column>
 
                 <p:column headerText="Actions">
-                    <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{talukaBean.deleteTaluka(t)}"/>
-
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{talukaBean.redirectToEdit()}">
+                    <p:growl id="message" showDetail="true" /> 
+                    <p:commandButton id="del" class="deleteBtn" update="tblTaluka" value="Delete" action="#{talukaBean.deleteTaluka()}" styleClass="ui-button-danger mr-2" icon="pi pi-times">
                         <f:setPropertyActionListener value="#{t}" target="#{talukaBean.current}" />
-                    </h:commandButton>
+            
+                <p:confirm  header="Confirmation" message="Are you sure you want to Delete this Record?" icon="pi pi-exclamation-triangle"/>
+              
+            </p:commandButton>
+                    
+                    <p:commandButton id="edit" class="updateBtn" value="Update" action="#{talukaBean.redirectToEdit()}" styleClass="ui-button-success" style="margin-left: 15px;">
+                        <f:setPropertyActionListener value="#{t}" target="#{talukaBean.current}" />
+            </p:commandButton>
 
 
                 </p:column>
 
 
             </p:dataTable>
-
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="true" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
         </h:form>
     </h:body>
 </html>

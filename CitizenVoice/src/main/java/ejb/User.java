@@ -263,24 +263,38 @@ public class User implements UserLocal {
         userquestionCollection.addAll(distquestions);
         
         Citytb cid = u.getCityId();
+        if(cid!=null)
+        {
         Collection<Questiontb> cityQuestion =  cid.getQuestiontbCollection();
         userquestionCollection.addAll(cityQuestion);
+        }
         
         Wardtb wid = u.getWardId();
+        if(wid!=null){
         Collection<Questiontb> wardQuestion =  wid.getQuestiontbCollection();
         userquestionCollection.addAll(wardQuestion);
+        }
         
         Zonetb zid = u.getZoneId();
+        if(zid!=null)
+        {
         Collection<Questiontb> zoneQuestion =  zid.getQuestiontbCollection();
         userquestionCollection.addAll(zoneQuestion);
+        }
         
         Talukatb tid = u.getTalukaId();
+        if(tid!=null)
+        {
         Collection<Questiontb> talukaQuestion =  tid.getQuestiontbCollection();
         userquestionCollection.addAll(talukaQuestion);
+        }
         
         Villagetb vid = u.getVillageId();
+        if(vid!=null)
+        {
         Collection<Questiontb> villageQuestion =  vid.getQuestiontbCollection();
         userquestionCollection.addAll(villageQuestion);
+        }
         
         Collection<Questiontb> finalQuestionCollection = new ArrayList<>();
         
@@ -454,5 +468,17 @@ public class User implements UserLocal {
           f.setPassword(password);
           em.merge(f);
     }
+    
+    @RolesAllowed("citizen")
+
+    @Override
+    public Collection<UserAnswer> getAnswersByUserId(int userid) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Usertb u = (Usertb) em.find(Usertb.class, userid);
+        Collection<UserAnswer> uans = u.getUserAnswerCollection();
+        return uans;
+    }
+    
+    
     
 }

@@ -91,8 +91,7 @@
             </div>
         </div>
         <h:form> 
-            <!--<p:growl id="message" showDetail="true"/>-->
-            <p:dataTable var="d" value="#{districtBean.districts}" paginator="true" rows="10">
+            <p:dataTable id="tblDistrict" var="d" value="#{districtBean.districts}" paginator="true" rows="10">
                 <p:column headerText="District ID">
                     <h:outputText value="#{d.districtId}" />
                 </p:column>
@@ -106,29 +105,27 @@
                 </p:column>
 
                 <p:column headerText="Actions">
-                            <h:commandButton id="del" class="deleteBtn" value="Delete" action="#{districtBean.deleteDistrict(d)}" />
-<!--                    <p:commandButton value="Delete" action="#{districtBean.deleteDistrict(d)}" update=":districtForm:message" styleClass="ui-button-danger mr-2" icon="pi pi-times">
-                        <p:confirm header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
-                    </p:commandButton>-->
-                    <h:commandButton id="edit" class="updateBtn" value="Update" action="#{districtBean.redirectToedit()}" >
+                    <p:growl id="message" showDetail="true" /> 
+                    <p:commandButton id="del" class="deleteBtn" update="tblDistrict" value="Delete" action="#{districtBean.deleteDistrict()}" styleClass="ui-button-danger mr-2" icon="pi pi-times">
                         <f:setPropertyActionListener value="#{d}" target="#{districtBean.current}" />
-                    </h:commandButton>
+            
+                <p:confirm  header="Confirmation" message="Are you sure you want to Delete this Record?" icon="pi pi-exclamation-triangle"/>
+              
+            </p:commandButton>
+                    <p:commandButton id="edit" class="updateBtn" value="Update" action="#{districtBean.redirectToedit()}" styleClass="ui-button-success" style="margin-left: 15px;">
+                        <f:setPropertyActionListener value="#{d}" target="#{districtBean.current}" />
+            </p:commandButton>
 
 
                 </p:column>
 
 
             </p:dataTable>
-<!--            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="submitForm()"/>
-            </p:confirmDialog>-->
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="true" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
 
         </h:form>
-<!--        <script type="text/javascript">
-            function submitForm() {
-                document.getElementById('districtForm').submit();
-            }
-        </script>-->
     </h:body>
 </html>

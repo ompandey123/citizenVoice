@@ -149,9 +149,8 @@ public String addVillage()
     return "VillageOperation.jsf";
 }
 
-    public String deleteVillage(Villagetb village)
+    public String deleteVillage()
     {
-        current = village;
         villageid = current.getVillageId();
         ac.deleteVillage(String.valueOf(villageid));
         return "VillageOperation.jsf";
